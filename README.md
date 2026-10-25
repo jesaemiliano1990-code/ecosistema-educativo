@@ -31,3 +31,6 @@ El servidor quedará disponible en `http://localhost:3000`.
 - `npm start`: Inicia el servidor de Express en `servidor/server.js`.
 - `npm run semilla`: Ejecuta la carga de datos iniciales (`servidor/semilla.js`).
 - `npm run crear-admin`: Crea un usuario administrador (`servidor/crear-admin.js`).
+
+## Despliegue en producción
+Guía completa para Ubuntu (Node.js, PM2, Nginx, HTTPS, cortafuegos y respaldo diario): [docs/despliegue.md](docs/despliegue.md).

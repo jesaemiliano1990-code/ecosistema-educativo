@@ -9,3 +9,4 @@ publico/recursos/subidas/
 !datos/config/**
 !datos/semilla/
 !datos/semilla/**
+logs/
