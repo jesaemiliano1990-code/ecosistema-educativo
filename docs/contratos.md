@@ -58,6 +58,7 @@ gamificacion.js  procesarIntento(usuario, intento) → { puntosGanados, puntosTo
 notificar.js notificar(usuarioId, { tipo, mensaje, enlace })
 alertas.js   evaluarAlertas(intento, usuario) · evaluarInactividad(grupoId)
 ia.js        ejecutarTarea(tarea, datos, usuario, { formato: "json" | "texto" }) → resultado
+             probarConexion(usuario) → texto  (lo usa GET /api/ia/prueba)
 rutas/<grupo>.js         export default Router; se monta en /api antes de la API genérica
 preparadores/<tarea>.js  export default async (cuerpo, usuario) → datos para la plantilla
 prompts/<tarea>.txt      plantilla con {{claves}}; "### USUARIO" separa sistema y usuario
@@ -77,7 +78,8 @@ Notif.    GET /api/notificaciones · POST /api/notificaciones
           POST /api/notificaciones/:id/leida · POST /api/notificaciones/leidas
 Alertas   GET /api/alertas?grupoId= → { alertas, mensajesApoyo }
 IA        POST /api/ia/:tarea   tareas: generar-glosario, generar-preguntas, generar-escenario,
-          tutor, rol-simulacion, evaluar-rol · GET /api/ia/prueba (admin)
+          tutor, rol-simulacion, evaluar-rol · GET /api/ia/prueba (admin) → { respuesta }
+          Respuesta: JSON de la tarea; tutor y rol-simulacion devuelven { texto }.
 Quiz      GET /api/quiz/estado?temaId= · POST /api/quiz/iniciar · POST /api/quiz/responder
           POST /api/quiz/finalizar
 Agenda    GET /api/agenda/recordatorios

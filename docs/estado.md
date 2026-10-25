@@ -1,29 +1,24 @@
 # docs/estado.md · Estado del proyecto (máximo 30 líneas)
-Sprint terminado: S00 · Fecha: 2026-10-23 · Velocidad real: __ puntos
+Sprint terminado: S07 · Fecha: 2026-10-25 · Velocidad real: __ puntos
 
 ## Funciona
-- P00.1-4 · Servidor base, núcleo navegador, design system CSS y plantilla común (`server.js`, `api.js`, `tokens.css`, `plantilla.js`, `index.html`).
-- P01.1 · Autenticación, sesiones y bitácora en servidor (`auth.js`, `rutas/auth.js`, `ganchos/usuarios.js`, `crear-admin.js`, `permisos.json`).
-- P01.2 · Registro, ingreso, privacidad y sesión en navegador (`sesion.js`, `bitacora.js`, `plantilla.js`, `registro.html`, `ingreso.html`, `privacidad.html`).
-- P01.3 · Perfil (`perfil.html`), administración de usuarios (`admin-usuarios.html`), subida de imágenes (`subidas.js`) y menú actualizado.
-- P02.1 · Colecciones académicas, control de acceso por grupo (`acceso.js`), permisos, ganchos (`asignaturas`, `distributivo`, `unidades`, `temas`, `glosario`, `progreso-temas`) y subidas por rol.
-- P02.2 · Datos de prueba semilla en `datos/semilla/` y script `servidor/semilla.js` con soporte para `--forzar` y hash bcrypt de contraseñas.
-- P02.3 · Asignaturas y distributivo para admin (`admin-asignaturas.html`, `distributivo.html`, tarjetas, modales, eliminación protegida y menú).
-- P02.4 · Editor de contenidos (`editor-contenidos.html`, selector de asignaturas propias, unidades y temas con orden, visibilidad, estados y menú).
-- P02.5 · Ficha del tema y glosario (`editor-tema.html`, formulario pedagógico, listas, subida de recursos, glosario con métricas, indicador de juegos y botón IA deshabilitado).
-- P02.6 · Vista del estudiante y avance (`catalogo-actividades.js`, `asignaturas.html` con avance, `asignatura.html`, `tema.html` con multimedia, progreso y menú).
-- P03.1 · Cartelera de noticias y lecturas (`permisos.json`, ganchos, `editor-noticia.html`, `noticias.html` paginado, `noticia.html` y badge en menú).
-- P03.2 · Canciones educativas y reproductor LRC (`permisos.json`, `ganchos/canciones.js`, `editor-cancion.html`, `canciones.html`, `menu.js`, `catalogo-actividades.js`).
-- P03.3 · Página de inicio (`index.html`, `inicio.js`, `inicio.css`, vistas sin y con sesión, banner de continuación, avance por asignatura y noticias).
-- P04.1-4 · Gamificación, catálogo, Ahorcado y Pareja (`gamificacion.js`, `ahorcado.html`, `pareja.html`, menú).
-- P05.1-3 · Gamificación y diplomas; P06.1-5 · Analítica, paneles y alertas tempranas (`alertas.js`, `panel-docente.html`).
-- Carga automática de rutas y ganchos. Respaldo diario automático (14 versiones).
+- S00-S06 · Servidor base, núcleo, design system UNEMI, usuarios y roles, contenidos (asignatura > unidad > tema), glosario, noticias, canciones, inicio, juegos (Ahorcado, Pareja, Sopa), gamificación, diplomas, paneles y alertas.
+- P07.1 · Servicio de IA con Gemini (`ia.js`, `esquemas-ia.js`, `preparadores/generar-glosario.js`, `prompts/generar-glosario.txt`, `rutas/ia.js`). Clave solo en `.env`; límite diario por usuario; `consumo-ia.jsonl` sin textos.
+- P07.2 · Botón "Generar con IA" en `editor-tema.html`: cantidad 5-20, tabla editable, repetidos desmarcados, aprobación con origen "ia".
+- P07.3 · Crucigrama (`crucigrama.html/js/css`, `generarCrucigrama()`), 4+ palabras, pistas debajo de la cuadrícula; registrado en `catalogo-actividades.js`.
+- Probado con Gemini real: `/api/ia/prueba`, generación de glosario y flujo completo en el navegador.
 
 ## Decisiones y cambios respecto a docs/contratos.md
-- Ninguno. Se implementó la firma y comportamiento exactos de §A, §B, §C, §D y §E.
+- `ia.js` exporta además `probarConexion(usuario)`; `GET /api/ia/prueba` responde `{ respuesta }` (§B, §C actualizados).
+- tutor y rol-simulacion devuelven `{ texto }`. `evaluar-rol` cuenta en `limiteTutorDiario`.
+- Modelo en `.env`: `gemini-3.5-flash-lite` (estable y económico según la documentación al 2026-10-25).
+- Proyecto bajo Git desde el sprint 7 (etiqueta `sprint-7`); `.env`, `datos/*.json` y respaldos no se versionan.
 
 ## Problemas conocidos
-- Ninguno.
+- Solo `generar-glosario` tiene preparador y plantilla; las demás tareas de IA (§C) se agregan en los sprints 8, 11 y 12.
+- Datos semilla: el tema "Ventanas en Ecocardiografía" está en Biología con un glosario de genética.
+- Los routers se montan en `/api` y también en la raíz (comportamiento heredado de `server.js`).
+- La cuadrícula del crucigrama se desplaza de lado en pantallas angostas.
 
 ## Pendiente para el siguiente sprint
-- Siguiente módulo según backlog (P07.1).
+- Sprint 8: copiar `servidor/prompts/generar-preguntas.txt` (Anexo B.2) y seguir con P08.1 (banco de preguntas).
