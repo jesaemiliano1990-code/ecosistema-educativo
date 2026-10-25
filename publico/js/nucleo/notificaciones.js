@@ -106,9 +106,24 @@ function mostrarAvisoDelSistema(recordatorio) {
   }
 }
 
+// Contador de mensajes sin leer junto a "Mensajes" en el menú lateral.
+export async function actualizarMensajesNoLeidos() {
+  try {
+    const { total } = await api.llamar('GET', '/api/mensajes/no-leidos');
+    const badge = document.getElementById('badgeMensajesSinLeer');
+    if (!badge) return;
+    badge.textContent = total > 99 ? '99+' : String(total);
+    badge.style.display = total > 0 ? 'inline-flex' : 'none';
+    badge.setAttribute('aria-label', `${total} mensaje${total === 1 ? '' : 's'} sin leer`);
+  } catch {
+    // Silencioso: se reintenta en el siguiente ciclo.
+  }
+}
+
 async function consultar() {
   if (consultando || document.visibilityState !== 'visible') return;
   consultando = true;
+  actualizarMensajesNoLeidos();
   try {
     // Primero los recordatorios de la agenda (crean notificaciones nuevas) y después la lista.
     try {

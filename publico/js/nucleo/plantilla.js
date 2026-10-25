@@ -63,6 +63,10 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
             return `<a href="${item.href}"${claseActivo}${ariaCurrent}>${item.texto} <span id="badgeNoticiasSinLeer" class="insignia insignia--acento" style="display: none; margin-left: auto;"></span></a>`;
           }
 
+          if (item.href === '/paginas/mensajes.html') {
+            return `<a href="${item.href}"${claseActivo}${ariaCurrent}>${item.texto} <span id="badgeMensajesSinLeer" class="insignia insignia--acento" style="display: none; margin-left: auto;"></span></a>`;
+          }
+
           return `<a href="${item.href}"${claseActivo}${ariaCurrent}>${item.texto}</a>`;
         })
         .join('\n');
