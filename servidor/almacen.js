@@ -3,6 +3,12 @@ import path from 'node:path';
 
 const RUTA_DATOS = path.resolve('datos');
 
+// Lee un archivo de texto sin la marca BOM que algunos editores de Windows añaden al guardar JSON.
+async function leerTexto(ruta) {
+  const texto = await fs.readFile(ruta, 'utf-8');
+  return texto.charCodeAt(0) === 0xFEFF ? texto.slice(1) : texto;
+}
+
 // Validación de nombres de colección: minúsculas, números, guiones (medios/bajos) y subcarpeta opcional (p. ej., mensajes/con_000001)
 const REGEX_COLECCION = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)?$/;
 
@@ -129,7 +135,7 @@ function generarId(col, lista) {
 export async function leer(col) {
   const ruta = rutaColeccion(col);
   try {
-    const raw = await fs.readFile(ruta, 'utf-8');
+    const raw = await leerTexto(ruta);
     const datos = JSON.parse(raw);
     return Array.isArray(datos) ? datos : [];
   } catch (error) {
@@ -153,7 +159,7 @@ export async function agregar(col, reg) {
   return encolarEscritura(ruta, async () => {
     let lista = [];
     try {
-      const raw = await fs.readFile(ruta, 'utf-8');
+      const raw = await leerTexto(ruta);
       lista = JSON.parse(raw);
       if (!Array.isArray(lista)) lista = [];
     } catch (error) {
@@ -177,7 +183,7 @@ export async function actualizar(col, id, cambios) {
   return encolarEscritura(ruta, async () => {
     let lista = [];
     try {
-      const raw = await fs.readFile(ruta, 'utf-8');
+      const raw = await leerTexto(ruta);
       lista = JSON.parse(raw);
       if (!Array.isArray(lista)) lista = [];
     } catch (error) {
@@ -206,7 +212,7 @@ export async function eliminar(col, id) {
   return encolarEscritura(ruta, async () => {
     let lista = [];
     try {
-      const raw = await fs.readFile(ruta, 'utf-8');
+      const raw = await leerTexto(ruta);
       lista = JSON.parse(raw);
       if (!Array.isArray(lista)) lista = [];
     } catch (error) {
@@ -256,7 +262,7 @@ export async function leerLineas(archivo) {
   const ruta = path.join(RUTA_DATOS, nombreNormalizado);
 
   try {
-    const raw = await fs.readFile(ruta, 'utf-8');
+    const raw = await leerTexto(ruta);
     return raw
       .split('\n')
       .map(l => l.trim())
@@ -273,7 +279,7 @@ export async function leerConfig(nombre) {
   const ruta = path.join(RUTA_DATOS, 'config', nombreNormalizado);
 
   try {
-    const raw = await fs.readFile(ruta, 'utf-8');
+    const raw = await leerTexto(ruta);
     return JSON.parse(raw);
   } catch (error) {
     if (error.code === 'ENOENT') return {};

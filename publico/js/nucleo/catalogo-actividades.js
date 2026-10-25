@@ -33,6 +33,12 @@ export const ACTIVIDADES = [
     href: '/paginas/quiz.html'
   },
   {
+    id: 'tutor',
+    texto: 'Tutor IA',
+    descripcion: 'Resuelve dudas razonando',
+    href: '/paginas/tutor.html'
+  },
+  {
     id: 'canciones',
     texto: 'Canciones del tema',
     descripcion: 'Aprende con música',

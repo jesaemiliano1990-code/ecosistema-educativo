@@ -49,7 +49,8 @@ if (!temaId) {
               <span class="insignia" id="badgeEstadoRevisado">Verificando estado...</span>
             </div>
           </div>
-          <div id="contenedorBotonRevisado">
+          <div id="contenedorBotonRevisado" style="display: flex; flex-wrap: wrap; gap: var(--espacio-s);">
+            ${usuarioActual()?.rol === 'estudiante' ? `<a href="/paginas/tutor.html?temaId=${encodeURIComponent(temaId)}" class="btn btn--secundario" id="btnTutor">🧠 Pregunta al tutor</a>` : ''}
             <button type="button" class="btn btn--primario" id="btnMarcarRevisado">
               Marcar como revisado
             </button>

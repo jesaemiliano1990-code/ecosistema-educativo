@@ -1,0 +1,214 @@
+/* publico/css/modulos/tutor.css */
+/* Tutor IA: encabezado del tema, preguntas guía y chat con burbujas */
+
+.tutor-vista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.tutor-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: var(--espacio-m);
+}
+
+.tutor-cabecera__titulo {
+  font-size: var(--texto-2xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.tutor-cabecera__tema {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.tutor-cabecera__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+}
+
+.tutor-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+  align-items: center;
+}
+
+.tutor-chips__etiqueta {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+}
+
+.tutor-chip {
+  font: inherit;
+  font-size: var(--texto-s);
+  text-align: left;
+  color: var(--color-primario);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-primario);
+  border-radius: var(--radio-completo);
+  padding: var(--espacio-xs) var(--espacio-m);
+  cursor: pointer;
+}
+
+.tutor-chip:hover,
+.tutor-chip:focus-visible {
+  color: var(--color-texto-inverso);
+  background-color: var(--color-primario);
+}
+
+.tutor-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Chat */
+.tutor-chat {
+  display: flex;
+  flex-direction: column;
+  height: min(34rem, calc(100vh - 17rem));
+  min-height: 20rem;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-l);
+  box-shadow: var(--sombra-1);
+  overflow: hidden;
+}
+
+.tutor-hilo {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+  padding: var(--espacio-m);
+  background-color: var(--color-fondo);
+}
+
+.tutor-burbuja {
+  max-width: min(36rem, 85%);
+  padding: var(--espacio-s) var(--espacio-m);
+  border-radius: var(--radio-m);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  font-size: var(--texto-s);
+  overflow-wrap: anywhere;
+}
+
+.tutor-burbuja p {
+  margin: 0 0 var(--espacio-xs);
+}
+
+.tutor-burbuja p:last-child {
+  margin-bottom: 0;
+}
+
+.tutor-burbuja__autor {
+  display: block;
+  margin-bottom: 2px;
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-negrita);
+  color: var(--color-primario);
+}
+
+.tutor-burbuja--estudiante {
+  align-self: flex-end;
+  color: var(--color-texto-inverso);
+  background-color: var(--color-primario);
+  border-color: var(--color-primario);
+}
+
+.tutor-burbuja--estudiante .tutor-burbuja__autor {
+  color: var(--color-texto-inverso);
+}
+
+.tutor-burbuja--aviso {
+  align-self: center;
+  max-width: 100%;
+  text-align: center;
+  color: var(--color-texto-suave);
+  background-color: transparent;
+  border-style: dashed;
+}
+
+.tutor-pensando {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+}
+
+.tutor-pensando__puntos {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.tutor-pensando__puntos span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-texto-suave);
+  animation: tutor-latido 1s infinite ease-in-out;
+}
+
+.tutor-pensando__puntos span:nth-child(2) { animation-delay: 0.15s; }
+.tutor-pensando__puntos span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes tutor-latido {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tutor-pensando__puntos span {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+.tutor-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  padding: var(--espacio-s) var(--espacio-m);
+  border-top: 1px solid var(--color-borde);
+}
+
+.tutor-form__fila {
+  display: flex;
+  gap: var(--espacio-s);
+  align-items: flex-end;
+}
+
+.tutor-form textarea {
+  flex: 1;
+  min-width: 0;
+  resize: none;
+  font: inherit;
+}
+
+.tutor-form__pie {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+}
+
+@media (max-width: 600px) {
+  .tutor-burbuja {
+    max-width: 92%;
+  }
+}
