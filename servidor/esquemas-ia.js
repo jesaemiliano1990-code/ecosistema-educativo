@@ -31,6 +31,36 @@ function noVacia(lista) {
   return lista;
 }
 
+/**
+ * Valida y normaliza una pregunta del banco (la usan la IA y el gancho de la colección "preguntas").
+ * correcta: índice (opcion), true/false (vf) o texto (completar).
+ */
+export function normalizarPregunta(p) {
+  objeto(p, 'pregunta');
+  if (!['opcion', 'vf', 'completar'].includes(p.tipo)) throw new Error('Tipo de pregunta no válido');
+  const base = { tipo: p.tipo, enunciado: texto(p.enunciado, 'enunciado'), retroalimentacion: texto(p.retroalimentacion, 'retroalimentacion') };
+
+  if (p.tipo === 'opcion') {
+    const opciones = Array.isArray(p.opciones) ? p.opciones.map((o) => String(o ?? '').trim()) : [];
+    if (opciones.length < 2 || opciones.length > 6 || opciones.some((o) => !o)) throw new Error('Las opciones deben ser de 2 a 6 textos no vacíos');
+    if (new Set(opciones.map((o) => o.toLowerCase())).size !== opciones.length) throw new Error('Las opciones no pueden repetirse');
+    const indice = Number(p.correcta);
+    if (p.correcta === '' || p.correcta === null || !Number.isInteger(indice) || indice < 0 || indice >= opciones.length) {
+      throw new Error('"correcta" debe ser el índice de una opción');
+    }
+    return { ...base, opciones, correcta: indice };
+  }
+
+  if (p.tipo === 'vf') {
+    const valor = typeof p.correcta === 'string' ? { true: true, verdadero: true, false: false, falso: false }[p.correcta.trim().toLowerCase()] : p.correcta;
+    if (typeof valor !== 'boolean') throw new Error('"correcta" debe ser verdadero o falso');
+    return { ...base, opciones: ['Verdadero', 'Falso'], correcta: valor };
+  }
+
+  if (!/_{2,}/.test(base.enunciado)) throw new Error('El enunciado debe incluir "____" donde va la respuesta');
+  return { ...base, opciones: [], correcta: texto(typeof p.correcta === 'string' ? p.correcta : String(p.correcta ?? ''), 'correcta') };
+}
+
 const esquemas = {
   'generar-glosario': (v) =>
     noVacia(comoLista(v)).map((t) => ({
@@ -40,21 +70,7 @@ const esquemas = {
       retroalimentacion: texto(t.retroalimentacion, 'retroalimentacion')
     })),
 
-  'generar-preguntas': (v) =>
-    noVacia(comoLista(v)).map((p) => {
-      objeto(p, 'pregunta');
-      if (!['opcion', 'vf', 'completar'].includes(p.tipo)) throw new Error('Tipo de pregunta no válido');
-      if (p.correcta === undefined || p.correcta === null || p.correcta === '') throw new Error('Falta "correcta"');
-      const opciones = Array.isArray(p.opciones) ? p.opciones.map(String) : [];
-      if (p.tipo === 'opcion' && opciones.length < 2) throw new Error('Una pregunta de opción necesita opciones');
-      return {
-        tipo: p.tipo,
-        enunciado: texto(p.enunciado, 'enunciado'),
-        opciones,
-        correcta: p.correcta,
-        retroalimentacion: texto(p.retroalimentacion, 'retroalimentacion')
-      };
-    }),
+  'generar-preguntas': (v) => noVacia(comoLista(v)).map(normalizarPregunta),
 
   'generar-escenario': (v) => {
     objeto(v, 'escenario');

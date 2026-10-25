@@ -47,7 +47,8 @@ almacen.js   leer(col) · escribir(col, lista) · agregar(col, reg) → reg (asi
 permisos.js  puede(usuario, accion "leer" | "escribir", col, registro) → boolean
 ganchos.js   carga servidor/ganchos/<col>.js → { filtrarLista(lista, usuario),
              antesDeGuardar(datos, usuario, anterior),
-             despuesDeGuardar(reg, usuario, anterior) }
+             despuesDeGuardar(reg, usuario, anterior),
+             antesDeEliminar(reg, usuario) (opcional; DELETE genérico) }
              aplicar(col, nombre, ...args) · un gancho rechaza con Error y propiedad estado
 acceso.js    gruposDe(usuario) · asignaturasDe(usuario) · asignaturaDeTema(temaId)
              puedeEditarAsignatura(usuario, asignaturaId) · estudiantesDe(docenteId)

@@ -164,6 +164,8 @@ app.delete('/api/:col/:id', async (req, res, next) => {
       return res.status(403).json({ error: 'Acceso no autorizado' });
     }
 
+    // Gancho opcional: una colección puede rechazar el borrado lanzando un Error con "estado".
+    await aplicar(col, 'antesDeEliminar', anterior, req.usuario);
     await almacen.eliminar(col, id);
     res.json({ ok: true });
   } catch (error) {

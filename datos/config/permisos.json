@@ -67,6 +67,10 @@
     "leer": ["propio", "admin"],
     "escribir": ["docente", "admin"]
   },
+  "preguntas": {
+    "leer": ["docente", "admin"],
+    "escribir": ["docente", "admin"]
+  },
   "prueba": {
     "leer": ["publico"],
     "escribir": ["publico"]

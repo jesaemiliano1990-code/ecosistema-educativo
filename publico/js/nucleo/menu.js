@@ -10,6 +10,7 @@ export const MENU = [
   { texto: 'Noticias', href: '/paginas/noticias.html', roles: ['sesion'] },
   { texto: 'Canciones', href: '/paginas/canciones.html', roles: ['sesion'] },
   { texto: 'Contenidos', href: '/paginas/editor-contenidos.html', roles: ['docente', 'admin'] },
+  { texto: 'Banco de preguntas', href: '/paginas/banco-preguntas.html', roles: ['docente', 'admin'] },
   { texto: 'Panel docente', href: '/paginas/panel-docente.html', roles: ['docente', 'admin'] },
   { texto: 'Usuarios', href: '/paginas/admin-usuarios.html', roles: ['admin'] },
   { texto: 'Asignaturas', href: '/paginas/admin-asignaturas.html', roles: ['admin'] },
