@@ -42,6 +42,12 @@
             "destino": "e2",
             "puntos": 2,
             "consecuencia": "Repasar la diferencia entre genotipo y fenotipo te ayuda a interpretar los siguientes resultados."
+          },
+          {
+            "texto": "Saltarme el repaso y seguir adelante",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Sin el repaso te cuesta más interpretar los resultados, pero puedes seguir con el experimento."
           }
         ]
       },

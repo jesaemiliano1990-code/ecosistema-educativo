@@ -14,6 +14,11 @@ const MAX_CRITERIOS = 10;
 
 const fallo = (mensaje, estado = 400) => Object.assign(new Error(mensaje), { estado });
 const texto = (valor, max) => (typeof valor === 'string' ? valor.trim().slice(0, max) : '');
+const puntosOpcion = (valor) => {
+  const n = valor === undefined || valor === '' ? 0 : Number(valor);
+  if (!Number.isInteger(n) || n < -10 || n > 10) throw fallo('Los puntos de cada opción son un número entero de -10 a 10');
+  return n;
+};
 const entero = (valor, min, max, porDefecto) => {
   const n = Number(valor);
   return Number.isInteger(n) && n >= min && n <= max ? n : porDefecto;
@@ -74,7 +79,7 @@ function normalizarEscenas(entrada) {
       opciones: opciones.map((o) => ({
         texto: texto(o?.texto, 300),
         destino: texto(o?.destino, 20),
-        puntos: entero(o?.puntos, -100, 100, 0),
+        puntos: puntosOpcion(o?.puntos),
         consecuencia: texto(o?.consecuencia, 600)
       }))
     };
@@ -88,11 +93,30 @@ function validarEscenarios(escenas, escenaInicial) {
   if (!escenas.some((e) => e.opciones.length === 0)) throw fallo('Para publicar, el escenario necesita al menos un final (escena sin opciones)');
   for (const e of escenas) {
     if (!e.texto) throw fallo(`La escena "${e.id}" no tiene texto`);
+    if (e.opciones.length && (e.opciones.length < 2 || e.opciones.length > 4)) {
+      throw fallo(`La escena "${e.id}" necesita de 2 a 4 opciones (o ninguna si es un final)`);
+    }
     for (const o of e.opciones) {
       if (!o.texto) throw fallo(`Una opción de la escena "${e.id}" no tiene texto`);
       if (!ids.has(o.destino)) throw fallo(`Una opción de la escena "${e.id}" apunta a una escena que no existe`);
+      if (!o.consecuencia) throw fallo(`Una opción de la escena "${e.id}" no tiene consecuencia`);
     }
   }
+
+  // Todas alcanzables desde la inicial y sin ciclos (recorrido en profundidad).
+  const porId = new Map(escenas.map((e) => [e.id, e]));
+  const estado = new Map(); // 1 = en el camino actual, 2 = terminada
+  const visitar = (id) => {
+    estado.set(id, 1);
+    for (const o of porId.get(id).opciones) {
+      if (estado.get(o.destino) === 1) throw fallo(`El escenario tiene un ciclo: la escena "${o.destino}" vuelve a sí misma`);
+      if (!estado.has(o.destino)) visitar(o.destino);
+    }
+    estado.set(id, 2);
+  };
+  visitar(escenaInicial);
+  const huerfana = escenas.find((e) => !estado.has(e.id));
+  if (huerfana) throw fallo(`La escena "${huerfana.id}" no se puede alcanzar desde la escena inicial`);
 }
 
 export async function antesDeGuardar(datos, usuario, anterior) {

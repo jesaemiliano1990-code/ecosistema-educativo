@@ -1,0 +1,178 @@
+/* publico/css/modulos/editor-simulacion.css */
+/* Editor de simulaciones: datos generales, tarjetas de escena, opciones y mapa */
+
+.sim-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sim-editor__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+}
+
+.sim-editor__titulo {
+  font-size: var(--texto-2xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.sim-editor__subtitulo {
+  font-size: var(--texto-l);
+  color: var(--color-primario);
+  margin: 0 0 var(--espacio-m);
+}
+
+.sim-editor__cabecera .sim-editor__subtitulo {
+  margin: 0;
+}
+
+.sim-editor__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+}
+
+.sim-fila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espacio-m);
+}
+
+.sim-fila--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 600px) {
+  .sim-fila,
+  .sim-fila--3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.sim-errores {
+  border: 1px solid var(--color-error);
+  border-left-width: 6px;
+  background: var(--color-superficie);
+  border-radius: var(--radio-m);
+  padding: var(--espacio-m);
+  color: var(--color-texto);
+}
+
+.sim-errores ul {
+  margin: var(--espacio-s) 0 0;
+  padding-left: var(--espacio-l);
+}
+
+.sim-errores a {
+  color: var(--color-error);
+  font-weight: var(--peso-seminegrita);
+}
+
+.sim-lista-escenas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  margin-top: var(--espacio-m);
+}
+
+.sim-escena-editor__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+  margin-bottom: var(--espacio-m);
+}
+
+.sim-escena-editor__titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  font-size: var(--texto-l);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.sim-inicial {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  font-size: var(--texto-s);
+  min-height: 44px;
+}
+
+.sim-escena-editor__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+  margin-top: var(--espacio-m);
+}
+
+.sim-imagen {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+  margin-bottom: var(--espacio-m);
+}
+
+.sim-imagen__vista {
+  max-width: 160px;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: var(--radio-m);
+  border: 1px solid var(--color-borde);
+}
+
+.sim-opciones-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+}
+
+.sim-opcion-editor {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-m);
+  padding: var(--espacio-m);
+  margin: 0;
+  min-width: 0;
+}
+
+.sim-opcion-editor legend {
+  font-size: var(--texto-s);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-texto-suave);
+  padding: 0 var(--espacio-s);
+}
+
+/* Mapa: lista indentada según la profundidad */
+.sim-mapa__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--texto-s);
+}
+
+.sim-mapa__item {
+  padding: var(--espacio-xs) 0 var(--espacio-xs) calc(var(--nivel) * var(--espacio-l));
+  border-bottom: 1px dashed var(--color-borde);
+  overflow-wrap: anywhere;
+}
+
+.sim-mapa__item--aviso {
+  color: var(--color-error);
+}
+
+.sim-mapa__sueltas {
+  color: var(--color-advertencia);
+  font-size: var(--texto-s);
+  margin: var(--espacio-s) 0 0;
+}
