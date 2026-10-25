@@ -64,8 +64,8 @@
     "escribir": ["docente", "admin"]
   },
   "notificaciones": {
-    "leer": ["propio", "admin"],
-    "escribir": ["docente", "admin"]
+    "leer": ["propio"],
+    "escribir": ["servidor"]
   },
   "agenda": {
     "leer": ["sesion"],

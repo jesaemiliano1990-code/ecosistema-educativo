@@ -1,6 +1,10 @@
 // servidor/ganchos/noticias.js
 // Gancho para la colección 'noticias': autoría, fecha de publicación y filtrado por rol
 
+import * as almacen from '../almacen.js';
+import { asignaturaDeTema } from '../acceso.js';
+import { notificar } from '../notificar.js';
+
 /**
  * Hook previo al guardado (creación o actualización) de una noticia.
  * - Fija autorId al crear.
@@ -72,7 +76,37 @@ export async function filtrarLista(lista, usuario) {
   return lista.filter(n => n && n.estado === 'publicado');
 }
 
+/**
+ * Cuando una noticia pasa a "publicado", avisa a los estudiantes de la asignatura del tema relacionado
+ * (o a todos los estudiantes si no tiene tema).
+ */
+export async function despuesDeGuardar(registro, usuario, anterior) {
+  if (registro.estado !== 'publicado' || anterior?.estado === 'publicado') return;
+  try {
+    let ids;
+    const asignaturaId = registro.temaId ? await asignaturaDeTema(registro.temaId) : null;
+    if (asignaturaId) {
+      const grupos = (await almacen.leer('distributivo')).filter(g => g && g.asignaturaId === asignaturaId);
+      ids = new Set(grupos.flatMap(g => g.estudiantes || []));
+    } else {
+      ids = new Set((await almacen.leer('usuarios')).filter(u => u && u.rol === 'estudiante').map(u => u.id));
+    }
+    const activos = new Set((await almacen.leer('usuarios')).filter(u => u && u.activo !== false).map(u => u.id));
+    for (const id of ids) {
+      if (id === registro.autorId || !activos.has(id)) continue;
+      await notificar(id, {
+        tipo: 'noticia',
+        mensaje: `Nueva noticia: ${registro.titulo}`,
+        enlace: `/paginas/noticia.html?id=${encodeURIComponent(registro.id)}`
+      });
+    }
+  } catch (error) {
+    console.warn('Noticias: no se pudo avisar a los estudiantes:', error.message);
+  }
+}
+
 export default {
   antesDeGuardar,
+  despuesDeGuardar,
   filtrarLista
 };

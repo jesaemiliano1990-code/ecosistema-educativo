@@ -968,3 +968,158 @@ dialog.modal::backdrop {
   padding-left: var(--espacio-m);
 }
 
+
+/* Campana de notificaciones del encabezado (P06.4 / P09.3) */
+.campana {
+  position: relative;
+}
+
+.campana__boton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  font: inherit;
+  font-size: var(--texto-l);
+  color: var(--color-texto-inverso);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radio-m);
+  cursor: pointer;
+}
+
+.campana__boton:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.campana__boton:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.campana__contador {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 1.15rem;
+  padding: 0 var(--espacio-xs);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-negrita);
+  line-height: 1.15rem;
+  text-align: center;
+  color: var(--color-primario);
+  background-color: var(--color-acento);
+  border-radius: var(--radio-completo);
+}
+
+.campana__panel {
+  position: absolute;
+  right: 0;
+  z-index: 120;
+  width: min(24rem, calc(100vw - 2rem));
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--espacio-xs);
+  color: var(--color-texto);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-m);
+  box-shadow: var(--sombra-3);
+}
+
+.campana__panel[hidden] {
+  display: none;
+}
+
+.campana__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espacio-s);
+  padding: var(--espacio-s) var(--espacio-m);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.campana__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.campana__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: var(--texto-s);
+  color: var(--color-texto);
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-borde);
+  padding: var(--espacio-s) var(--espacio-m);
+  cursor: pointer;
+}
+
+.campana__item:hover,
+.campana__item:focus-visible {
+  background-color: var(--color-fondo);
+}
+
+.campana__item--nueva {
+  background-color: rgba(255, 105, 0, 0.08);
+  border-left: 4px solid var(--color-acento);
+  font-weight: var(--peso-seminegrita);
+}
+
+.campana__tipo {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-negrita);
+  color: var(--color-primario);
+}
+
+.campana__texto {
+  overflow-wrap: anywhere;
+}
+
+.campana__fecha,
+.campana__nota,
+.campana__vacio {
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+}
+
+.campana__vacio,
+.campana__nota {
+  margin: 0;
+  padding: var(--espacio-s) var(--espacio-m);
+}
+
+.campana__pie {
+  padding: var(--espacio-s) var(--espacio-m);
+  border-top: 1px solid var(--color-borde);
+}
+
+.campana__pie .campana__nota {
+  padding: 0;
+}
+
+/* En pantallas angostas el encabezado no tiene espacio para el nombre: queda el rol, y el panel ocupa el ancho */
+@media (max-width: 600px) {
+  .encabezado__usuario-nombre {
+    display: none;
+  }
+
+  .campana__panel {
+    position: fixed;
+    left: var(--espacio-s);
+    right: var(--espacio-s);
+    width: auto;
+  }
+}

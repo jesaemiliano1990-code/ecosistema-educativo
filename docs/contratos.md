@@ -76,8 +76,11 @@ Certif.   GET /api/certificados/estado · POST /api/certificados
           GET /api/certificados/verificar/:codigo (sin sesión)
 Resumen   GET /api/resumen/estudiante/:id ("yo") · GET /api/resumen/grupo/:grupoId
           GET /api/resumen/tutor/:grupoId
-Notif.    GET /api/notificaciones · POST /api/notificaciones
+Notif.    GET /api/notificaciones → { notificaciones (mis 30 más recientes), noLeidas (total) }
+          POST /api/notificaciones { usuarioId, mensaje, enlace } (docente → sus estudiantes; admin →
+          cualquiera; tipo "mensaje-docente"; enlace = ruta interna "/…")
           POST /api/notificaciones/:id/leida · POST /api/notificaciones/leidas
+          (permisos.json: notificaciones { leer: ["propio"], escribir: ["servidor"] })
 Alertas   GET /api/alertas?grupoId= → { alertas, mensajesApoyo }
 IA        POST /api/ia/:tarea   tareas: generar-glosario, generar-preguntas, generar-escenario,
           tutor, rol-simulacion, evaluar-rol · GET /api/ia/prueba (admin) → { respuesta }
@@ -85,7 +88,8 @@ IA        POST /api/ia/:tarea   tareas: generar-glosario, generar-preguntas, gen
 Quiz      GET /api/quiz/estado?temaId= · POST /api/quiz/iniciar · POST /api/quiz/responder
           POST /api/quiz/finalizar   (solo estudiantes; iniciar devuelve además { respondidas: [ids] }
           y retoma el quiz abierto hace menos de 2 h; finalizar devuelve además puntosTotales; POST /api/intentos rechaza actividad "quiz" con 403)
-Agenda    GET /api/agenda/recordatorios
+Agenda    GET /api/agenda/recordatorios → [{ eventoId, titulo, minutos, mensaje, notificacionId }] solo
+          los nuevos; una notificación por evento (el aviso más cercano); no avisa de eventos ya iniciados
 Mensajes  GET /api/mensajes/contactos · GET|POST /api/mensajes/conversaciones
           GET /api/mensajes/no-leidos · GET /api/mensajes/:convId?desde=&antes=
           POST /api/mensajes/:convId · POST /api/mensajes/:convId/leido
@@ -116,9 +120,10 @@ intentos          usuarioId, actividad, temaId, nivel, puntaje, maximo, errores,
                   duracionSeg, detalle, puntos
 logros            usuarioId, puntos, insignias[{id, fecha}], nivelQuiz{temaId: n}
 certificados      codigo, usuarioId, tipo, detalle, nombreCompleto
-notificaciones    usuarioId, tipo, mensaje, enlace, leida
+notificaciones    usuarioId, tipo(mensaje-docente|recordatorio|foro|noticia|alerta|apoyo|banco-preguntas),
+                  mensaje, enlace, leida
 alertas           estudianteId, docenteId, grupoId, regla, temaId, detalle,
-                  estado(activa|atendida)
+                  estado(activa|atendida), eventoId (solo regla "vencidas": una por estudiante y fecha límite)
 consumo-ia.jsonl  usuarioId, tarea, entrada, salida, ok, fecha
 preguntas         temaId, nivel(1-5), tipo(opcion|vf|completar), enunciado, opciones[],
                   correcta(índice | true/false | texto), retroalimentacion, origen, estado
@@ -154,4 +159,4 @@ ajustes.json             nombrePlataforma, maxSubidaMB, limiteIADiario, limiteTu
                          chatEntreEstudiantes, alertasAdmin
 reglas-gamificacion.json puntos, bonoSinErrores, sinBono[actividades sin bono], unicas, requiereAprobado, maxDiario,
                          limiteIntentosHora, quiz{...}, certificado{...}   (Anexo A)
-reglas-alertas.json      promedioBajo, fallosQuiz, inactividad, vencidas, mensajesApoyo[]
+reglas-alertas.json      promedioBajo, fallosQuiz, inactividad, vencidas{activa, diasGracia}, mensajesApoyo[]

@@ -7,6 +7,7 @@ import { registrarEvento } from './bitacora.js';
 import * as api from './api.js';
 import * as ui from './ui.js';
 import { logrosDe } from './gamificacion.js';
+import { montarCampana } from './notificaciones.js';
 
 export const NOMBRE = 'Ecosistema Educativo';
 
@@ -121,6 +122,9 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
 
         <div class="menu-fondo" id="menuFondo" aria-hidden="true"></div>
       `;
+
+      // Campana de notificaciones (solo con sesión)
+      if (tieneSesion) montarCampana();
 
       // Evento de cerrar sesión
       const btnCerrarSesion = document.getElementById('btnCerrarSesion');

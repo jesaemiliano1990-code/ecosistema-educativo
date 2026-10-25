@@ -205,14 +205,87 @@ export async function evaluarAlertas(intento, usuario) {
 }
 
 /**
- * Evalúa la inactividad de los estudiantes de un grupo antes de generar el resumen del grupo
+ * Evalúa las reglas de grupo antes de generar el resumen del grupo
  * - inactividad: sin eventos en la bitácora en X días
+ * - vencidas: fecha límite del grupo vencida hace más de diasGracia días sin intento del estudiante
  * @param {string} grupoId
  * @returns {Promise<Array<Object>>} Lista de alertas creadas
  */
 export async function evaluarInactividad(grupoId) {
   if (!grupoId) return [];
+  const inactividad = await evaluarInactividadDelGrupo(grupoId);
+  const vencidas = await evaluarVencidas(grupoId);
+  return [...inactividad, ...vencidas];
+}
 
+const ZONA = 'America/Guayaquil'; // Ecuador no tiene horario de verano: UTC-05:00 fijo
+const SOLO_FECHA = /^\d{4}-\d{2}-\d{2}$/;
+
+// Momento en que termina una fecha límite: fin (o inicio); si dura todo el día, a las 24:00 de ese día.
+function limiteDelEvento(evento) {
+  const referencia = evento.fin || evento.inicio;
+  if (SOLO_FECHA.test(referencia)) return new Date(`${referencia}T00:00:00-05:00`).getTime() + 24 * 60 * 60 * 1000;
+  return new Date(referencia).getTime();
+}
+
+/**
+ * Regla "vencidas": una alerta por estudiante y fecha límite, sin repetirse aunque el docente ya la haya atendido.
+ */
+async function evaluarVencidas(grupoId) {
+  const reglas = (await almacen.leerConfig('reglas-alertas')) || {};
+  const conf = reglas.vencidas;
+  if (!conf || conf.activa === false) return [];
+  const diasGracia = typeof conf.diasGracia === 'number' ? conf.diasGracia : 1;
+
+  const grupo = (await almacen.leer('distributivo')).find(g => g && g.id === grupoId);
+  if (!grupo || !Array.isArray(grupo.estudiantes) || grupo.estudiantes.length === 0) return [];
+
+  const eventos = (await almacen.leer('agenda')).filter(e =>
+    e && e.grupoId === grupoId && e.tipo === 'fecha-limite' && e.actividad && e.temaId
+  );
+  if (eventos.length === 0) return [];
+
+  const ahora = Date.now();
+  const intentos = await almacen.leer('intentos');
+  const alertas = await almacen.leer('alertas');
+  const mapaUsuarios = new Map((await almacen.leer('usuarios')).map(u => [u.id, u]));
+  const creadas = [];
+
+  for (const evento of eventos) {
+    const limite = limiteDelEvento(evento);
+    if (!Number.isFinite(limite) || ahora - limite <= diasGracia * 24 * 60 * 60 * 1000) continue;
+    const textoLimite = new Intl.DateTimeFormat('es-EC', { dateStyle: 'long', timeZone: ZONA }).format(new Date(limite - 1));
+
+    for (const estId of grupo.estudiantes) {
+      const cumplio = intentos.some(i =>
+        i && i.usuarioId === estId && i.actividad === evento.actividad && i.temaId === evento.temaId &&
+        new Date(i.fecha).getTime() > new Date(evento.fecha).getTime()
+      );
+      if (cumplio) continue;
+      // Incluye las alertas ya atendidas: no se vuelve a avisar por la misma fecha límite.
+      if (alertas.some(a => a && a.regla === 'vencidas' && a.estudianteId === estId && a.eventoId === evento.id)) continue;
+
+      const u = mapaUsuarios.get(estId);
+      const nombre = `${u?.nombre || ''} ${u?.apellido || ''}`.trim() || 'Estudiante';
+      const alerta = await crearAlertaSinDuplicados({
+        estudianteId: estId,
+        docenteId: grupo.docenteId,
+        grupoId,
+        regla: 'vencidas',
+        temaId: evento.temaId,
+        eventoId: evento.id,
+        detalle: `El estudiante aún no completó "${evento.titulo}" (la fecha límite fue el ${textoLimite}). Un mensaje de ánimo puede ayudarle a ponerse al día.`
+      }, nombre);
+      if (alerta) creadas.push(alerta);
+    }
+  }
+  return creadas;
+}
+
+/**
+ * Regla "inactividad": sin eventos en la bitácora en X días
+ */
+async function evaluarInactividadDelGrupo(grupoId) {
   const reglas = (await almacen.leerConfig('reglas-alertas')) || {};
   const confInactividad = reglas.inactividad;
   if (!confInactividad || confInactividad.activa === false) return [];

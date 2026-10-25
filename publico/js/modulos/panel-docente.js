@@ -501,7 +501,8 @@ async function iniciarPanelDocente() {
         const nombresReglas = {
           'promedioBajo': '📉 Promedio bajo',
           'fallosQuiz': '🎯 Dificultad en quiz',
-          'inactividad': '⏳ Inactividad prolongada'
+          'inactividad': '⏳ Inactividad prolongada',
+          'vencidas': '📅 Fecha límite vencida'
         };
 
         const modalContenido = document.createElement('div');
