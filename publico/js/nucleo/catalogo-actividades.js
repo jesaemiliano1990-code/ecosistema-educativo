@@ -21,6 +21,12 @@ export const ACTIVIDADES = [
     href: '/paginas/sopa-letras.html'
   },
   {
+    id: 'crucigrama',
+    texto: 'Crucigrama',
+    descripcion: 'Completa las palabras con sus pistas',
+    href: '/paginas/crucigrama.html'
+  },
+  {
     id: 'canciones',
     texto: 'Canciones del tema',
     descripcion: 'Aprende con música',
