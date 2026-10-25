@@ -97,6 +97,11 @@ app.get('/api/:col/:id', async (req, res, next) => {
       return res.status(403).json({ error: 'Acceso no autorizado' });
     }
 
+    // Gancho opcional: una colección puede ocultar un registro concreto (p. ej., contenido oculto o de otra asignatura).
+    if ((await aplicar(col, 'puedeVer', registro, req.usuario)) === false) {
+      return res.status(404).json({ error: 'Registro no encontrado' });
+    }
+
     res.json(registro);
   } catch (error) {
     next(error);
@@ -167,6 +172,7 @@ app.delete('/api/:col/:id', async (req, res, next) => {
     // Gancho opcional: una colección puede rechazar el borrado lanzando un Error con "estado".
     await aplicar(col, 'antesDeEliminar', anterior, req.usuario);
     await almacen.eliminar(col, id);
+    await aplicar(col, 'despuesDeEliminar', anterior, req.usuario);
     res.json({ ok: true });
   } catch (error) {
     next(error);

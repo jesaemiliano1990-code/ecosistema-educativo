@@ -41,6 +41,7 @@ function calcularPromedio(intentosLista) {
   const validos = intentosLista.filter(it =>
     it &&
     it.actividad !== 'tema-revisado' &&
+    it.actividad !== 'foro' &&
     typeof it.maximo === 'number' &&
     it.maximo > 0 &&
     typeof it.puntaje === 'number'
@@ -125,6 +126,7 @@ function calcularEvolucion(intentosLista) {
   const validos = intentosLista.filter(it =>
     it &&
     it.actividad !== 'tema-revisado' &&
+    it.actividad !== 'foro' &&
     it.fecha &&
     typeof it.maximo === 'number' &&
     it.maximo > 0 &&

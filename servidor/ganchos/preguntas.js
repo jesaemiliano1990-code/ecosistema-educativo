@@ -55,6 +55,11 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   return { temaId, nivel, ...pregunta, origen, estado };
 }
 
+// La lectura por id respeta el mismo filtro que la lista (un docente no lee preguntas de otras asignaturas).
+export async function puedeVer(registro, usuario) {
+  return (await filtrarLista([registro], usuario)).length > 0;
+}
+
 // Evita que un docente borre preguntas de asignaturas que no son suyas.
 export async function antesDeEliminar(registro, usuario) {
   if (usuario.rol === 'admin') return; // también limpia preguntas huérfanas (sin tema)
@@ -63,6 +68,7 @@ export async function antesDeEliminar(registro, usuario) {
 
 export default {
   filtrarLista,
+  puedeVer,
   antesDeGuardar,
   antesDeEliminar
 };

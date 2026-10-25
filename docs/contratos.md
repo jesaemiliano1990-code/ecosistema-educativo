@@ -48,7 +48,8 @@ permisos.js  puede(usuario, accion "leer" | "escribir", col, registro) → boole
 ganchos.js   carga servidor/ganchos/<col>.js → { filtrarLista(lista, usuario),
              antesDeGuardar(datos, usuario, anterior),
              despuesDeGuardar(reg, usuario, anterior),
-             antesDeEliminar(reg, usuario) (opcional; DELETE genérico) }
+             antesDeEliminar(reg, usuario), despuesDeEliminar(reg, usuario) (opcionales; DELETE genérico),
+             puedeVer(reg, usuario) → false oculta el registro en GET por id (opcional) }
              aplicar(col, nombre, ...args) · un gancho rechaza con Error y propiedad estado
 acceso.js    gruposDe(usuario) · asignaturasDe(usuario) · asignaturaDeTema(temaId)
              puedeEditarAsignatura(usuario, asignaturaId) · estudiantesDe(docenteId)
@@ -124,10 +125,12 @@ preguntas         temaId, nivel(1-5), tipo(opcion|vf|completar), enunciado, opci
 quiz-sesiones     usuarioId, temaId, nivel, preguntasIds[], respuestas{id: {respuesta, correcto}}, inicio,
                   finalizada, y al terminar: porcentaje, aprobado, aciertos, fin
 foros-hilos       asignaturaId, temaId, titulo, texto, autorId, fijado, cerrado, oculto,
-                  ultimoMovimiento
-foros-respuestas  hiloId, texto, autorId, destacada, oculta
+                  ultimoMovimiento, autorNombre, autorRol, totalRespuestas (visibles)
+foros-respuestas  hiloId, texto, autorId, destacada, oculta, autorNombre, autorRol
 reportes          tipo(foro|mensaje), referenciaId, motivo, reportadoPor,
-                  estado(pendiente|resuelto)
+                  estado(pendiente|resuelto), coleccion(foros-hilos|foros-respuestas; los ids
+                  de ambas empiezan con "for_"), reportadoPorNombre, resolucion(ocultado|descartado|
+                  contenido-eliminado), resueltoPor, fechaResolucion
 agenda            titulo, tipo(tarea|reunion|fecha-limite|recordatorio), inicio, fin,
                   todoElDia, propietarioId, grupoId, actividad, temaId,
                   recordatorios[minutos], avisados{usuarioId: [minutos]}
@@ -146,6 +149,6 @@ permisos.json            { "<col>": { "leer": [...], "escribir": [...] } }
                          valores: publico, sesion, estudiante, docente, admin, propio, servidor
 ajustes.json             nombrePlataforma, maxSubidaMB, limiteIADiario, limiteTutorDiario,
                          chatEntreEstudiantes, alertasAdmin
-reglas-gamificacion.json puntos, bonoSinErrores, unicas, requiereAprobado, maxDiario,
+reglas-gamificacion.json puntos, bonoSinErrores, sinBono[actividades sin bono], unicas, requiereAprobado, maxDiario,
                          limiteIntentosHora, quiz{...}, certificado{...}   (Anexo A)
 reglas-alertas.json      promedioBajo, fallosQuiz, inactividad, vencidas, mensajesApoyo[]

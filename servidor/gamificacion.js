@@ -100,7 +100,9 @@ export async function procesarIntento(usuario, datos) {
 
   const errores = typeof datos.errores === 'number' ? datos.errores : 0;
   const bonoSinErrores = Number(reglas.bonoSinErrores) || 0;
-  if (errores === 0 && puntaje === maximo) {
+  // Las actividades de participación (p. ej., "foro") no reciben el bono de "sin errores".
+  const sinBono = Array.isArray(reglas.sinBono) ? reglas.sinBono : [];
+  if (errores === 0 && puntaje === maximo && !sinBono.includes(actividad)) {
     puntosCalculados += bonoSinErrores;
   }
 

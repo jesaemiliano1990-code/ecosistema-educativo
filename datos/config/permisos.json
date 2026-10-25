@@ -67,6 +67,18 @@
     "leer": ["propio", "admin"],
     "escribir": ["docente", "admin"]
   },
+  "foros-hilos": {
+    "leer": ["sesion"],
+    "escribir": ["sesion"]
+  },
+  "foros-respuestas": {
+    "leer": ["sesion"],
+    "escribir": ["sesion"]
+  },
+  "reportes": {
+    "leer": ["admin"],
+    "escribir": ["sesion"]
+  },
   "quiz-sesiones": {
     "leer": ["servidor"],
     "escribir": ["servidor"]
