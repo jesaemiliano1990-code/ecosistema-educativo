@@ -39,10 +39,10 @@
 }
 
 .crucigrama-tablero {
-  display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
-  gap: var(--espacio-xl);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-m);
   background-color: var(--color-superficie);
   padding: var(--espacio-l);
   border-radius: var(--radio-l);
@@ -50,9 +50,8 @@
   box-shadow: var(--sombra-1);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .crucigrama-tablero {
-    grid-template-columns: minmax(0, 1fr);
     padding: var(--espacio-m);
   }
 }
@@ -62,6 +61,15 @@
   overflow: auto;
   max-width: 100%;
   padding: var(--espacio-xs);
+}
+
+.crucigrama-tablero .crucigrama-barra {
+  justify-content: center;
+}
+
+.crucigrama-tablero .crucigrama-estado,
+.crucigrama-tablero .crucigrama-ayuda {
+  text-align: center;
 }
 
 .crucigrama-rejilla {
@@ -143,17 +151,26 @@
   color: var(--color-error);
 }
 
-/* Pistas */
+/* Pistas: debajo del crucigrama, en dos columnas (una en pantallas angostas) */
 .crucigrama-pistas {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--espacio-m);
+  gap: var(--espacio-l);
+  align-items: start;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .crucigrama-pistas {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+.crucigrama-pistas__bloque {
+  background-color: var(--color-superficie);
+  padding: var(--espacio-m);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-1);
 }
 
 .crucigrama-pistas__titulo {

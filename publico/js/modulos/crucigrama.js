@@ -178,6 +178,11 @@ const clave = (f, c) => `${f},${c}`;
 const NOMBRE_DIR = { [HORIZONTAL]: 'Horizontal', [VERTICAL]: 'Vertical' };
 const LETRA_VALIDA = /^[a-zA-ZñÑáéíóúüÁÉÍÓÚÜ]$/;
 
+function textoRevelar() {
+  const quedan = MAX_REVELADAS - reveladas;
+  return `Revelar letra (${quedan} ${quedan === 1 ? 'restante' : 'restantes'})`;
+}
+
 function celdasDe(entrada) {
   const celdas = [];
   for (let k = 0; k < entrada.palabra.length; k++) {
@@ -254,33 +259,32 @@ function construirHtml() {
       </div>
 
       <div class="crucigrama-tablero">
-        <div class="pila">
-          <div class="crucigrama-rejilla-marco">
-            <div class="crucigrama-rejilla" id="rejilla" style="--columnas: ${columnas}" role="group" aria-label="Crucigrama de ${columnas} columnas y ${filas} filas">
-              ${casillas}
-            </div>
+        <div class="crucigrama-rejilla-marco">
+          <div class="crucigrama-rejilla" id="rejilla" style="--columnas: ${columnas}" role="group" aria-label="Crucigrama de ${columnas} columnas y ${filas} filas">
+            ${casillas}
           </div>
-          <p class="crucigrama-ayuda">Flechas para moverte · Retroceso para borrar · Espacio o doble clic para cambiar de dirección · Enter para comprobar la palabra.</p>
         </div>
-        <div class="crucigrama-pistas">
-          <section aria-labelledby="titPistasH">
-            <h2 class="crucigrama-pistas__titulo" id="titPistasH">Horizontales</h2>
-            <ul class="crucigrama-pistas__lista">${lista(HORIZONTAL)}</ul>
-          </section>
-          <section aria-labelledby="titPistasV">
-            <h2 class="crucigrama-pistas__titulo" id="titPistasV">Verticales</h2>
-            <ul class="crucigrama-pistas__lista">${lista(VERTICAL)}</ul>
-          </section>
+        <p class="crucigrama-ayuda">Flechas para moverte · Retroceso para borrar · Espacio o doble clic para cambiar de dirección · Enter para comprobar la palabra.</p>
+        <div class="crucigrama-barra">
+          <button type="button" id="btnComprobar" class="btn btn--primario">Comprobar palabra</button>
+          <button type="button" id="btnRevelar" class="btn btn--secundario">${textoRevelar()}</button>
+          <button type="button" id="btnTerminar" class="btn btn--secundario">Terminar</button>
         </div>
+        <p class="crucigrama-estado" id="estado" role="status" aria-live="polite"></p>
       </div>
 
-      <div class="crucigrama-barra">
-        <button type="button" id="btnComprobar" class="btn btn--primario">Comprobar palabra</button>
-        <button type="button" id="btnRevelar" class="btn btn--secundario">Revelar letra (<span id="contadorReveladas">${MAX_REVELADAS - reveladas}</span> restantes)</button>
-        <button type="button" id="btnTerminar" class="btn btn--secundario">Terminar</button>
-      </div>
-      <p class="crucigrama-estado" id="estado" role="status" aria-live="polite"></p>
       <div id="contenedorRetro"></div>
+
+      <div class="crucigrama-pistas">
+        <section aria-labelledby="titPistasH" class="crucigrama-pistas__bloque">
+          <h2 class="crucigrama-pistas__titulo" id="titPistasH">Horizontales</h2>
+          <ul class="crucigrama-pistas__lista">${lista(HORIZONTAL)}</ul>
+        </section>
+        <section aria-labelledby="titPistasV" class="crucigrama-pistas__bloque">
+          <h2 class="crucigrama-pistas__titulo" id="titPistasV">Verticales</h2>
+          <ul class="crucigrama-pistas__lista">${lista(VERTICAL)}</ul>
+        </section>
+      </div>
       <div class="crucigrama-barra" id="accionesFinales" style="display: none;">
         <button type="button" id="btnNuevo" class="btn btn--primario">🔄 Nuevo crucigrama</button>
         <button type="button" id="btnCambiarTemaAbajo" class="btn btn--secundario">🔍 Elegir otro tema</button>
@@ -544,7 +548,7 @@ function revelarLetra() {
   bloquear(objetivo);
   limpiarMarcaIncorrecta(objetivo);
   reveladas++;
-  document.getElementById('contadorReveladas').textContent = MAX_REVELADAS - reveladas;
+  document.getElementById('btnRevelar').textContent = textoRevelar();
   ui.aviso('Letra revelada: cuenta como un error.', 'info');
 }
 
