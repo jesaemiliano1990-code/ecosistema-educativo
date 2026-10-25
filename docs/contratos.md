@@ -133,7 +133,10 @@ reportes          tipo(foro|mensaje), referenciaId, motivo, reportadoPor,
                   contenido-eliminado), resueltoPor, fechaResolucion
 agenda            titulo, tipo(tarea|reunion|fecha-limite|recordatorio), inicio, fin,
                   todoElDia, propietarioId, grupoId, actividad, temaId,
-                  recordatorios[minutos], avisados{usuarioId: [minutos]}
+                  recordatorios[minutos], avisados{usuarioId: [minutos]},
+                  propietarioNombre, propietarioRol. inicio/fin: ISO UTC; si todoElDia, "AAAA-MM-DD"
+                  (fin inclusivo). actividad y temaId solo en "fecha-limite". Editar o borrar: solo el
+                  propietario; al cambiar inicio o recordatorios, avisados se reinicia.
 conversaciones    participantes[], ultimo{texto, fecha, autorId}, leidoHasta{usuarioId: fecha}
 mensajes/<convId> autorId, texto, oculto
 bloqueos          usuarioId, bloqueadoId

@@ -67,6 +67,10 @@
     "leer": ["propio", "admin"],
     "escribir": ["docente", "admin"]
   },
+  "agenda": {
+    "leer": ["sesion"],
+    "escribir": ["sesion"]
+  },
   "foros-hilos": {
     "leer": ["sesion"],
     "escribir": ["sesion"]
