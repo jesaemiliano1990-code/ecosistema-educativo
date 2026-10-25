@@ -273,6 +273,67 @@ async function alHacerClic(evento) {
 }
 
 // ----------------------------------------------------
+// BORRADOR CON IA
+// ----------------------------------------------------
+
+const MAX_SITUACION = 800;
+
+// Pide la situación y el número de escenas; devuelve { situacion, escenas } o null si se cancela.
+async function pedirSituacion() {
+  const caja = document.createElement('div');
+  caja.innerHTML = `
+    <div class="campo">
+      <label for="iaSituacion">Situación del escenario</label>
+      <textarea id="iaSituacion" rows="5" maxlength="${MAX_SITUACION}" placeholder="Ej.: Un estudiante debe decidir cómo investigar un cruce de plantas…"></textarea>
+      <span class="texto-suave" id="iaContador">0 / ${MAX_SITUACION}</span>
+    </div>
+    <div class="campo">
+      <label for="iaEscenas">Número de escenas</label>
+      <select id="iaEscenas">${[5, 6, 7, 8, 9, 10].map((n) => `<option value="${n}"${n === 6 ? ' selected' : ''}>${n}</option>`).join('')}</select>
+    </div>`;
+  const area = caja.querySelector('#iaSituacion');
+  area.addEventListener('input', () => { caja.querySelector('#iaContador').textContent = `${area.value.length} / ${MAX_SITUACION}`; });
+
+  for (;;) {
+    const decision = await ui.modal({
+      titulo: 'Generar borrador con IA',
+      contenido: caja,
+      acciones: [{ texto: 'Cancelar', valor: false, clase: 'btn--secundario' }, { texto: 'Generar', valor: true, clase: 'btn--primario' }]
+    });
+    if (!decision) return null;
+    if (area.value.trim()) return { situacion: area.value.trim(), escenas: Number(caja.querySelector('#iaEscenas').value) };
+    ui.aviso('Describe la situación para que la IA pueda crear el escenario.', 'error');
+  }
+}
+
+async function generarBorrador() {
+  leerGenerales();
+  if (!sim.temaId) { ui.aviso('Primero elige el tema de la simulación.', 'error'); por('simTema').focus(); return; }
+  if (sim.modo !== 'escenarios') { ui.aviso('El borrador con IA solo está disponible en el modo escenarios.', 'error'); return; }
+  if (sim.escenas.length && !(await ui.confirmar('El borrador reemplazará las escenas que tienes ahora. ¿Continuar?'))) return;
+
+  const datos = await pedirSituacion();
+  if (!datos) return;
+  ui.cargando(true);
+  try {
+    const r = await api.ia('generar-escenario', { temaId: sim.temaId, ...datos });
+    sim.escenas = r.escenas;
+    sim.escenaInicial = r.escenaInicial;
+    if (!sim.titulo.trim()) sim.titulo = r.titulo;
+    sim.estado = 'borrador'; // nada se guarda ni se publica hasta que el docente lo decida
+    sucio = true;
+    pintarPagina();
+    const errores = validar();
+    pintarErrores(errores);
+    ui.aviso(errores.length ? 'Borrador generado. Revisa los puntos marcados y pulsa Guardar.' : 'Borrador generado y válido. Revísalo y pulsa Guardar.', errores.length ? 'info' : 'exito');
+  } catch (error) {
+    ui.aviso(error.message || 'No se pudo generar el borrador. Intenta de nuevo.', 'error');
+  } finally {
+    ui.cargando(false);
+  }
+}
+
+// ----------------------------------------------------
 // GUARDAR, VISTA PREVIA, ELIMINAR
 // ----------------------------------------------------
 
@@ -398,7 +459,10 @@ function pintarPagina() {
         <section aria-labelledby="tituloEscenas">
           <div class="sim-editor__cabecera">
             <h2 id="tituloEscenas" class="sim-editor__subtitulo">Escenas</h2>
-            <button type="button" id="btnAgregarEscena" class="btn btn--secundario btn--pequeno">➕ Agregar escena</button>
+            <div class="sim-editor__acciones">
+              <button type="button" id="btnIA" class="btn btn--secundario btn--pequeno">✨ Generar borrador con IA</button>
+              <button type="button" id="btnAgregarEscena" class="btn btn--secundario btn--pequeno">➕ Agregar escena</button>
+            </div>
           </div>
           <div id="listaEscenas" class="sim-lista-escenas"></div>
         </section>
@@ -429,6 +493,7 @@ function pintarPagina() {
     sucio = true;
     pintarEscenas(`esc-${escena.id}-texto`);
   });
+  por('btnIA').addEventListener('click', generarBorrador);
   por('btnGuardar').addEventListener('click', guardar);
   por('btnPrevia').addEventListener('click', vistaPrevia);
   por('btnEliminar').addEventListener('click', eliminar);

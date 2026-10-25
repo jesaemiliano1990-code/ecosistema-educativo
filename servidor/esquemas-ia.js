@@ -72,10 +72,30 @@ const esquemas = {
 
   'generar-preguntas': (v) => noVacia(comoLista(v)).map(normalizarPregunta),
 
+  // Normaliza al formato de la colección "simulaciones"; los errores de estructura los muestra el editor al validar.
   'generar-escenario': (v) => {
     objeto(v, 'escenario');
     if (!Array.isArray(v.escenas) || !v.escenas.length) throw new Error('Faltan las escenas');
-    return { ...v, titulo: texto(v.titulo, 'titulo'), escenaInicial: texto(String(v.escenaInicial ?? ''), 'escenaInicial') };
+    const ids = new Set();
+    const escenas = v.escenas.slice(0, 40).map((e, i) => {
+      objeto(e, 'escena');
+      const id = String(e.id ?? `E${i + 1}`).trim().replace(/[^\w-]/g, '').slice(0, 20);
+      if (!id || ids.has(id)) throw new Error('Los identificadores de escena deben ser únicos');
+      ids.add(id);
+      const opciones = (Array.isArray(e.opciones) ? e.opciones : []).slice(0, 4).map((o) => {
+        objeto(o, 'opción');
+        const puntos = Math.round(Number(o.puntos));
+        return {
+          texto: texto(o.texto, 'texto de la opción'),
+          destino: String(o.destino ?? '').trim().replace(/[^\w-]/g, '').slice(0, 20),
+          puntos: Number.isFinite(puntos) ? Math.max(-10, Math.min(10, puntos)) : 0,
+          consecuencia: typeof o.consecuencia === 'string' ? o.consecuencia.trim() : ''
+        };
+      });
+      return { id, texto: texto(e.texto, 'texto de la escena'), imagen: '', opciones };
+    });
+    const inicial = String(v.escenaInicial ?? '').trim().replace(/[^\w-]/g, '');
+    return { titulo: texto(v.titulo, 'titulo').slice(0, 150), escenaInicial: ids.has(inicial) ? inicial : escenas[0].id, escenas };
   },
 
   'evaluar-rol': (v) => {
