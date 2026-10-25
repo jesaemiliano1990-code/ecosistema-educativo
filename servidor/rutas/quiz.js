@@ -293,6 +293,7 @@ router.post('/quiz/finalizar', async (req, res, next) => {
       }
 
       let puntosGanados = 0;
+      let puntosTotales;
       let insigniasNuevas = [];
       let aviso;
       try {
@@ -307,6 +308,7 @@ router.post('/quiz/finalizar', async (req, res, next) => {
           detalle: { aprobado }
         });
         puntosGanados = registro.puntosGanados;
+        puntosTotales = registro.puntosTotales;
         insigniasNuevas = registro.insigniasNuevas;
       } catch (error) {
         aviso = `Tu resultado se guardó, pero no se pudieron sumar los puntos: ${error.message}`;
@@ -319,6 +321,7 @@ router.post('/quiz/finalizar', async (req, res, next) => {
         total,
         repasar: falladas.map((id) => preguntas.find((p) => p.id === id)?.retroalimentacion).filter(Boolean),
         puntosGanados,
+        ...(puntosTotales !== undefined ? { puntosTotales } : {}),
         insigniasNuevas,
         ...(aviso ? { aviso } : {})
       };

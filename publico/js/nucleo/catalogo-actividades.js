@@ -27,6 +27,12 @@ export const ACTIVIDADES = [
     href: '/paginas/crucigrama.html'
   },
   {
+    id: 'quiz',
+    texto: 'Quiz por niveles',
+    descripcion: 'Supera 5 niveles y gana diplomas',
+    href: '/paginas/quiz.html'
+  },
+  {
     id: 'canciones',
     texto: 'Canciones del tema',
     descripcion: 'Aprende con música',

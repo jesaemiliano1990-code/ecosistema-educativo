@@ -1,0 +1,221 @@
+/* publico/css/modulos/quiz.css */
+/* Quiz por niveles: tarjetas de nivel, pregunta a pregunta y resultado */
+
+.quiz-vista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.quiz-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: var(--espacio-m);
+}
+
+.quiz-cabecera__titulo {
+  font-size: var(--texto-2xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.quiz-cabecera__tema {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+/* Tarjetas de nivel */
+.quiz-niveles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--espacio-m);
+}
+
+.quiz-nivel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-l);
+  padding: var(--espacio-m);
+  box-shadow: var(--sombra-1);
+}
+
+.quiz-nivel--bloqueado {
+  background-color: var(--color-fondo);
+  opacity: 0.8;
+}
+
+.quiz-nivel--aprobado {
+  border-color: var(--color-exito);
+}
+
+.quiz-nivel__titulo {
+  margin: 0;
+  font-size: var(--texto-l);
+  color: var(--color-primario);
+}
+
+.quiz-nivel__mejor {
+  margin: 0;
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+}
+
+.quiz-nivel__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+  margin-top: auto;
+}
+
+/* Pregunta */
+.quiz-pregunta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-l);
+  padding: var(--espacio-l);
+  box-shadow: var(--sombra-1);
+}
+
+.quiz-pregunta__avance {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+}
+
+.quiz-pregunta__enunciado {
+  margin: 0;
+  font-size: var(--texto-l);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-texto);
+}
+
+.quiz-pregunta__enunciado:focus {
+  outline: none;
+}
+
+.quiz-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.quiz-opciones--vf {
+  flex-direction: row;
+}
+
+.quiz-opciones--vf .quiz-opcion {
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+}
+
+.quiz-opcion {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  min-height: 3.25rem;
+  padding: var(--espacio-s) var(--espacio-m);
+  font-size: var(--texto-m);
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-m);
+  cursor: pointer;
+}
+
+.quiz-opcion input {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  accent-color: var(--color-primario);
+}
+
+.quiz-opcion:has(input:checked) {
+  border-color: var(--color-primario);
+  background-color: rgba(0, 46, 69, 0.08);
+}
+
+.quiz-opcion:has(input:focus-visible) {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.quiz-opciones--bloqueadas .quiz-opcion {
+  cursor: default;
+}
+
+.quiz-completar {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: var(--espacio-s) var(--espacio-m);
+  font: inherit;
+  font-size: var(--texto-m);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-m);
+}
+
+.quiz-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+}
+
+/* Resultado */
+.quiz-resultado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-m);
+  text-align: center;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-l);
+  padding: var(--espacio-xl) var(--espacio-l);
+  box-shadow: var(--sombra-1);
+}
+
+.quiz-resultado__porcentaje {
+  font-size: var(--texto-3xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.quiz-resultado--aprobado .quiz-resultado__porcentaje {
+  color: var(--color-exito);
+}
+
+.quiz-resultado__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--espacio-s);
+}
+
+@media (max-width: 600px) {
+  .quiz-opciones--vf {
+    flex-direction: column;
+  }
+
+  .quiz-pregunta {
+    padding: var(--espacio-m);
+  }
+}
