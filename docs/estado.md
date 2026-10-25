@@ -1,24 +1,26 @@
 # docs/estado.md · Estado del proyecto (máximo 30 líneas)
-Sprint terminado: S08 · Fecha: 2026-10-25 · Velocidad real: __ puntos
+Sprint terminado: S09 · Fecha: 2026-10-25 · Velocidad real: __ puntos
 
 ## Funciona
-- S00-S07 · Base, usuarios, contenidos, glosario, juegos (Ahorcado, Pareja, Sopa, Crucigrama), gamificación, paneles, alertas y servicio de IA con Gemini (ver etiqueta `sprint-7`).
-- P08.1 · Banco de preguntas (`banco-preguntas.html`): 5 niveles de Bloom, tipos opción/vf/completar, creación manual y "Generar con IA" con aprobación (`ganchos/preguntas.js`, `preparadores/generar-preguntas.js`, `prompts/generar-preguntas.txt`). Aviso si hay menos de 20 aprobadas.
-- P08.2 · Motor del quiz (`rutas/quiz.js`): estado por nivel, iniciar (sin respuestas), responder una sola vez, finalizar con 70 % de aprobación, puntos e insignias. Retoma el quiz abierto (menos de 2 h).
-- P08.3 · Página del quiz (`quiz.html`): tarjetas de nivel, pregunta a pregunta, resultado, insignia y diploma por nivel (`pdf.js`). En `catalogo-actividades.js`.
-- Probado con Gemini real (banco) y con una copia temporal de los datos (quiz, aprobado/reprobado y diploma).
+- S00-S08 · Base, usuarios, contenidos, glosario, juegos, gamificación, paneles, alertas, servicio de IA (Gemini), banco de preguntas y quiz por niveles con diplomas (etiqueta `sprint-8`).
+- P06.4 (pendiente del S06, completada) · Centro de notificaciones: campana con contador y panel (`notificaciones.js`), sondeo de 60 s, rutas `rutas/notificaciones.js`, aviso al publicar noticias. Antes no existía.
+- P09.1 · Foros (`foros.html`, `hilo.html`, `admin-reportes.html`): hilos y respuestas por asignatura, moderación, reportes, notificación al autor, 2 puntos por respuesta (máx. 5 al día).
+- P09.2 · Agenda (`agenda.html`): FullCalendar 6.1.22 (mes, semana, lista), eventos personales y de grupo, ✓ en fechas límite completadas, "Mi semana".
+- P09.3 · Recordatorios (`rutas/agenda.js`) con aviso del navegador opcional, y regla de alertas `vencidas` en `alertas.js`.
+- Probado en copias temporales de los datos y en el navegador (escritorio y celular); aviso real en 93 s con un evento a 61 min.
 
 ## Decisiones y cambios respecto a docs/contratos.md
-- `POST /api/intentos` rechaza `actividad: "quiz"` (403): el quiz solo se registra desde `/quiz/finalizar`.
-- `server.js`: DELETE genérico llama al gancho opcional `antesDeEliminar` (lo usa `preguntas`).
-- `quiz/iniciar` devuelve `respondidas`; `quiz/finalizar` devuelve `puntosTotales`; `quiz-sesiones` guarda porcentaje, aprobado, aciertos y fin (§B, §C, §D actualizados).
+- Ganchos nuevos y opcionales en `server.js`: `puedeVer` (lectura por id), `despuesDeEliminar`. `antesDeEliminar` protege el DELETE en 11 colecciones.
+- `notificaciones` solo se escribe desde el servidor; los docentes escriben a sus estudiantes con `POST /api/notificaciones`.
+- Los intentos de `foro` no cuentan en promedios ni alertas y no reciben el bono de "sin errores" (`sinBono`).
+- Un aviso de agenda por evento (el más cercano); reportes con campo `coleccion`; alertas `vencidas` con `eventoId` (§D, §C, §E actualizados).
 
 ## Problemas conocidos
-- DELETE protegido con `antesDeEliminar` en unidades, temas, glosario, canciones, preguntas, alertas, progreso-temas, lecturas-noticias, notificaciones y usuarios. Sigue sin regla de dueño en noticias (cualquier docente puede borrar cualquier noticia).
-- Solo hay 9 preguntas aprobadas en el nivel 1 del tema demo y ninguna en los niveles 2 a 5; con menos de 20 el quiz repite preguntas.
-- `estudiante1@demo.ec` ya tiene los 5 niveles aprobados en los datos demo.
+- Encabezado en celular (375 px): el título "Ecosistema Educativo" queda amontonado junto a los íconos; la campana ya no empuja "Salir".
+- Sin regla de dueño en noticias: cualquier docente puede editar o borrar cualquier noticia.
+- Nivel 1 del tema demo con 9 preguntas y niveles 2 a 5 vacíos; `estudiante1@demo.ec` tiene los 5 niveles aprobados.
 - Datos semilla: el tema "Ventanas en Ecocardiografía" (Biología) tiene un glosario de genética.
-- Una sesión vencida guardada en el navegador impide abrir `ingreso.html` hasta borrar `localStorage`.
+- Una sesión vencida en `localStorage` impide abrir `ingreso.html` hasta borrarla.
 
 ## Pendiente para el siguiente sprint
-- Sprint 9: foros moderados y agenda con recordatorios (P09.1 a P09.3).
+- Sprint 10: mensajería instantánea (P10.1 a P10.3). Los reportes de mensajes reutilizarán `reportes` (hoy solo `tipo: "foro"`).
