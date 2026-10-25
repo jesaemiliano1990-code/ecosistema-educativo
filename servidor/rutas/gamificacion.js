@@ -17,6 +17,11 @@ router.post('/intentos', async (req, res, next) => {
       return res.status(401).json({ error: 'No autenticado' });
     }
 
+    // El quiz se corrige y se registra solo desde /quiz/finalizar: el navegador no puede declararlo aprobado.
+    if (req.body && req.body.actividad === 'quiz') {
+      return res.status(403).json({ error: 'El quiz se registra solo desde el servidor' });
+    }
+
     const resultado = await procesarIntento(req.usuario, req.body);
     res.status(201).json(resultado);
   } catch (error) {

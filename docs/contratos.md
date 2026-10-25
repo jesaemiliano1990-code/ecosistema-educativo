@@ -82,7 +82,8 @@ IA        POST /api/ia/:tarea   tareas: generar-glosario, generar-preguntas, gen
           tutor, rol-simulacion, evaluar-rol · GET /api/ia/prueba (admin) → { respuesta }
           Respuesta: JSON de la tarea; tutor y rol-simulacion devuelven { texto }.
 Quiz      GET /api/quiz/estado?temaId= · POST /api/quiz/iniciar · POST /api/quiz/responder
-          POST /api/quiz/finalizar
+          POST /api/quiz/finalizar   (solo estudiantes; iniciar devuelve además { respondidas: [ids] }
+          y retoma el quiz abierto hace menos de 2 h; POST /api/intentos rechaza actividad "quiz" con 403)
 Agenda    GET /api/agenda/recordatorios
 Mensajes  GET /api/mensajes/contactos · GET|POST /api/mensajes/conversaciones
           GET /api/mensajes/no-leidos · GET /api/mensajes/:convId?desde=&antes=
@@ -120,7 +121,8 @@ alertas           estudianteId, docenteId, grupoId, regla, temaId, detalle,
 consumo-ia.jsonl  usuarioId, tarea, entrada, salida, ok, fecha
 preguntas         temaId, nivel(1-5), tipo(opcion|vf|completar), enunciado, opciones[],
                   correcta(índice | true/false | texto), retroalimentacion, origen, estado
-quiz-sesiones     usuarioId, temaId, nivel, preguntasIds[], respuestas{}, inicio, finalizada
+quiz-sesiones     usuarioId, temaId, nivel, preguntasIds[], respuestas{id: {respuesta, correcto}}, inicio,
+                  finalizada, y al terminar: porcentaje, aprobado, aciertos, fin
 foros-hilos       asignaturaId, temaId, titulo, texto, autorId, fijado, cerrado, oculto,
                   ultimoMovimiento
 foros-respuestas  hiloId, texto, autorId, destacada, oculta

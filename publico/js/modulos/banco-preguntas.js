@@ -488,6 +488,8 @@ if (!temas.length) {
 } else {
   const pedido = util.parametro('temaId');
   temaId = temas.some((t) => t.id === pedido) ? pedido : temas[0].id;
+  const nivelPedido = Number(util.parametro('nivel'));
+  if (Number.isInteger(nivelPedido) && nivelPedido >= 1 && nivelPedido <= 5) nivelActual = nivelPedido;
   pintarPagina();
   await seleccionarTema(temaId);
 }

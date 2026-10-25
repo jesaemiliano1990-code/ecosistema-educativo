@@ -67,6 +67,10 @@
     "leer": ["propio", "admin"],
     "escribir": ["docente", "admin"]
   },
+  "quiz-sesiones": {
+    "leer": ["servidor"],
+    "escribir": ["servidor"]
+  },
   "preguntas": {
     "leer": ["docente", "admin"],
     "escribir": ["docente", "admin"]
