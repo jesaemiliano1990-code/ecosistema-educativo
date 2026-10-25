@@ -56,7 +56,17 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   };
 }
 
+// El progreso solo lo borra su dueño (o un admin): un estudiante no toca el avance de otro.
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol !== 'admin' && registro.usuarioId !== usuario.id) {
+    const error = new Error('No puedes eliminar el progreso de otra persona');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };

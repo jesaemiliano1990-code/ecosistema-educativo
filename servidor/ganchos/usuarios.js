@@ -47,7 +47,19 @@ export function antesDeGuardar(datos, usuario, anterior) {
   return limpio;
 }
 
+/**
+ * Un administrador no puede eliminar su propia cuenta.
+ */
+export function antesDeEliminar(registro, usuario) {
+  if (usuario && registro.id === usuario.id) {
+    const error = new Error('Un administrador no puede eliminar su propia cuenta');
+    error.estado = 400;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };

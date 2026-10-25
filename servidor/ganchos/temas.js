@@ -57,7 +57,19 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   return datos;
 }
 
+// Un docente solo borra temas de las asignaturas que dicta.
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol === 'admin') return; // también limpia temas huérfanos (sin unidad)
+  const unidad = (await almacen.leer('unidades')).find(u => u && u.id === registro.unidadId);
+  if (!(await puedeEditarAsignatura(usuario, unidad?.asignaturaId))) {
+    const error = new Error('No tienes permiso para eliminar temas de esta asignatura');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };

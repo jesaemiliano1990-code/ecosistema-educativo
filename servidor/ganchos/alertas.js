@@ -59,7 +59,21 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   return datos;
 }
 
+/**
+ * Un docente solo borra alertas de sus propios grupos (las mismas que puede ver).
+ */
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol === 'admin') return;
+  const misGrupos = await gruposDe(usuario);
+  if (!misGrupos.some(g => g && g.id === registro.grupoId)) {
+    const error = new Error('No tienes permiso para eliminar alertas de otros grupos');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };

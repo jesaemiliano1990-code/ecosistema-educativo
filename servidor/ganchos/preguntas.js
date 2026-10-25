@@ -57,6 +57,7 @@ export async function antesDeGuardar(datos, usuario, anterior) {
 
 // Evita que un docente borre preguntas de asignaturas que no son suyas.
 export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol === 'admin') return; // también limpia preguntas huérfanas (sin tema)
   await exigirEdicion(usuario, registro.temaId);
 }
 

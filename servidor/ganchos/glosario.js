@@ -57,7 +57,19 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   return datos;
 }
 
+// Un docente solo borra términos del glosario de las asignaturas que dicta.
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol === 'admin') return; // también limpia términos huérfanos (sin tema)
+  const asignaturaId = await asignaturaDeTema(registro.temaId);
+  if (!(await puedeEditarAsignatura(usuario, asignaturaId))) {
+    const error = new Error('No tienes permiso para eliminar términos del glosario de esta asignatura');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };

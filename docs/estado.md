@@ -14,7 +14,7 @@ Sprint terminado: S08 · Fecha: 2026-10-25 · Velocidad real: __ puntos
 - `quiz/iniciar` devuelve `respondidas`; `quiz/finalizar` devuelve `puntosTotales`; `quiz-sesiones` guarda porcentaje, aprobado, aciertos y fin (§B, §C, §D actualizados).
 
 ## Problemas conocidos
-- El DELETE genérico no consulta ganchos en glosario, temas, unidades y otras: un docente de otra asignatura podría borrar sus registros. Pendiente de decidir.
+- DELETE protegido con `antesDeEliminar` en unidades, temas, glosario, canciones, preguntas, alertas, progreso-temas, lecturas-noticias, notificaciones y usuarios. Sigue sin regla de dueño en noticias (cualquier docente puede borrar cualquier noticia).
 - Solo hay 9 preguntas aprobadas en el nivel 1 del tema demo y ninguna en los niveles 2 a 5; con menos de 20 el quiz repite preguntas.
 - `estudiante1@demo.ec` ya tiene los 5 niveles aprobados en los datos demo.
 - Datos semilla: el tema "Ventanas en Ecocardiografía" (Biología) tiene un glosario de genética.

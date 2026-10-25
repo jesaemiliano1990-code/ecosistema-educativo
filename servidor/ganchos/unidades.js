@@ -35,7 +35,17 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   return datos;
 }
 
+// Un docente solo borra unidades de las asignaturas que dicta.
+export async function antesDeEliminar(registro, usuario) {
+  if (!(await puedeEditarAsignatura(usuario, registro.asignaturaId))) {
+    const error = new Error('No tienes permiso para eliminar unidades de esta asignatura');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };

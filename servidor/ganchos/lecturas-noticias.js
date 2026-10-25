@@ -64,7 +64,19 @@ export async function filtrarLista(lista, usuario) {
   return lista.filter(l => l && l.usuarioId === usuario.id);
 }
 
+/**
+ * Las marcas de lectura solo las borra su dueño (o un admin).
+ */
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol !== 'admin' && registro.usuarioId !== usuario.id) {
+    const error = new Error('No puedes eliminar la lectura de otra persona');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   antesDeGuardar,
-  filtrarLista
+  filtrarLista,
+  antesDeEliminar
 };

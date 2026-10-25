@@ -74,7 +74,19 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   return datos;
 }
 
+// Un docente solo borra canciones de las asignaturas que dicta.
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario.rol === 'admin') return; // también limpia canciones huérfanas (sin tema)
+  const asignaturaId = await asignaturaDeTema(registro.temaId);
+  if (!(await puedeEditarAsignatura(usuario, asignaturaId))) {
+    const error = new Error('No tienes permiso para eliminar canciones de esta asignatura');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 export default {
   filtrarLista,
-  antesDeGuardar
+  antesDeGuardar,
+  antesDeEliminar
 };
