@@ -320,3 +320,25 @@
   color: var(--color-texto-suave);
   margin-top: 2px;
 }
+
+/* Propuestas de glosario generadas con IA (P07.2) */
+.tabla-propuestas-ia {
+  width: 100%;
+  min-width: 48rem;
+}
+
+.tabla-propuestas-ia td {
+  vertical-align: top;
+  padding: var(--espacio-xs);
+}
+
+.tabla-propuestas-ia input[type="text"],
+.tabla-propuestas-ia textarea {
+  width: 100%;
+  font: inherit;
+  font-size: var(--texto-s);
+}
+
+.tabla-propuestas-ia .insignia {
+  margin-top: var(--espacio-xs);
+}

@@ -211,7 +211,7 @@ if (!temaId) {
         <div class="glosario-controles-fila">
           <h2>Términos Aprobados</h2>
           <div class="glosario-acciones">
-            <button type="button" id="btn-generar-ia" class="btn btn--secundario btn--pequeno" disabled title="Disponible próximamente con IA (P07.2)">
+            <button type="button" id="btn-generar-ia" class="btn btn--secundario btn--pequeno" title="Proponer términos con IA para que los revises y apruebes">
               ✨ Generar con IA
             </button>
             <button type="button" id="btnNuevoTermino" class="btn btn--primario btn--pequeno">
@@ -1009,6 +1009,185 @@ if (!temaId) {
   }
 
   btnNuevoTermino.addEventListener('click', () => abrirModalTermino());
+
+  // ----------------------------------------------------
+  // GLOSARIO CON IA (el docente revisa y aprueba cada propuesta)
+  // ----------------------------------------------------
+
+  async function pedirCantidadIA() {
+    const form = document.createElement('form');
+    form.innerHTML = `
+      <div class="campo">
+        <label for="inputCantidadIA">Cantidad de términos (5 a 20)</label>
+        <input type="number" id="inputCantidadIA" min="5" max="20" step="1" value="10">
+      </div>
+      <p class="campo__contador-modal">La IA usa solo el resumen, los objetivos y los ejemplos de este tema. Tú decides qué se aprueba.</p>
+    `;
+    form.addEventListener('submit', (e) => e.preventDefault());
+    const accion = await ui.modal({
+      titulo: 'Generar glosario con IA',
+      contenido: form,
+      acciones: [
+        { texto: 'Cancelar', valor: null, clase: 'btn--secundario' },
+        { texto: 'Generar', valor: 'generar', clase: 'btn--primario' }
+      ]
+    });
+    if (accion !== 'generar') return null;
+    const cantidad = Number(form.querySelector('#inputCantidadIA').value);
+    if (!Number.isInteger(cantidad) || cantidad < 5 || cantidad > 20) {
+      ui.aviso('La cantidad debe ser un número entero entre 5 y 20.', 'error');
+      return null;
+    }
+    return cantidad;
+  }
+
+  // Marca como repetidas las propuestas cuyo término normalizado ya existe (o se repite en la lista).
+  function prepararPropuestas(lista) {
+    const vistos = new Set(listaGlosario.map((g) => util.normalizar(g.termino || '')));
+    return lista.map((p) => {
+      const clave = util.normalizar(p.termino || '');
+      const repetido = vistos.has(clave);
+      vistos.add(clave);
+      return { ...p, repetido, marcado: !repetido };
+    });
+  }
+
+  // Muestra la tabla editable y devuelve las filas con lo que el docente dejó (o null si cancela).
+  async function revisarPropuestas(filas) {
+    const tabla = document.createElement('div');
+    tabla.className = 'tabla';
+    tabla.innerHTML = `
+      <table class="tabla-propuestas-ia">
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Aprobar</span></th>
+            <th scope="col">Término</th>
+            <th scope="col">Definición (máx. 25 pal.)</th>
+            <th scope="col">Pista (máx. 10 pal.)</th>
+            <th scope="col">Retroalimentación</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filas.map((f, i) => `
+            <tr>
+              <td><input type="checkbox" data-campo="marcado" aria-label="Aprobar ${ui.escapar(f.termino)}" ${f.marcado ? 'checked' : ''}></td>
+              <td>
+                <input type="text" data-campo="termino" aria-label="Término ${i + 1}" value="${ui.escapar(f.termino)}">
+                ${f.repetido ? '<span class="insignia insignia--advertencia">Ya existe</span>' : ''}
+              </td>
+              <td><textarea data-campo="definicion" rows="3" aria-label="Definición ${i + 1}">${ui.escapar(f.definicion)}</textarea></td>
+              <td><textarea data-campo="pista" rows="2" aria-label="Pista ${i + 1}">${ui.escapar(f.pista)}</textarea></td>
+              <td><textarea data-campo="retroalimentacion" rows="3" aria-label="Retroalimentación ${i + 1}">${ui.escapar(f.retroalimentacion)}</textarea></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    `;
+    const accion = await ui.modal({
+      titulo: `Propuestas de la IA (${filas.length})`,
+      contenido: tabla,
+      acciones: [
+        { texto: 'Descartar todo', valor: null, clase: 'btn--secundario' },
+        { texto: 'Aprobar seleccionados', valor: 'aprobar', clase: 'btn--primario' }
+      ]
+    });
+    if (accion !== 'aprobar') return null;
+    return Array.from(tabla.querySelectorAll('tbody tr')).map((tr, i) => {
+      const leer = (campo) => tr.querySelector(`[data-campo="${campo}"]`);
+      return {
+        repetido: filas[i].repetido,
+        marcado: leer('marcado').checked,
+        termino: leer('termino').value.trim(),
+        definicion: leer('definicion').value.trim(),
+        pista: leer('pista').value.trim(),
+        retroalimentacion: leer('retroalimentacion').value.trim()
+      };
+    });
+  }
+
+  function errorDePropuesta(f) {
+    if (!f.termino) return 'Hay un término seleccionado sin nombre.';
+    if (!f.definicion) return `"${f.termino}" no tiene definición.`;
+    if (contarPalabras(f.definicion) > 25) return `La definición de "${f.termino}" supera las 25 palabras.`;
+    if (contarPalabras(f.pista) > 10) return `La pista de "${f.termino}" supera las 10 palabras.`;
+    return null;
+  }
+
+  async function generarGlosarioConIA() {
+    const cantidad = await pedirCantidadIA();
+    if (!cantidad) return;
+
+    let propuestas;
+    ui.cargando(true);
+    try {
+      propuestas = await api.ia('generar-glosario', { temaId, cantidad });
+    } catch (error) {
+      ui.aviso(error.message || 'No se pudo generar el glosario con IA.', 'error');
+      return;
+    } finally {
+      ui.cargando(false);
+    }
+
+    let filas = prepararPropuestas(Array.isArray(propuestas) ? propuestas : []);
+    if (!filas.length) {
+      ui.aviso('La IA no devolvió términos. Intenta de nuevo.', 'error');
+      return;
+    }
+
+    // Si algo no cumple las reglas, se vuelve a mostrar la tabla con lo que el docente ya había editado.
+    while (true) {
+      const revisadas = await revisarPropuestas(filas);
+      if (!revisadas) return;
+      filas = revisadas;
+      const elegidas = filas.filter((f) => f.marcado);
+      if (!elegidas.length) {
+        ui.aviso('No seleccionaste ningún término.', 'info');
+        continue;
+      }
+      const problema = elegidas.map(errorDePropuesta).find(Boolean);
+      if (problema) {
+        ui.aviso(problema, 'error');
+        continue;
+      }
+      break;
+    }
+
+    // Se vuelve a comprobar contra el glosario actual por si cambió mientras se revisaba.
+    const existentes = new Set(listaGlosario.map((g) => util.normalizar(g.termino || '')));
+    let creados = 0;
+    let omitidos = 0;
+    ui.cargando(true);
+    try {
+      for (const f of filas.filter((x) => x.marcado)) {
+        const clave = util.normalizar(f.termino);
+        if (existentes.has(clave)) {
+          omitidos++;
+          continue;
+        }
+        await api.crear('glosario', {
+          temaId,
+          termino: f.termino,
+          definicion: f.definicion,
+          pista: f.pista,
+          retroalimentacion: f.retroalimentacion,
+          origen: 'ia',
+          estado: 'aprobado'
+        });
+        existentes.add(clave);
+        creados++;
+      }
+      ui.aviso(
+        `${creados} término(s) aprobado(s) desde la IA.${omitidos ? ` ${omitidos} omitido(s) por estar repetidos.` : ''}`,
+        creados ? 'exito' : 'info'
+      );
+    } catch (error) {
+      ui.aviso(error.message || 'No se pudieron guardar todos los términos.', 'error');
+    } finally {
+      poblarGlosario(await api.listar('glosario', { temaId }));
+      ui.cargando(false);
+    }
+  }
+
+  document.getElementById('btn-generar-ia').addEventListener('click', generarGlosarioConIA);
 
   // Iniciar carga
   cargarDatos();
