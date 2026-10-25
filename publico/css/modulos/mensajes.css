@@ -208,12 +208,44 @@
   text-decoration: underline;
 }
 
-.burbuja__hora {
-  display: block;
+.burbuja__pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espacio-s);
   margin-top: 2px;
+}
+
+.burbuja__hora {
+  margin-left: auto;
   font-size: var(--texto-xs);
   text-align: right;
   opacity: 0.75;
+}
+
+.burbuja__reportar {
+  font: inherit;
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.burbuja__reportar:hover,
+.burbuja__reportar:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.mensajes-chat__bloquear {
+  margin-left: auto;
+}
+
+.mensajes-chat__bloquear[hidden] {
+  display: none;
 }
 
 .mensajes-anteriores {

@@ -125,6 +125,9 @@ async function cargarLista({ silencioso = true } = {}) {
 function pintarCabeceraChat() {
   if (!abierta) return;
   por('chatTitulo').innerHTML = `${ui.escapar(nombreDe(abierta.otro))} ${abierta.otro.rol ? `<span class="insignia insignia--info">${ui.escapar(ROL[abierta.otro.rol] || abierta.otro.rol)}</span>` : ''}`;
+  const btnBloqueo = por('btnBloquear');
+  btnBloqueo.hidden = abierta.otro.rol === 'admin'; // a un administrador no se le puede bloquear
+  btnBloqueo.textContent = abierta.bloqueadoPorMi ? 'Desbloquear' : 'Bloquear';
   const form = por('formMensaje');
   const texto = por('textoMensaje');
   const bloqueado = abierta.sinEnvio;
@@ -145,10 +148,14 @@ function pintarMensajes({ conservarPosicion = false, alFinal = true } = {}) {
       html += `<div class="mensajes-dia">${ui.escapar(etiquetaDia(m.fecha))}</div>`;
       diaPrevio = m.fecha;
     }
+    const mio = m.autorId === yo.id;
     html += `
-      <div class="burbuja ${m.autorId === yo.id ? 'burbuja--mia' : ''}" data-id="${ui.escapar(m.id)}">
+      <div class="burbuja ${mio ? 'burbuja--mia' : ''}" data-id="${ui.escapar(m.id)}">
         <div class="burbuja__texto">${textoConEnlaces(m.texto)}</div>
-        <time class="burbuja__hora" datetime="${ui.escapar(m.fecha)}">${ui.escapar(hora(m.fecha))}</time>
+        <div class="burbuja__pie">
+          ${mio ? '' : '<button type="button" class="burbuja__reportar" data-reportar aria-label="Reportar este mensaje">🚩 Reportar</button>'}
+          <time class="burbuja__hora" datetime="${ui.escapar(m.fecha)}">${ui.escapar(hora(m.fecha))}</time>
+        </div>
       </div>`;
   }
   if (!mensajes.length) html += '<p class="mensajes-sin-chat">Aún no hay mensajes. ¡Escribe el primero!</p>';
@@ -285,6 +292,108 @@ async function enviar(e) {
 }
 
 // ----------------------------------------------------
+// BLOQUEAR, REPORTAR Y MENSAJE AL CURSO
+// ----------------------------------------------------
+
+async function alternarBloqueo() {
+  if (!abierta) return;
+  const bloquear = !abierta.bloqueadoPorMi;
+  const nombre = nombreDe(abierta.otro);
+  if (bloquear && !(await ui.confirmar(`¿Bloquear a ${nombre}? Ninguno de los dos podrá escribirle al otro hasta que lo desbloquees.`))) return;
+  try {
+    if (bloquear) await api.llamar('POST', '/api/mensajes/bloquear', { usuarioId: abierta.otro.id });
+    else await api.llamar('DELETE', `/api/mensajes/bloquear/${encodeURIComponent(abierta.otro.id)}`);
+    const datos = await api.llamar('GET', `/api/mensajes/${abierta.id}`);
+    abierta = { ...abierta, bloqueadoPorMi: datos.conversacion.bloqueadoPorMi, sinEnvio: datos.conversacion.sinEnvio };
+    pintarCabeceraChat();
+    cargarLista();
+    ui.aviso(bloquear ? `Bloqueaste a ${nombre}.` : `Desbloqueaste a ${nombre}.`, 'exito');
+  } catch (error) {
+    ui.aviso(error.message || 'No se pudo cambiar el bloqueo.', 'error');
+  }
+}
+
+// Pide un texto en una ventana con contador; devuelve null si se cancela.
+async function pedirTexto({ titulo, etiqueta, boton, min, max, extra = null }) {
+  const form = document.createElement('form');
+  form.innerHTML = `
+    ${extra ? `<div class="campo">${extra}</div>` : ''}
+    <div class="campo">
+      <label for="textoPedido">${ui.escapar(etiqueta)}</label>
+      <textarea id="textoPedido" rows="5" maxlength="${max}" style="width: 100%; font: inherit;"></textarea>
+      <div class="mensajes-form__pie"><span></span><span><span id="contadorPedido">0</span> / ${max}</span></div>
+    </div>`;
+  form.addEventListener('submit', (ev) => ev.preventDefault());
+  const area = form.querySelector('#textoPedido');
+  area.addEventListener('input', () => { form.querySelector('#contadorPedido').textContent = area.value.length; });
+  while (true) {
+    const accion = await ui.modal({
+      titulo,
+      contenido: form,
+      acciones: [
+        { texto: 'Cancelar', valor: null, clase: 'btn--secundario' },
+        { texto: boton, valor: 'ok', clase: 'btn--primario' }
+      ]
+    });
+    if (accion !== 'ok') return null;
+    const texto = area.value.trim();
+    if (texto.length < min) { ui.aviso(min > 1 ? `Escribe al menos ${min} caracteres.` : 'Escribe el mensaje.', 'error'); continue; }
+    return { texto, form };
+  }
+}
+
+async function reportarMensaje(mensajeId) {
+  if (!abierta) return;
+  const pedido = await pedirTexto({ titulo: 'Reportar mensaje', etiqueta: '¿Por qué lo reportas?', boton: 'Enviar reporte', min: 3, max: 500 });
+  if (!pedido) return;
+  try {
+    await api.crear('reportes', { tipo: 'mensaje', referenciaId: `${abierta.id}/${mensajeId}`, motivo: pedido.texto });
+    ui.aviso('Gracias: el administrador revisará tu reporte.', 'exito');
+  } catch (error) {
+    ui.aviso(error.message || 'No se pudo enviar el reporte.', 'error');
+  }
+}
+
+async function mensajeAlCurso() {
+  let grupos;
+  ui.cargando(true);
+  try {
+    const [todos, asignaturas] = await Promise.all([api.listar('distributivo'), api.listar('asignaturas')]);
+    const nombres = new Map(asignaturas.map((a) => [a.id, a.nombre]));
+    grupos = todos.filter((g) => g.docenteId === yo.id).map((g) => ({
+      id: g.id,
+      etiqueta: `${nombres.get(g.asignaturaId) || 'Asignatura'} · ${g.paralelo || ''} ${g.periodo || ''}`.trim(),
+      estudiantes: (g.estudiantes || []).length
+    }));
+  } catch (error) {
+    ui.aviso(error.message || 'No se pudieron cargar tus grupos.', 'error');
+    return;
+  } finally {
+    ui.cargando(false);
+  }
+  if (!grupos.length) return ui.aviso('No tienes grupos asignados.', 'info');
+
+  const selector = `
+    <label for="grupoCurso">Grupo</label>
+    <select id="grupoCurso" style="width: 100%; font: inherit;">
+      ${grupos.map((g) => `<option value="${ui.escapar(g.id)}">${ui.escapar(g.etiqueta)} (${g.estudiantes} estudiante${g.estudiantes === 1 ? '' : 's'})</option>`).join('')}
+    </select>`;
+  const pedido = await pedirTexto({ titulo: 'Mensaje al curso', etiqueta: 'Mensaje (se envía a cada estudiante por separado)', boton: 'Enviar a todos', min: 1, max: MAX_TEXTO, extra: selector });
+  if (!pedido) return;
+
+  ui.cargando(true);
+  try {
+    const r = await api.llamar('POST', '/api/mensajes/difusion', { grupoId: pedido.form.querySelector('#grupoCurso').value, texto: pedido.texto });
+    ui.aviso(`Mensaje enviado a ${r.enviados} estudiante${r.enviados === 1 ? '' : 's'}${r.omitidos ? ` (${r.omitidos} omitido${r.omitidos === 1 ? '' : 's'}: bloqueos o cuentas inactivas)` : ''}.`, r.enviados ? 'exito' : 'info');
+    await cargarLista();
+  } catch (error) {
+    ui.aviso(error.message || 'No se pudo enviar el mensaje al curso.', 'error');
+  } finally {
+    ui.cargando(false);
+  }
+}
+
+// ----------------------------------------------------
 // NUEVA CONVERSACIÓN
 // ----------------------------------------------------
 
@@ -352,6 +461,7 @@ function pintarPagina() {
             <h1 style="margin: 0; font-size: var(--texto-l); color: var(--color-primario);">Mensajes</h1>
             <button type="button" id="btnNueva" class="btn btn--primario btn--pequeno">+ Nueva</button>
           </div>
+          ${yo.rol === 'docente' ? '<button type="button" id="btnCurso" class="btn btn--secundario btn--pequeno">📣 Mensaje al curso</button>' : ''}
           <label for="buscarConversacion" class="sr-only">Buscar conversación</label>
           <input type="search" id="buscarConversacion" placeholder="Buscar conversación" autocomplete="off">
         </div>
@@ -364,6 +474,7 @@ function pintarPagina() {
           <header class="mensajes-chat__cabecera">
             <button type="button" id="btnVolver" class="btn btn--texto btn--pequeno mensajes-volver" aria-label="Volver a la lista de conversaciones">← Volver</button>
             <div class="mensajes-chat__titulo" id="chatTitulo"></div>
+            <button type="button" id="btnBloquear" class="btn btn--texto btn--pequeno mensajes-chat__bloquear">Bloquear</button>
           </header>
           <div class="mensajes-hilo" id="chatMensajes" role="log" aria-live="polite" aria-label="Mensajes de la conversación" tabindex="0"></div>
           <button type="button" id="btnNuevos" class="btn btn--primario btn--pequeno mensajes-nuevos" hidden>↓ Mensajes nuevos</button>
@@ -384,6 +495,12 @@ function pintarPagina() {
     </div>`;
 
   por('btnNueva').addEventListener('click', nuevaConversacion);
+  por('btnCurso')?.addEventListener('click', mensajeAlCurso);
+  por('btnBloquear').addEventListener('click', alternarBloqueo);
+  por('chatMensajes').addEventListener('click', (e) => {
+    const boton = e.target.closest('[data-reportar]');
+    if (boton) reportarMensaje(boton.closest('.burbuja').dataset.id);
+  });
   por('buscarConversacion').addEventListener('input', (e) => { filtro = e.target.value; pintarLista(); });
   por('conversaciones').addEventListener('click', (e) => {
     const boton = e.target.closest('[data-conv]');
