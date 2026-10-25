@@ -1123,3 +1123,171 @@ dialog.modal::backdrop {
     width: auto;
   }
 }
+
+/* Avatar guía (P11.3): personaje en SVG, globo de texto y estados reposo / hablando / pensando / celebrando */
+.avatar-guia {
+  position: fixed;
+  right: var(--espacio-m);
+  bottom: var(--espacio-m);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--espacio-xs);
+  pointer-events: none;
+}
+
+.avatar-guia[hidden],
+.avatar-guia__mostrar[hidden],
+.avatar-guia__globo[hidden] {
+  display: none;
+}
+
+.avatar-guia > * {
+  pointer-events: auto;
+}
+
+.avatar-guia__globo {
+  position: relative;
+  max-width: min(16rem, 70vw);
+  padding: var(--espacio-s) var(--espacio-m);
+  font-size: var(--texto-s);
+  line-height: 1.4;
+  color: var(--color-texto);
+  background-color: var(--color-superficie);
+  border: 2px solid var(--color-primario);
+  border-radius: var(--radio-m);
+  box-shadow: var(--sombra-2);
+}
+
+.avatar-guia__globo::after {
+  content: "";
+  position: absolute;
+  right: 2rem;
+  bottom: -0.6rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  background-color: var(--color-superficie);
+  border-right: 2px solid var(--color-primario);
+  border-bottom: 2px solid var(--color-primario);
+  transform: rotate(45deg);
+}
+
+.avatar-guia__personaje {
+  width: 5.5rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radio-m);
+  cursor: pointer;
+}
+
+.avatar-guia__personaje:focus-visible,
+.avatar-guia__boton:focus-visible,
+.avatar-guia__mostrar:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.avatar-guia__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.avatar-guia__botones {
+  display: flex;
+  gap: var(--espacio-xs);
+}
+
+.avatar-guia__boton,
+.avatar-guia__mostrar {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  font: inherit;
+  font-size: var(--texto-m);
+  line-height: 1;
+  color: var(--color-texto-inverso);
+  background-color: var(--color-primario);
+  border: 2px solid var(--color-superficie);
+  border-radius: var(--radio-completo);
+  box-shadow: var(--sombra-1);
+  cursor: pointer;
+}
+
+.avatar-guia__boton:hover,
+.avatar-guia__mostrar:hover {
+  background-color: var(--color-primario-oscuro);
+}
+
+.avatar-guia__mostrar {
+  position: fixed;
+  right: var(--espacio-m);
+  bottom: var(--espacio-m);
+  z-index: 90;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+/* Piezas del personaje (colores de tokens.css) */
+.avatar-guia .av-cuerpo { fill: var(--color-primario); }
+.avatar-guia .av-panza { fill: var(--color-superficie); }
+.avatar-guia .av-ojo-fondo { fill: var(--color-superficie); stroke: var(--color-acento); stroke-width: 3; }
+.avatar-guia .av-pupila { fill: var(--color-primario-oscuro); }
+.avatar-guia .av-pico, .avatar-guia .av-pata, .avatar-guia .av-bombilla { fill: var(--color-acento); }
+.avatar-guia .av-boca { fill: var(--color-primario-oscuro); }
+.avatar-guia .av-ceja, .avatar-guia .av-antena { fill: none; stroke: var(--color-acento); stroke-width: 4; stroke-linecap: round; }
+.avatar-guia .av-antena { stroke: var(--color-secundario); stroke-width: 3; }
+.avatar-guia .av-brazo { fill: none; stroke: var(--color-secundario); stroke-width: 9; stroke-linecap: round; }
+
+/* Movimiento: todo se logra con clases de estado */
+.avatar-guia .av-cuerpo-g,
+.avatar-guia .av-brazo,
+.avatar-guia .av-pupila,
+.avatar-guia .av-boca,
+.avatar-guia .av-bombilla {
+  transition: transform 0.25s ease;
+}
+
+.avatar-guia--reposo .av-cuerpo-g { animation: av-flotar 3.5s ease-in-out infinite; }
+.avatar-guia--reposo .av-pupila { animation: av-parpadeo 5s infinite; transform-origin: center; transform-box: fill-box; }
+
+.avatar-guia--hablando .av-boca { animation: av-hablar 0.28s ease-in-out infinite alternate; transform-origin: center; transform-box: fill-box; }
+.avatar-guia--hablando .av-brazo--der { animation: av-saludar 0.7s ease-in-out infinite alternate; transform-origin: 94px 82px; }
+
+.avatar-guia--pensando .av-pupila { transform: translate(-3px, -5px); }
+.avatar-guia--pensando .av-brazo--der { transform: rotate(-70deg); transform-origin: 94px 82px; }
+.avatar-guia--pensando .av-bombilla { animation: av-pulso 1s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+.avatar-guia--celebrando .av-cuerpo-g { animation: av-saltar 0.45s ease-in-out infinite alternate; }
+.avatar-guia--celebrando .av-brazo--izq { transform: rotate(75deg); transform-origin: 26px 82px; }
+.avatar-guia--celebrando .av-brazo--der { transform: rotate(-75deg); transform-origin: 94px 82px; }
+.avatar-guia--celebrando .av-boca { transform: scale(2, 5); transform-origin: center; transform-box: fill-box; }
+
+@keyframes av-flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes av-parpadeo { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes av-hablar { from { transform: scale(1, 1); } to { transform: scale(1.4, 4.5); } }
+@keyframes av-saludar { from { transform: rotate(0); } to { transform: rotate(-22deg); } }
+@keyframes av-pulso { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.3); } }
+@keyframes av-saltar { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+
+/* Sin movimiento: se conservan las poses de cada estado, sin animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .avatar-guia .av-cuerpo-g,
+  .avatar-guia .av-brazo,
+  .avatar-guia .av-pupila,
+  .avatar-guia .av-boca,
+  .avatar-guia .av-bombilla {
+    animation: none !important;
+    transition: none;
+  }
+
+  .avatar-guia--hablando .av-boca { transform: scale(1.4, 4); transform-origin: center; transform-box: fill-box; }
+}
+
+@media (max-width: 600px) {
+  .avatar-guia__personaje { width: 4.25rem; }
+  .avatar-guia { right: var(--espacio-s); bottom: var(--espacio-s); }
+  .avatar-guia__mostrar { right: var(--espacio-s); bottom: var(--espacio-s); }
+}

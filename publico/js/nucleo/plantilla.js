@@ -8,6 +8,7 @@ import * as api from './api.js';
 import * as ui from './ui.js';
 import { logrosDe } from './gamificacion.js';
 import { montarCampana } from './notificaciones.js';
+import { montarAvatar, decir } from './avatar.js';
 
 export const NOMBRE = 'Ecosistema Educativo';
 
@@ -224,6 +225,15 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
           cerrarMenu();
         }
       });
+    }
+
+    // Avatar guía: las páginas que lo piden marcan un elemento con data-avatar y el texto en data-avatar-texto
+    // (o, como atajo, el propio texto como valor de data-avatar).
+    const marcaAvatar = document.querySelector('[data-avatar]');
+    if (tieneSesion && marcaAvatar) {
+      montarAvatar();
+      const valor = marcaAvatar.dataset.avatar;
+      decir(marcaAvatar.dataset.avatarTexto || (valor && valor !== 'instrucciones' ? valor : ''));
     }
 
     // Pie con el año al final del body

@@ -3,6 +3,7 @@
 
 import * as api from './api.js';
 import * as ui from './ui.js';
+import { hayAvatar, cambiarEstado, estadoAvatar } from './avatar.js';
 
 /**
  * Registra un intento de actividad pedagógica, procesa los logros y muestra las celebraciones
@@ -32,6 +33,11 @@ export async function mostrarLogros(resultado) {
 
   // 3. Modal de celebración por cada insignia nueva
   if (Array.isArray(resultado.insigniasNuevas) && resultado.insigniasNuevas.length > 0) {
+    // El avatar celebra durante 3 segundos (si la página lo tiene), mientras se muestran las insignias.
+    if (hayAvatar()) {
+      cambiarEstado('celebrando');
+      setTimeout(() => { if (estadoAvatar() === 'celebrando') cambiarEstado('reposo'); }, 3000);
+    }
     for (const ins of resultado.insigniasNuevas) {
       if (!ins) continue;
       const contenedor = document.createElement('div');

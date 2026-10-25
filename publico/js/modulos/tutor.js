@@ -6,6 +6,7 @@ import * as api from '../nucleo/api.js';
 import * as ui from '../nucleo/ui.js';
 import * as util from '../nucleo/util.js';
 import { obtenerTemaActividad } from '../nucleo/selector-tema.js';
+import { cambiarEstado, decir } from '../nucleo/avatar.js';
 
 await montarPlantilla({ titulo: 'Tutor IA', roles: ['estudiante'] });
 
@@ -70,11 +71,15 @@ async function enviar(texto) {
   por('contadorTutor').textContent = '0';
   pintarHilo();
   actualizarControles();
+  cambiarEstado('pensando');
 
   try {
     const { respuesta } = await api.ia('tutor', { temaId: tema.id, historial: historial.slice(-MAX_HISTORIAL) });
     historial.push({ rol: 'tutor', texto: respuesta });
+    // "hablando" mientras responde; solo se lee en voz alta si la voz está activa (el texto ya está en el chat).
+    decir(respuesta, { globo: false });
   } catch (error) {
+    cambiarEstado('reposo');
     // Se quita la pregunta que no se pudo contestar y se devuelve al campo para reintentar.
     historial.pop();
     if (/l[ií]mite diario/i.test(error.message || '')) {
