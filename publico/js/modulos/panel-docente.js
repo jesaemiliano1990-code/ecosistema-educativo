@@ -161,6 +161,7 @@ async function iniciarPanelDocente() {
     let columnaOrden = 'nombre';
     let direccionOrden = 'asc';
     let instanciaGraficoTema = null;
+    let instanciaGraficoTutor = null;
 
     /**
      * Carga y renderiza el resumen del grupo seleccionado
@@ -235,6 +236,15 @@ async function iniciarPanelDocente() {
               </table>
             </div>
           </section>
+
+          <!-- 3. Uso del tutor IA (solo conteos, sin textos de conversaciones) -->
+          <section class="seccion-grafico-tema" aria-labelledby="tituloTutor" id="seccionTutor">
+            <div class="seccion-grafico-tema__header">
+              <h2 id="tituloTutor">Uso del tutor</h2>
+              <p>Mensajes enviados al tutor IA. No se muestran los textos de las conversaciones.</p>
+            </div>
+            <div id="cuerpoTutor" aria-live="polite"><p class="texto-suave">Cargando uso del tutor...</p></div>
+          </section>
         `;
 
         // Renderizar filas de la tabla
@@ -266,6 +276,7 @@ async function iniciarPanelDocente() {
         if (Array.isArray(resumen?.porTema) && resumen.porTema.length > 0) {
           await renderizarGraficoTema(resumen.porTema);
         }
+        await cargarUsoTutor(grupoId);
       } catch (error) {
         console.error('Error al cargar datos del grupo:', error);
         contenedorGrupo.innerHTML = `
@@ -275,6 +286,73 @@ async function iniciarPanelDocente() {
             <p class="vacio__texto">${ui.escapar(error.message || 'Error al obtener la información del grupo.')}</p>
           </div>
         `;
+      }
+    }
+
+    /**
+     * Carga y dibuja el uso del tutor: top 5 de temas (barras horizontales) y consultas por estudiante
+     * @param {string} grupoId
+     */
+    async function cargarUsoTutor(grupoId) {
+      const cuerpo = document.getElementById('cuerpoTutor');
+      if (!cuerpo) return;
+      if (instanciaGraficoTutor) {
+        instanciaGraficoTutor.destroy();
+        instanciaGraficoTutor = null;
+      }
+      try {
+        const uso = await api.llamar('GET', `/api/resumen/tutor/${encodeURIComponent(grupoId)}`);
+        if (!cuerpo.isConnected) return; // se cambió de grupo mientras cargaba
+        const temas = (Array.isArray(uso?.porTema) ? uso.porTema : []).slice(0, 5);
+        const estudiantes = Array.isArray(uso?.porEstudiante) ? uso.porEstudiante : [];
+        if (!temas.length) {
+          cuerpo.innerHTML = `
+            <div class="vacio">
+              <span class="vacio__icono" aria-hidden="true">🧠</span>
+              <h3 class="vacio__titulo">Sin consultas al tutor</h3>
+              <p class="vacio__texto">Aún ningún estudiante de este grupo ha conversado con el tutor.</p>
+            </div>`;
+          return;
+        }
+        cuerpo.innerHTML = `
+          <h3 class="texto-suave" style="font-size: var(--texto-s);">Temas más consultados (5 primeros)</h3>
+          <div class="grafico-canvas-container">
+            <canvas id="graficoTutor" aria-label="Gráfico de barras horizontales con los temas más consultados al tutor" role="img"></canvas>
+          </div>
+          <h3 class="texto-suave" style="font-size: var(--texto-s);">Consultas por estudiante</h3>
+          <div class="tabla-wrapper">
+            <table class="tabla-estudiantes" aria-label="Consultas al tutor por estudiante">
+              <thead><tr><th scope="col">Estudiante</th><th scope="col" style="text-align: right;">Mensajes al tutor</th></tr></thead>
+              <tbody>${estudiantes.map(e => `<tr><td>${ui.escapar(e.nombre)}</td><td style="text-align: right;">${Number(e.consultas) || 0}</td></tr>`).join('')}</tbody>
+            </table>
+          </div>`;
+
+        const ChartCls = await asegurarChartJS();
+        const canvas = document.getElementById('graficoTutor');
+        if (!ChartCls || !canvas) return;
+        const colores = obtenerColoresTema();
+        const fuente = { family: "'Poppins', Arial, sans-serif", size: 12 };
+        instanciaGraficoTutor = new ChartCls(canvas, {
+          type: 'bar',
+          data: {
+            labels: temas.map(t => t.titulo || t.temaId),
+            datasets: [{ label: 'Mensajes', data: temas.map(t => t.consultas), backgroundColor: colores.primario, borderRadius: 6, borderSkipped: false }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 600 },
+            scales: {
+              x: { beginAtZero: true, ticks: { precision: 0, color: colores.texto, font: fuente }, grid: { color: colores.borde } },
+              y: { ticks: { color: colores.texto, font: fuente }, grid: { display: false } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      } catch (error) {
+        console.warn('Error al cargar el uso del tutor:', error);
+        if (cuerpo.isConnected) cuerpo.innerHTML = `<p class="texto-suave" role="alert">No se pudo cargar el uso del tutor: ${ui.escapar(error.message || 'error desconocido')}</p>`;
       }
     }
 
