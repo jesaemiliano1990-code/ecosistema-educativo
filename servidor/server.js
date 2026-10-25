@@ -14,6 +14,35 @@ dotenv.config();
 const app = express();
 const PUERTO = process.env.PUERTO || 3000;
 
+app.disable('x-powered-by');
+
+// Cabeceras básicas de seguridad para todas las respuestas
+app.use((req, res, next) => {
+  res.set({
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'SAMEORIGIN',
+    'Referrer-Policy': 'strict-origin-when-cross-origin'
+  });
+  next();
+});
+
+// Quita datos secretos de un registro antes de enviarlo al navegador
+function paraCliente(col, registro) {
+  if (col === 'usuarios' && registro && typeof registro === 'object') {
+    const { claveHash, ...resto } = registro;
+    return resto;
+  }
+  return registro;
+}
+
+// Un registro es visible si su gancho puedeVer lo permite; si no existe, vale el mismo filtro que la lista.
+async function esVisible(col, registro, usuario) {
+  const r = await aplicar(col, 'puedeVer', registro, usuario);
+  if (r === true || r === false) return r;
+  const lista = await aplicar(col, 'filtrarLista', [registro], usuario);
+  return Array.isArray(lista) ? lista.length > 0 : true;
+}
+
 // Servir archivos estáticos de publico/
 app.use(express.static(path.resolve('publico')));
 
@@ -85,6 +114,10 @@ app.get('/api/:col', async (req, res, next) => {
 app.get('/api/:col/:id', async (req, res, next) => {
   try {
     const { col, id } = req.params;
+    // Primero el permiso de la colección: así no se revela qué registros existen en colecciones prohibidas.
+    if (!(await puede(req.usuario, 'leer', col))) {
+      return res.status(403).json({ error: 'Acceso no autorizado' });
+    }
     const lista = await almacen.leer(col);
     const registro = lista.find(r => r && r.id === id);
 
@@ -97,12 +130,12 @@ app.get('/api/:col/:id', async (req, res, next) => {
       return res.status(403).json({ error: 'Acceso no autorizado' });
     }
 
-    // Gancho opcional: una colección puede ocultar un registro concreto (p. ej., contenido oculto o de otra asignatura).
-    if ((await aplicar(col, 'puedeVer', registro, req.usuario)) === false) {
+    // Un registro se ve igual que en la lista: gancho puedeVer o, si no hay, el filtro de la lista.
+    if (!(await esVisible(col, registro, req.usuario))) {
       return res.status(404).json({ error: 'Registro no encontrado' });
     }
 
-    res.json(registro);
+    res.json(paraCliente(col, registro));
   } catch (error) {
     next(error);
   }
@@ -121,7 +154,7 @@ app.post('/api/:col', async (req, res, next) => {
     const nuevo = await almacen.agregar(col, datos);
     await aplicar(col, 'despuesDeGuardar', nuevo, req.usuario, null);
 
-    res.status(201).json(nuevo);
+    res.status(201).json(paraCliente(col, nuevo));
   } catch (error) {
     next(error);
   }
@@ -131,6 +164,9 @@ app.post('/api/:col', async (req, res, next) => {
 app.put('/api/:col/:id', async (req, res, next) => {
   try {
     const { col, id } = req.params;
+    if (!(await puede(req.usuario, 'escribir', col))) {
+      return res.status(403).json({ error: 'Acceso no autorizado' });
+    }
     const lista = await almacen.leer(col);
     const anterior = lista.find(r => r && r.id === id);
 
@@ -147,7 +183,7 @@ app.put('/api/:col/:id', async (req, res, next) => {
     const actualizado = await almacen.actualizar(col, id, cambios);
     await aplicar(col, 'despuesDeGuardar', actualizado, req.usuario, anterior);
 
-    res.json(actualizado);
+    res.json(paraCliente(col, actualizado));
   } catch (error) {
     next(error);
   }
@@ -157,6 +193,9 @@ app.put('/api/:col/:id', async (req, res, next) => {
 app.delete('/api/:col/:id', async (req, res, next) => {
   try {
     const { col, id } = req.params;
+    if (!(await puede(req.usuario, 'escribir', col))) {
+      return res.status(403).json({ error: 'Acceso no autorizado' });
+    }
     const lista = await almacen.leer(col);
     const anterior = lista.find(r => r && r.id === id);
 
@@ -185,6 +224,11 @@ app.use((err, req, res, next) => {
     ? err.estado
     : (typeof err.status === 'number' ? err.status : 500);
 
+  // Los errores inesperados (sin estado) no muestran detalles internos al navegador.
+  if (estado >= 500 && typeof err.estado !== 'number') {
+    console.error('Error interno:', err);
+    return res.status(500).json({ error: 'Error interno del servidor' });
+  }
   res.status(estado).json({ error: err.message || 'Error interno del servidor' });
 });
 

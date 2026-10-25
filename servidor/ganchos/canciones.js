@@ -64,7 +64,8 @@ export async function antesDeGuardar(datos, usuario, anterior) {
     throw error;
   }
 
-  const permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  let permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  if (permitido && anterior) permitido = await puedeEditarAsignatura(usuario, await asignaturaDeTema(anterior.temaId));
   if (!permitido) {
     const error = new Error('No tienes permiso para gestionar canciones en esta asignatura');
     error.estado = 403;

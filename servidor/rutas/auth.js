@@ -116,8 +116,6 @@ router.post('/auth/login', async (req, res, next) => {
       const c = u.correo.toLowerCase();
       if (c === correoNorm) return true;
       if (Array.isArray(u.correosAlternativos) && u.correosAlternativos.some(alt => (alt || '').toLowerCase() === correoNorm)) return true;
-      if ((correoNorm === 'profesor1@unemi.edu.ec' || correoNorm === 'profesor1@demo.ec') && (c === 'docente1@demo.ec' || c === 'profesor1@unemi.edu.ec')) return true;
-      if ((correoNorm === 'estudiante1@unemi.edu.ec' || correoNorm === 'estudiante1@demo.ec') && (c === 'estudiante1@demo.ec' || c === 'estudiante1@unemi.edu.ec')) return true;
       return false;
     });
 
@@ -126,17 +124,8 @@ router.post('/auth/login', async (req, res, next) => {
       return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
     }
 
-    let coincide = usuario.claveHash ? await bcrypt.compare(clave, usuario.claveHash) : false;
-    if (!coincide) {
-      if (
-        clave === 'Demo12345' ||
-        (clave === 'Profesor1*' && usuario.rol === 'docente') ||
-        (clave === 'Estudiante1*' && usuario.rol === 'estudiante') ||
-        (clave === 'Admin12345*' && usuario.rol === 'admin')
-      ) {
-        coincide = true;
-      }
-    }
+    // Solo vale la clave guardada (hash); no hay claves por defecto.
+    const coincide = typeof clave === 'string' && usuario.claveHash ? await bcrypt.compare(clave, usuario.claveHash) : false;
 
     if (!coincide) {
       registrarFallo(correoNorm);
@@ -247,7 +236,11 @@ router.put('/auth/perfil', exigirRol(), async (req, res, next) => {
     }
 
     if (foto !== undefined) {
-      cambios.foto = foto;
+      // Solo una ruta de la plataforma (p. ej., una subida) o una dirección https; vacío quita la foto.
+      if (foto !== null && foto !== '' && !(typeof foto === 'string' && foto.length <= 300 && /^(https:\/\/|\/(?!\/))/i.test(foto))) {
+        return res.status(400).json({ error: 'La foto debe ser una imagen subida a la plataforma' });
+      }
+      cambios.foto = foto || null;
     }
 
     const actualizado = await almacen.actualizar('usuarios', req.usuario.id, cambios);

@@ -47,7 +47,12 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   const unidad = unidades.find(u => u && u.id === unidadId);
   const asignaturaId = unidad?.asignaturaId;
 
-  const permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  let permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  if (permitido && anterior) {
+    // También debe poder editar la asignatura de origen del tema.
+    const origen = unidades.find(u => u && u.id === anterior.unidadId);
+    permitido = await puedeEditarAsignatura(usuario, origen?.asignaturaId);
+  }
   if (!permitido) {
     const error = new Error('No tienes permiso para editar temas de esta asignatura');
     error.estado = 403;

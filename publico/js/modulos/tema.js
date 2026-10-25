@@ -114,10 +114,21 @@ if (!temaId) {
   const contenedorActividades = document.getElementById('contenedorActividades');
 
   // Función para incrustar recursos: YouTube/Vimeo en iframes, PDF en enlaces, imágenes con alt
+  // Solo se enlazan direcciones http(s) o rutas de la plataforma: un "javascript:" cargado por error o con mala fe no se ejecuta.
+  const esUrlSegura = (valor) => /^(https?:\/\/|\/(?!\/))/i.test(valor);
+
   function renderizarRecurso(rec) {
     const url = rec.url || '';
     const titulo = rec.titulo || 'Recurso educativo';
     const tipo = rec.tipo || '';
+
+    if (!esUrlSegura(url)) {
+      return `
+        <article class="recurso-item">
+          <h3 class="recurso-item__titulo">${ui.escapar(titulo)}</h3>
+          <p class="texto-suave">Este recurso tiene una dirección no válida. Avisa a tu docente.</p>
+        </article>`;
+    }
 
     // Detección de video YouTube (múltiples formatos de URL)
     const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]+)/i);

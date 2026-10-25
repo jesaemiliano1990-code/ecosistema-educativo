@@ -23,8 +23,13 @@ export async function filtrarLista(lista, usuario) {
 }
 
 export async function antesDeGuardar(datos, usuario, anterior) {
-  // Fija usuarioId = usuario.id
-  const usuarioId = usuario ? usuario.id : datos.usuarioId;
+  // El dueño es quien envía la petición; nadie edita el progreso de otra persona (solo un admin).
+  if (anterior && usuario?.rol !== 'admin' && anterior.usuarioId !== usuario?.id) {
+    const error = new Error('Registro no encontrado');
+    error.estado = 404;
+    throw error;
+  }
+  const usuarioId = anterior ? anterior.usuarioId : (usuario ? usuario.id : datos.usuarioId);
   const temaId = datos.temaId || anterior?.temaId;
 
   if (!usuarioId) {
@@ -49,11 +54,8 @@ export async function antesDeGuardar(datos, usuario, anterior) {
     throw error;
   }
 
-  return {
-    ...datos,
-    usuarioId,
-    temaId
-  };
+  // Lista blanca: solo el tema y el dueño.
+  return { usuarioId, temaId };
 }
 
 // El progreso solo lo borra su dueño (o un admin): un estudiante no toca el avance de otro.

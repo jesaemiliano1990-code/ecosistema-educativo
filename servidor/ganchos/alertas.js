@@ -56,7 +56,10 @@ export async function antesDeGuardar(datos, usuario, anterior) {
     };
   }
 
-  return datos;
+  // Las alertas las genera el servidor al evaluar las reglas; no se crean desde la API.
+  const error = new Error('Las alertas se generan automáticamente');
+  error.estado = 403;
+  throw error;
 }
 
 /**

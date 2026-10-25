@@ -1291,3 +1291,22 @@ dialog.modal::backdrop {
   .avatar-guia { right: var(--espacio-s); bottom: var(--espacio-s); }
   .avatar-guia__mostrar { right: var(--espacio-s); bottom: var(--espacio-s); }
 }
+
+/* Enlace "Saltar al contenido": solo se ve al recibir el foco con el teclado */
+.saltar-contenido {
+  position: absolute;
+  left: var(--espacio-m);
+  top: -4rem;
+  z-index: 200;
+  padding: var(--espacio-s) var(--espacio-m);
+  background: var(--color-superficie);
+  color: var(--color-primario);
+  border: 2px solid var(--color-foco);
+  border-radius: var(--radio-m);
+  font-weight: var(--peso-seminegrita);
+  text-decoration: none;
+}
+
+.saltar-contenido:focus {
+  top: var(--espacio-s);
+}

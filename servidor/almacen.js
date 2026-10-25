@@ -267,7 +267,14 @@ export async function leerLineas(archivo) {
       .split('\n')
       .map(l => l.trim())
       .filter(Boolean)
-      .map(l => JSON.parse(l));
+      .map(l => {
+        try {
+          return JSON.parse(l);
+        } catch {
+          return null; // línea incompleta (p. ej., corte de energía al escribir): se ignora
+        }
+      })
+      .filter(Boolean);
   } catch (error) {
     if (error.code === 'ENOENT') return [];
     throw error;

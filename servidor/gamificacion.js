@@ -7,6 +7,7 @@
 import * as almacen from './almacen.js';
 import { asignaturasDe, asignaturaDeTema } from './acceso.js';
 import { evaluarAlertas } from './alertas.js';
+import { filtrarLista as simulacionesVisibles } from './ganchos/simulaciones.js';
 
 // Control de intentos por hora en memoria por usuarioId
 const intentosPorUsuario = new Map();
@@ -81,6 +82,17 @@ export async function procesarIntento(usuario, datos) {
     }
   }
 
+  // 3b. Una simulación solo cuenta si existe, la persona puede verla y es de ese tema (si no, se inventarían ids para sumar puntos).
+  if (actividad === 'simulacion') {
+    const simId = datos.detalle?.simulacionId;
+    const sim = typeof simId === 'string' ? (await almacen.leer('simulaciones')).find(s => s && s.id === simId) : null;
+    if (!sim || (await simulacionesVisibles([sim], usuario)).length === 0 || sim.temaId !== datos.temaId) {
+      const error = new Error('La simulación indicada no existe o no está disponible');
+      error.estado = 400;
+      throw error;
+    }
+  }
+
   // 4. Límite de intentos por hora en memoria -> 429
   const limiteHora = typeof reglas.limiteIntentosHora === 'number' ? reglas.limiteIntentosHora : 60;
   const ahoraMs = Date.now();
@@ -98,7 +110,7 @@ export async function procesarIntento(usuario, datos) {
   const basePuntos = Number(puntosReglas[actividad]) || 0;
   let puntosCalculados = Math.round(basePuntos * (puntaje / maximo));
 
-  const errores = typeof datos.errores === 'number' ? datos.errores : 0;
+  const errores = typeof datos.errores === 'number' && Number.isFinite(datos.errores) ? Math.max(0, Math.min(1000, datos.errores)) : 0;
   const bonoSinErrores = Number(reglas.bonoSinErrores) || 0;
   // Las actividades de participación (p. ej., "foro") no reciben el bono de "sin errores".
   const sinBono = Array.isArray(reglas.sinBono) ? reglas.sinBono : [];
@@ -157,12 +169,13 @@ export async function procesarIntento(usuario, datos) {
     usuarioId: usuario.id,
     actividad,
     temaId: datos.temaId || null,
-    nivel: typeof datos.nivel !== 'undefined' ? datos.nivel : null,
+    nivel: Number.isInteger(datos.nivel) && datos.nivel >= 1 && datos.nivel <= 5 ? datos.nivel : null,
     puntaje,
     maximo,
     errores,
-    duracionSeg: typeof datos.duracionSeg === 'number' ? datos.duracionSeg : 0,
-    detalle: datos.detalle || {},
+    duracionSeg: typeof datos.duracionSeg === 'number' && Number.isFinite(datos.duracionSeg) ? Math.max(0, Math.min(86400, Math.round(datos.duracionSeg))) : 0,
+    // El detalle es libre pero acotado: un objeto de más de 4.000 caracteres no se guarda.
+    detalle: datos.detalle && typeof datos.detalle === 'object' && JSON.stringify(datos.detalle).length <= 4000 ? datos.detalle : {},
     puntos: puntosGanados
   };
 

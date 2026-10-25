@@ -237,8 +237,9 @@ router.post('/quiz/responder', async (req, res, next) => {
       const previa = sesion.respuestas?.[preguntaId];
       const correcto = previa ? previa.correcto : evaluarRespuesta(pregunta, respuesta);
       if (!previa) {
+        const guardada = typeof respuesta === 'string' ? respuesta.slice(0, 500) : respuesta;
         await almacen.actualizar('quiz-sesiones', sesion.id, {
-          respuestas: { ...sesion.respuestas, [preguntaId]: { respuesta, correcto } }
+          respuestas: { ...sesion.respuestas, [preguntaId]: { respuesta: guardada, correcto } }
         });
       }
       return { correcto, retroalimentacion: pregunta.retroalimentacion, correcta: textoCorrecta(pregunta) };

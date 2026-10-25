@@ -31,23 +31,23 @@ const puedeEditar = (p) => esMia(p) && Date.now() - new Date(p.fecha).getTime() 
 
 function menu(p, coleccion) {
   const esHilo = coleccion === 'foros-hilos';
-  const acciones = [`<button type="button" role="menuitem" data-accion="reportar">🚩 Reportar</button>`];
-  if (puedeEditar(p)) acciones.push(`<button type="button" role="menuitem" data-accion="editar">✏️ Editar</button>`);
+  const acciones = [`<button type="button" data-accion="reportar">🚩 Reportar</button>`];
+  if (puedeEditar(p)) acciones.push(`<button type="button" data-accion="editar">✏️ Editar</button>`);
   if (moderador) {
     if (esHilo) {
-      acciones.push(`<button type="button" role="menuitem" data-accion="fijar">${p.fijado ? '📌 Quitar fijado' : '📌 Fijar'}</button>`);
-      acciones.push(`<button type="button" role="menuitem" data-accion="cerrar">${p.cerrado ? '🔓 Abrir' : '🔒 Cerrar'}</button>`);
-      acciones.push(`<button type="button" role="menuitem" data-accion="ocultar">${p.oculto ? '👁️ Mostrar' : '🙈 Ocultar'}</button>`);
+      acciones.push(`<button type="button" data-accion="fijar">${p.fijado ? '📌 Quitar fijado' : '📌 Fijar'}</button>`);
+      acciones.push(`<button type="button" data-accion="cerrar">${p.cerrado ? '🔓 Abrir' : '🔒 Cerrar'}</button>`);
+      acciones.push(`<button type="button" data-accion="ocultar">${p.oculto ? '👁️ Mostrar' : '🙈 Ocultar'}</button>`);
     } else {
-      acciones.push(`<button type="button" role="menuitem" data-accion="destacar">${p.destacada ? '⭐ Quitar destacado' : '⭐ Destacar'}</button>`);
-      acciones.push(`<button type="button" role="menuitem" data-accion="ocultar">${p.oculta ? '👁️ Mostrar' : '🙈 Ocultar'}</button>`);
+      acciones.push(`<button type="button" data-accion="destacar">${p.destacada ? '⭐ Quitar destacado' : '⭐ Destacar'}</button>`);
+      acciones.push(`<button type="button" data-accion="ocultar">${p.oculta ? '👁️ Mostrar' : '🙈 Ocultar'}</button>`);
     }
-    acciones.push(`<button type="button" role="menuitem" class="foro-menu__peligro" data-accion="eliminar">🗑️ Eliminar</button>`);
+    acciones.push(`<button type="button" class="foro-menu__peligro" data-accion="eliminar">🗑️ Eliminar</button>`);
   }
   return `
     <details class="foro-menu">
       <summary aria-label="Opciones de la publicación">⋯</summary>
-      <div class="foro-menu__lista" role="menu">${acciones.join('')}</div>
+      <div class="foro-menu__lista">${acciones.join('')}</div>
     </details>`;
 }
 

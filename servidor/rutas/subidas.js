@@ -70,6 +70,7 @@ const upload = multer({
 
 // POST /subidas (y /api/subidas)
 router.post('/subidas', async (req, res, next) => {
+  if (!req.usuario) return res.status(401).json({ error: 'No autenticado' });
   upload(req, res, async (err) => {
     if (err) {
       if (err instanceof multer.MulterError) {

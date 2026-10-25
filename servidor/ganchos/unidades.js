@@ -24,7 +24,9 @@ export async function filtrarLista(lista, usuario) {
 
 export async function antesDeGuardar(datos, usuario, anterior) {
   const asignaturaId = datos.asignaturaId || anterior?.asignaturaId;
-  const permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  // Si se edita una unidad existente, también debe poder editar la asignatura de origen (no se "roba" una unidad ajena).
+  const permitido = (await puedeEditarAsignatura(usuario, asignaturaId))
+    && (!anterior || await puedeEditarAsignatura(usuario, anterior.asignaturaId));
 
   if (!permitido) {
     const error = new Error('No tienes permiso para editar unidades de esta asignatura');

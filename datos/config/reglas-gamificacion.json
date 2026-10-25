@@ -10,7 +10,7 @@
     "foro": 2
   },
   "bonoSinErrores": 5,
-  "sinBono": ["foro"],
+  "sinBono": ["foro", "tema-revisado"],
   "unicas": {
     "tema-revisado": ["temaId"],
     "quiz": ["temaId", "nivel"],

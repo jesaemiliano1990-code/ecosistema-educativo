@@ -90,7 +90,7 @@ function pintarLista() {
           </span>
           <span class="mensajes-conv__fila">
             <span class="mensajes-conv__ultimo">${ui.escapar(ultimo)}</span>
-            ${c.noLeidos ? `<span class="mensajes-conv__contador" aria-label="${c.noLeidos} sin leer">${c.noLeidos > 99 ? '99+' : c.noLeidos}</span>` : ''}
+            ${c.noLeidos ? `<span class="mensajes-conv__contador" role="img" aria-label="${c.noLeidos} sin leer">${c.noLeidos > 99 ? '99+' : c.noLeidos}</span>` : ''}
           </span>
         </button>
       </li>`;

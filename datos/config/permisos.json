@@ -112,8 +112,8 @@
     "escribir": ["docente", "admin"]
   },
   "prueba": {
-    "leer": ["publico"],
-    "escribir": ["publico"]
+    "leer": ["admin"],
+    "escribir": ["admin"]
   }
 }
 

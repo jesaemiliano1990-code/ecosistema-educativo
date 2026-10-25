@@ -46,7 +46,8 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   }
 
   const asignaturaId = await asignaturaDeTema(temaId);
-  const permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  let permitido = await puedeEditarAsignatura(usuario, asignaturaId);
+  if (permitido && anterior) permitido = await puedeEditarAsignatura(usuario, await asignaturaDeTema(anterior.temaId));
 
   if (!permitido) {
     const error = new Error('No tienes permiso para editar el glosario de esta asignatura');

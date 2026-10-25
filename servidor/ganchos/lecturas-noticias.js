@@ -13,7 +13,12 @@ import * as almacen from '../almacen.js';
  * @returns {Promise<Object>}
  */
 export async function antesDeGuardar(datos, usuario, anterior) {
-  const usuarioId = usuario ? usuario.id : datos.usuarioId;
+  if (anterior && usuario?.rol !== 'admin' && anterior.usuarioId !== usuario?.id) {
+    const error = new Error('Registro no encontrado');
+    error.estado = 404;
+    throw error;
+  }
+  const usuarioId = anterior ? anterior.usuarioId : (usuario ? usuario.id : datos.usuarioId);
   const noticiaId = datos.noticiaId || anterior?.noticiaId;
 
   if (!usuarioId) {
@@ -40,11 +45,8 @@ export async function antesDeGuardar(datos, usuario, anterior) {
     throw error;
   }
 
-  return {
-    ...datos,
-    usuarioId,
-    noticiaId
-  };
+  // Lista blanca: solo la noticia y el dueño.
+  return { usuarioId, noticiaId };
 }
 
 /**

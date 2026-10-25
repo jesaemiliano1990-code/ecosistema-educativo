@@ -35,6 +35,12 @@ export async function antesDeGuardar(datos, usuario, anterior) {
     };
   }
 
+  if (usuario?.rol !== 'admin' && anterior.autorId && anterior.autorId !== usuario?.id) {
+    const error = new Error('Solo la persona que creó la noticia (o un administrador) puede editarla');
+    error.estado = 403;
+    throw error;
+  }
+
   // Actualización: conservar autor original y actualizar fechaPublicacion si pasa a publicado
   const autorId = anterior.autorId || (usuario ? usuario.id : null);
   const estado = datos.estado !== undefined ? datos.estado : anterior.estado;
@@ -76,6 +82,15 @@ export async function filtrarLista(lista, usuario) {
   return lista.filter(n => n && n.estado === 'publicado');
 }
 
+// Solo el autor o un admin borra una noticia.
+export async function antesDeEliminar(registro, usuario) {
+  if (usuario?.rol !== 'admin' && registro.autorId && registro.autorId !== usuario?.id) {
+    const error = new Error('Solo la persona que creó la noticia (o un administrador) puede eliminarla');
+    error.estado = 403;
+    throw error;
+  }
+}
+
 /**
  * Cuando una noticia pasa a "publicado", avisa a los estudiantes de la asignatura del tema relacionado
  * (o a todos los estudiantes si no tiene tema).
@@ -107,6 +122,7 @@ export async function despuesDeGuardar(registro, usuario, anterior) {
 
 export default {
   antesDeGuardar,
+  antesDeEliminar,
   despuesDeGuardar,
   filtrarLista
 };

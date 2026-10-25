@@ -114,4 +114,7 @@ solo al grupo, usuarios desactivados y XSS en foros y mensajes (se muestra como 
 E-02, E-03, E-05, E-10 (P12.1), D-01, D-04, D-05 (parcial en P11.4), D-12 (P12.2), A-01, A-02 y T-03. Los casos de prioridad
 Media y Baja, la prueba en celular real y la prueba de IA no disponible (T-03) siguen pendientes.
 
+**Estado tras P13.2:** DEF-01, DEF-02 y DEF-03 están corregidos y, con la auditoría (`docs/auditoria-p13-2.md`), los casos de prioridad Alta
+automatizables se volvieron a ejecutar: 96 comprobaciones de regresión y 47 de las correcciones, todas en verde.
+
 Nota: las pruebas de puntos y de seguridad escriben registros; se corrieron sobre una copia, no sobre `datos/`.

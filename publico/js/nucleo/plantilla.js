@@ -98,6 +98,7 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
       }
 
       contenedorPlantilla.innerHTML = `
+        <a href="#contenido" class="saltar-contenido">Saltar al contenido</a>
         <header class="encabezado" role="banner">
           <div class="contenedor encabezado__contenedor">
             <div class="encabezado__izq">
@@ -128,6 +129,10 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
         <div class="menu-fondo" id="menuFondo" aria-hidden="true"></div>
       `;
 
+      // El contenido principal recibe el foco al usar el enlace "Saltar al contenido"
+      const principal = document.getElementById('contenido');
+      if (principal && !principal.hasAttribute('tabindex')) principal.setAttribute('tabindex', '-1');
+
       // Campana de notificaciones (solo con sesión)
       if (tieneSesion) montarCampana();
 
@@ -155,6 +160,7 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
             if (badge && sinLeer > 0) {
               badge.textContent = sinLeer;
               badge.style.display = 'inline-flex';
+              badge.setAttribute('role', 'img');
               badge.setAttribute('aria-label', `${sinLeer} noticias sin leer`);
             }
           } catch {
@@ -184,18 +190,33 @@ export async function montarPlantilla({ titulo = '', roles = [] } = {}) {
       const menuLateral = document.getElementById('menuLateral');
       const menuFondo = document.getElementById('menuFondo');
 
+      // En celular el menú cerrado queda fuera de pantalla: no debe recibir el foco del teclado.
+      const consultaMovil = window.matchMedia('(max-width: 768px)');
+      function sincronizarMenu() {
+        if (!menuLateral) return;
+        const cerradoEnMovil = consultaMovil.matches && !menuLateral.classList.contains('abierto');
+        menuLateral.toggleAttribute('inert', cerradoEnMovil);
+      }
+      sincronizarMenu();
+      consultaMovil.addEventListener('change', sincronizarMenu);
+
       function abrirMenu() {
         if (!menuLateral || !menuFondo) return;
         menuLateral.classList.add('abierto');
         menuFondo.classList.add('abierto');
         if (btnToggle) btnToggle.setAttribute('aria-expanded', 'true');
+        sincronizarMenu();
+        if (consultaMovil.matches && btnCerrar) btnCerrar.focus();
       }
 
       function cerrarMenu() {
         if (!menuLateral || !menuFondo) return;
+        const estabaAbierto = menuLateral.classList.contains('abierto');
         menuLateral.classList.remove('abierto');
         menuFondo.classList.remove('abierto');
         if (btnToggle) btnToggle.setAttribute('aria-expanded', 'false');
+        sincronizarMenu();
+        if (estabaAbierto && consultaMovil.matches && btnToggle) btnToggle.focus();
       }
 
       function alternarMenu() {
