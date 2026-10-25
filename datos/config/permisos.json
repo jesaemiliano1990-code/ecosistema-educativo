@@ -107,6 +107,10 @@
     "leer": ["docente", "admin"],
     "escribir": ["docente", "admin"]
   },
+  "simulaciones": {
+    "leer": ["sesion"],
+    "escribir": ["docente", "admin"]
+  },
   "prueba": {
     "leer": ["publico"],
     "escribir": ["publico"]

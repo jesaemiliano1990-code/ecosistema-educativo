@@ -39,6 +39,12 @@ export const ACTIVIDADES = [
     href: '/paginas/tutor.html'
   },
   {
+    id: 'simulador',
+    texto: 'Simulador',
+    descripcion: 'Practica situaciones reales',
+    href: '/paginas/simulaciones.html'
+  },
+  {
     id: 'canciones',
     texto: 'Canciones del tema',
     descripcion: 'Aprende con música',
