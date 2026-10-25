@@ -83,7 +83,7 @@ IA        POST /api/ia/:tarea   tareas: generar-glosario, generar-preguntas, gen
           Respuesta: JSON de la tarea; tutor y rol-simulacion devuelven { texto }.
 Quiz      GET /api/quiz/estado?temaId= · POST /api/quiz/iniciar · POST /api/quiz/responder
           POST /api/quiz/finalizar   (solo estudiantes; iniciar devuelve además { respondidas: [ids] }
-          y retoma el quiz abierto hace menos de 2 h; POST /api/intentos rechaza actividad "quiz" con 403)
+          y retoma el quiz abierto hace menos de 2 h; finalizar devuelve además puntosTotales; POST /api/intentos rechaza actividad "quiz" con 403)
 Agenda    GET /api/agenda/recordatorios
 Mensajes  GET /api/mensajes/contactos · GET|POST /api/mensajes/conversaciones
           GET /api/mensajes/no-leidos · GET /api/mensajes/:convId?desde=&antes=
