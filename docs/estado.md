@@ -1,26 +1,25 @@
 # docs/estado.md · Estado del proyecto (máximo 30 líneas)
-Sprint terminado: S09 · Fecha: 2026-10-25 · Velocidad real: __ puntos
+Sprint terminado: S10 · Fecha: 2026-10-25 · Velocidad real: __ puntos
 
 ## Funciona
-- S00-S08 · Base, usuarios, contenidos, glosario, juegos, gamificación, paneles, alertas, servicio de IA (Gemini), banco de preguntas y quiz por niveles con diplomas (etiqueta `sprint-8`).
-- P06.4 (pendiente del S06, completada) · Centro de notificaciones: campana con contador y panel (`notificaciones.js`), sondeo de 60 s, rutas `rutas/notificaciones.js`, aviso al publicar noticias. Antes no existía.
-- P09.1 · Foros (`foros.html`, `hilo.html`, `admin-reportes.html`): hilos y respuestas por asignatura, moderación, reportes, notificación al autor, 2 puntos por respuesta (máx. 5 al día).
-- P09.2 · Agenda (`agenda.html`): FullCalendar 6.1.22 (mes, semana, lista), eventos personales y de grupo, ✓ en fechas límite completadas, "Mi semana".
-- P09.3 · Recordatorios (`rutas/agenda.js`) con aviso del navegador opcional, y regla de alertas `vencidas` en `alertas.js`.
-- Probado en copias temporales de los datos y en el navegador (escritorio y celular); aviso real en 93 s con un evento a 61 min.
+- S00-S09 · Base, usuarios, contenidos, juegos, gamificación, paneles, alertas, IA (Gemini), quiz con diplomas, foros, agenda, notificaciones y recordatorios (etiqueta `sprint-9`).
+- P10.1 · Mensajería en el servidor (`rutas/mensajes.js`): contactos por rol y grupo, conversaciones únicas por pareja, mensajes de hasta 2.000 caracteres (50 por página, `desde=`/`antes=`), no leídos, difusión del docente, bloqueo y moderación. Máximo 30 mensajes por minuto.
+- P10.2 · Pantalla de mensajes (`mensajes.html`): lista con buscador, chat con burbujas y días, sondeo cada 4 s (chat) y 15 s (lista), contador junto a "Mensajes" en el menú, una columna en celular.
+- P10.3 · "Mensaje al curso", Bloquear/Desbloquear y Reportar en la pantalla; `admin-reportes.html` muestra el contexto de los mensajes reportados con Ocultar mensaje, Desactivar usuario y Descartar.
+- Probado en copias aisladas con dos "ventanas": un mensaje llega a los 4,2 s; un mensaje oculto desaparece del chat abierto en unos 14 s.
 
 ## Decisiones y cambios respecto a docs/contratos.md
-- Ganchos nuevos y opcionales en `server.js`: `puedeVer` (lectura por id), `despuesDeEliminar`. `antesDeEliminar` protege el DELETE en 11 colecciones.
-- `notificaciones` solo se escribe desde el servidor; los docentes escriben a sus estudiantes con `POST /api/notificaciones`.
-- Los intentos de `foro` no cuentan en promedios ni alertas y no reciben el bono de "sin errores" (`sinBono`).
-- Un aviso de agenda por evento (el más cercano); reportes con campo `coleccion`; alertas `vencidas` con `eventoId` (§D, §C, §E actualizados).
+- Se puede escribir si no hay bloqueo, la otra persona está activa y alguna de las dos la tiene como contacto: un estudiante responde al admin pero no le inicia conversación.
+- No se puede bloquear a un administrador. El bloqueado solo ve "no puedes enviar", sin saber por qué.
+- `reportes` admite `tipo: "mensaje"` (`referenciaId` = "<convId>/<mensajeId>", `autorMensajeId`) y la resolución `usuario-desactivado`.
+- Ocultar un mensaje recalcula el último mensaje de la conversación para no mostrar el texto oculto (§B, §C, §D actualizados).
 
 ## Problemas conocidos
-- Encabezado en celular (375 px): el título "Ecosistema Educativo" queda amontonado junto a los íconos; la campana ya no empuja "Salir".
+- Encabezado en celular (375 px): el título "Ecosistema Educativo" queda amontonado junto a los íconos (ya existía).
 - Sin regla de dueño en noticias: cualquier docente puede editar o borrar cualquier noticia.
 - Nivel 1 del tema demo con 9 preguntas y niveles 2 a 5 vacíos; `estudiante1@demo.ec` tiene los 5 niveles aprobados.
-- Datos semilla: el tema "Ventanas en Ecocardiografía" (Biología) tiene un glosario de genética.
+- El sondeo de mensajes es por consulta periódica (no hay websockets): hay hasta 4 s de retraso.
 - Una sesión vencida en `localStorage` impide abrir `ingreso.html` hasta borrarla.
 
 ## Pendiente para el siguiente sprint
-- Sprint 10: mensajería instantánea (P10.1 a P10.3). Los reportes de mensajes reutilizarán `reportes` (hoy solo `tipo: "foro"`).
+- Sprint 11: tutor socrático con IA y avatar guía (P11.1 a P11.4). Copiar `servidor/prompts/tutor.txt` (Anexo B.3).
