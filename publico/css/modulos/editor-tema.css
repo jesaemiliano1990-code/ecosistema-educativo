@@ -1,0 +1,322 @@
+/* publico/css/modulos/editor-tema.css */
+/* Estilos para la edición de ficha pedagógica de temas y gestión de glosario */
+
+.editor-tema {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  padding: var(--espacio-m) 0 var(--espacio-2xl);
+}
+
+/* Barra superior de navegación y acciones */
+.editor-tema__barra-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+}
+
+.editor-tema__volver {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  color: var(--color-primario);
+  font-weight: var(--peso-seminegrita);
+  font-size: var(--texto-s);
+  text-decoration: none;
+  padding: var(--espacio-xs) var(--espacio-s);
+  border-radius: var(--radio-s);
+  border: 1px solid var(--color-borde);
+  background-color: var(--color-superficie);
+  transition: background-color var(--transicion), border-color var(--transicion);
+}
+
+.editor-tema__volver:hover {
+  background-color: var(--color-fondo);
+  border-color: var(--color-primario);
+}
+
+.editor-tema__acciones-principales {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+}
+
+/* Encabezado con título e insignias */
+.editor-tema__encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}
+
+.editor-tema__titulo-fila {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-m);
+  flex-wrap: wrap;
+}
+
+.editor-tema__titulo-fila h1 {
+  margin: 0;
+}
+
+.editor-tema__migas {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+}
+
+/* Pestañas de navegación de sección */
+.pestanas-tema {
+  display: flex;
+  border-bottom: 2px solid var(--color-borde);
+  gap: var(--espacio-s);
+  margin-top: var(--espacio-s);
+}
+
+.pestana-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  padding: var(--espacio-s) var(--espacio-l);
+  font-family: var(--fuente-base);
+  font-size: var(--texto-s);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-texto-suave);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  margin-bottom: -2px;
+  transition: color var(--transicion), border-color var(--transicion);
+}
+
+.pestana-btn:hover {
+  color: var(--color-primario);
+}
+
+.pestana-btn.activa {
+  color: var(--color-primario);
+  border-bottom-color: var(--color-acento);
+}
+
+/* Paneles de pestaña */
+.panel-seccion {
+  display: none;
+  flex-direction: column;
+  gap: var(--espacio-l);
+}
+
+.panel-seccion.activo {
+  display: flex;
+}
+
+/* Cuadrícula de formulario */
+.grid-campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--espacio-m);
+}
+
+/* Contador de palabras en el resumen */
+.contador-palabras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--espacio-xs);
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+}
+
+.contador-palabras__estado {
+  font-weight: var(--peso-seminegrita);
+}
+
+.contador-palabras__estado--ok {
+  color: var(--color-exito);
+}
+
+.contador-palabras__estado--alerta {
+  color: var(--color-advertencia);
+}
+
+/* Vista previa de formato */
+.vista-previa-resumen {
+  margin-top: var(--espacio-s);
+  padding: var(--espacio-m);
+  border-radius: var(--radio-m);
+  background-color: var(--color-fondo);
+  border: 1px dashed var(--color-borde);
+  font-size: var(--texto-s);
+  line-height: var(--interlineado-base);
+}
+
+/* Listas interactivas (objetivos, ejemplos, errores, preguntas) */
+.lista-dinamica {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+}
+
+.lista-dinamica__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  margin-bottom: var(--espacio-xs);
+}
+
+.lista-dinamica__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-s);
+  padding: var(--espacio-s) var(--espacio-m);
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-m);
+  font-size: var(--texto-s);
+}
+
+.lista-dinamica__item-texto {
+  flex: 1;
+  word-break: break-word;
+}
+
+.lista-dinamica__agregar {
+  display: flex;
+  gap: var(--espacio-xs);
+}
+
+.lista-dinamica__agregar input {
+  flex: 1;
+}
+
+/* Recursos */
+.lista-recursos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+}
+
+.recurso-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+  padding: var(--espacio-m);
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-m);
+}
+
+.recurso-card__fila {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  gap: var(--espacio-s);
+  align-items: center;
+}
+
+@media (max-width: 680px) {
+  .recurso-card__fila {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recurso-card__url-fila {
+  display: flex;
+  gap: var(--espacio-xs);
+  align-items: center;
+}
+
+.recurso-card__url-fila input {
+  flex: 1;
+}
+
+/* Sección de Glosario */
+.glosario-metricas-barra {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--espacio-m);
+}
+
+.metrica-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  padding: var(--espacio-m);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-l);
+  box-shadow: var(--sombra-1);
+}
+
+.metrica-card__etiqueta {
+  font-size: var(--texto-xs);
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  font-weight: var(--peso-negrita);
+  letter-spacing: 0.05em;
+}
+
+.metrica-card__valor {
+  font-size: var(--texto-xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+}
+
+.glosario-controles-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-s);
+}
+
+.glosario-acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  flex-wrap: wrap;
+}
+
+/* Celdas de tabla de glosario */
+.tabla-glosario td {
+  vertical-align: top;
+}
+
+.glosario-termino {
+  font-weight: var(--peso-negrita);
+  color: var(--color-primario);
+}
+
+.glosario-longitud {
+  display: inline-block;
+  margin-left: var(--espacio-xs);
+  font-size: var(--texto-xs);
+  padding: 1px var(--espacio-xs);
+  border-radius: var(--radio-s);
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  font-weight: var(--peso-regular);
+}
+
+.glosario-longitud--6 {
+  background-color: rgba(29, 101, 64, 0.12);
+  color: var(--color-exito);
+  border-color: rgba(29, 101, 64, 0.3);
+  font-weight: var(--peso-negrita);
+}
+
+.tabla-acciones {
+  display: flex;
+  gap: var(--espacio-xs);
+  white-space: nowrap;
+}
+
+/* Avisos y ayudas en formularios modales */
+.campo__contador-modal {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+  margin-top: 2px;
+}

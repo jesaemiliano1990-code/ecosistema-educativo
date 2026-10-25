@@ -1,0 +1,104 @@
+/* publico/css/modulos/registro.css */
+/* Estilos para el formulario y página de registro */
+
+.auth-contenedor {
+  max-width: 480px;
+  margin: var(--espacio-l) auto var(--espacio-2xl);
+  padding: 0 var(--espacio-s);
+}
+
+.auth-tarjeta {
+  background-color: var(--color-superficie);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-2);
+  padding: var(--espacio-xl);
+  transition: box-shadow var(--transicion);
+}
+
+.auth-tarjeta:hover {
+  box-shadow: var(--sombra-3);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--espacio-xl);
+}
+
+.auth-header h1 {
+  font-size: var(--texto-2xl);
+  color: var(--color-primario);
+  margin-bottom: var(--espacio-xs);
+  letter-spacing: -0.01em;
+}
+
+.auth-header p {
+  color: var(--color-texto-suave);
+  font-size: var(--texto-s);
+  margin: 0;
+}
+
+.auth-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+}
+
+.campo--checkbox {
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  margin-top: var(--espacio-xs);
+}
+
+.checkbox-etiqueta {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--espacio-s);
+  font-size: var(--texto-s);
+  font-weight: var(--peso-regular);
+  color: var(--color-texto);
+  cursor: pointer;
+  line-height: var(--interlineado-base);
+}
+
+.checkbox-etiqueta input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin-top: 3px;
+  accent-color: var(--color-primario);
+  cursor: pointer;
+}
+
+.requerido {
+  color: var(--color-error);
+  font-weight: var(--peso-negrita);
+}
+
+.btn--bloque {
+  width: 100%;
+}
+
+.auth-pie {
+  text-align: center;
+  margin-top: var(--espacio-l);
+  padding-top: var(--espacio-m);
+  border-top: 1px solid var(--color-borde);
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+}
+
+.auth-pie a {
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-info);
+}
+
+.auth-pie a:hover {
+  text-decoration: underline;
+}
+
+.campo__ayuda {
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+  margin-top: 2px;
+}

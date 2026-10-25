@@ -1,0 +1,317 @@
+/* publico/css/base.css */
+/* Reset ligero, estilos base, utilidades de distribución y accesibilidad */
+
+/* 1. Reset ligero */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--espacio-xl);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-base);
+  font-size: var(--texto-m);
+  font-weight: var(--peso-regular);
+  line-height: var(--interlineado-base);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* 2. Tipografía */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuente-titulos);
+  color: var(--color-primario);
+  font-weight: var(--peso-negrita);
+  line-height: var(--interlineado-apretado);
+  margin-bottom: var(--espacio-s);
+}
+
+h1 { font-size: var(--texto-3xl); letter-spacing: -0.03em; }
+h2 { font-size: var(--texto-2xl); letter-spacing: -0.02em; }
+h3 { font-size: var(--texto-xl); }
+h4 { font-size: var(--texto-l); }
+h5 { font-size: var(--texto-m); }
+h6 { font-size: var(--texto-s); }
+
+p {
+  margin-bottom: var(--espacio-m);
+}
+
+small {
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+}
+
+strong, b {
+  font-weight: var(--peso-negrita);
+}
+
+/* 3. Enlaces */
+a {
+  color: var(--color-info);
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 4. Foco visible (:focus-visible) */
+:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 3px;
+}
+
+/* 5. Contenedor */
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-maximo);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--espacio-m);
+  padding-right: var(--espacio-m);
+}
+
+/* 6. Pila (columna con separación) */
+.pila {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+}
+
+/* 7. Fila */
+.fila {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--espacio-m);
+  flex-wrap: wrap;
+}
+
+/* 8. Cuadrícula adaptable */
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--espacio-m);
+}
+
+/* 9. Elementos ocultos */
+.oculto, [hidden] {
+  display: none !important;
+}
+
+/* 10. Solo para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respetar preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 11. Diseño general de la aplicación */
+#plantilla {
+  display: contents;
+}
+
+.encabezado__contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-m);
+}
+
+.encabezado__izq {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-m);
+  min-width: 0;
+}
+
+.encabezado__titulos {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  flex-wrap: wrap;
+}
+
+.encabezado__nombre {
+  font-size: var(--texto-l);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-texto-inverso);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.encabezado__nombre:hover {
+  color: var(--color-texto-inverso);
+  text-decoration: none;
+}
+
+.encabezado__separador {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.encabezado__pagina {
+  font-size: var(--texto-m);
+  font-weight: var(--peso-regular);
+  color: #c8dbe7;
+  margin: 0;
+}
+
+.encabezado__der {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  flex-shrink: 0;
+}
+
+.encabezado__usuario {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+}
+
+.encabezado__perfil {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  color: var(--color-texto-inverso);
+  text-decoration: none;
+  font-size: var(--texto-s);
+  font-weight: var(--peso-seminegrita);
+  padding: var(--espacio-xs) var(--espacio-s);
+  border-radius: var(--radio-m);
+  transition: background-color var(--transicion);
+}
+
+.encabezado__perfil:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--color-texto-inverso);
+  text-decoration: none;
+}
+
+.encabezado__auth-links {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+}
+
+.encabezado__btn-salir {
+  color: #fca5a5 !important;
+}
+
+.encabezado__btn-salir:hover {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #fee2e2 !important;
+}
+
+@media (min-width: 769px) {
+  body {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "cabecera cabecera"
+      "menu     contenido"
+      "pie      pie";
+    min-height: 100vh;
+  }
+
+  .encabezado {
+    grid-area: cabecera;
+  }
+
+  .menu {
+    grid-area: menu;
+    min-height: 100%;
+  }
+
+  #contenido {
+    grid-area: contenido;
+    padding-top: var(--espacio-xl);
+    padding-bottom: var(--espacio-xl);
+  }
+
+  .pie {
+    grid-area: pie;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  #contenido {
+    flex: 1;
+    padding-top: var(--espacio-l);
+    padding-bottom: var(--espacio-l);
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    z-index: 500;
+    transform: translateX(-100%);
+    transition: transform var(--transicion);
+    box-shadow: var(--sombra-3);
+  }
+
+  .menu.abierto {
+    transform: translateX(0);
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+

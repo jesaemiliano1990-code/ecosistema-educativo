@@ -1,0 +1,99 @@
+/* publico/css/tokens.css */
+/* Variables de diseño del ecosistema educativo basadas en el Design System UNEMI */
+
+:root {
+  /* Colores principales */
+  --color-primario: #002e45;
+  --color-primario-oscuro: #1c3247;
+  --color-secundario: #264763;
+  --color-acento: #ff6900;
+
+  /* Colores de estado y retroalimentación (Contraste AA verificado) */
+  --color-exito: #1d6540; /* PROVISIONAL */
+  --color-advertencia: #cd5500; /* PROVISIONAL */
+  --color-error: #ba1a1a; /* PROVISIONAL */
+  --color-info: #1470a8; /* PROVISIONAL */
+
+  /* Colores de superficies y neutros */
+  --color-fondo: #f5f7f8;
+  --color-superficie: #ffffff;
+  --color-borde: #dfe7ec;
+  --color-texto: #182d3e;
+  --color-texto-suave: #627586;
+  --color-texto-inverso: #ffffff;
+  --color-foco: #1470a8;
+
+  /* Alias directos sin prefijo color */
+  --primario: var(--color-primario);
+  --primario-oscuro: var(--color-primario-oscuro);
+  --secundario: var(--color-secundario);
+  --acento: var(--color-acento);
+  --exito: var(--color-exito);
+  --advertencia: var(--color-advertencia);
+  --error: var(--color-error);
+  --info: var(--color-info);
+  --fondo: var(--color-fondo);
+  --superficie: var(--color-superficie);
+  --borde: var(--color-borde);
+  --texto: var(--color-texto);
+  --texto-suave: var(--color-texto-suave);
+  --texto-inverso: var(--color-texto-inverso);
+
+  /* Tipografía - Familias */
+  --fuente-base: 'Poppins', Arial, sans-serif;
+  --fuente-titulos: 'Poppins', Arial, sans-serif;
+
+  /* Tipografía - Tamaños (xs a 3xl) */
+  --texto-xs: 0.75rem;     /* 12px */
+  --texto-s: 0.875rem;     /* 14px */
+  --texto-m: 1rem;         /* 16px */
+  --texto-l: 1.25rem;      /* 20px */
+  --texto-xl: 1.5rem;      /* 24px */
+  --texto-2xl: 2rem;       /* 32px */
+  --texto-3xl: 2.5rem;     /* 40px */
+
+  /* Alias de tamaños */
+  --tamano-xs: var(--texto-xs);
+  --tamano-s: var(--texto-s);
+  --tamano-m: var(--texto-m);
+  --tamano-l: var(--texto-l);
+  --tamano-xl: var(--texto-xl);
+  --tamano-2xl: var(--texto-2xl);
+  --tamano-3xl: var(--texto-3xl);
+
+  /* Tipografía - Pesos */
+  --peso-regular: 400;
+  --peso-medio: 500;
+  --peso-seminegrita: 600;
+  --peso-negrita: 700;
+  --peso-extranegrita: 800;
+
+  /* Tipografía - Interlineado */
+  --interlineado-apretado: 1.25;
+  --interlineado-base: 1.6;
+  --interlineado-amplio: 1.8;
+
+  /* Espaciados (xs a 2xl basados en módulo de 4px) */
+  --espacio-xs: 0.25rem;   /* 4px */
+  --espacio-s: 0.5rem;     /* 8px */
+  --espacio-m: 1rem;       /* 16px */
+  --espacio-l: 1.5rem;     /* 24px */
+  --espacio-xl: 2rem;      /* 32px */
+  --espacio-2xl: 3rem;     /* 48px */
+
+  /* Radios de borde (s, m, l, completo) */
+  --radio-s: 4px;
+  --radio-m: 8px;
+  --radio-l: 16px;
+  --radio-completo: 9999px;
+
+  /* Sombras (1 a 3) */
+  --sombra-1: 0 2px 8px rgba(0, 46, 69, 0.06);
+  --sombra-2: 0 8px 24px rgba(0, 46, 69, 0.12);
+  --sombra-3: 0 16px 36px rgba(0, 46, 69, 0.18);
+
+  /* Transición y dimensiones */
+  --transicion: 0.2s ease;
+  --transicion-rapida: 0.12s ease;
+  --ancho-maximo: 1280px;
+}

@@ -1,0 +1,278 @@
+/* publico/css/modulos/pareja.css */
+/* Estilos para el juego pedagógico Encuentra la Pareja con giro 3D accesible */
+
+.pareja-vista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Cabecera del juego */
+.pareja-cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: var(--espacio-m);
+}
+
+.pareja-cabecera__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}
+
+.pareja-cabecera__titulo {
+  font-size: var(--texto-2xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.pareja-cabecera__tema {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+  margin: 0;
+}
+
+.pareja-cabecera__acciones {
+  display: flex;
+  gap: var(--espacio-s);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Barra de control y estadísticas */
+.pareja-marcador {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-superficie);
+  padding: var(--espacio-m) var(--espacio-l);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-1);
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+}
+
+.pareja-marcador__dificultad {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+}
+
+.pareja-marcador__dificultad label {
+  font-size: var(--texto-s);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-primario);
+  white-space: nowrap;
+}
+
+.pareja-marcador__dificultad select {
+  padding: var(--espacio-xs) var(--espacio-s);
+  border-radius: var(--radio-s);
+  border: 1px solid var(--color-borde);
+  background-color: var(--color-fondo);
+  font-size: var(--texto-s);
+  font-weight: var(--peso-medio);
+}
+
+.pareja-marcador__stats {
+  display: flex;
+  gap: var(--espacio-l);
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-item__valor {
+  font-size: var(--texto-xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  line-height: 1.1;
+}
+
+.stat-item__etiqueta {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Cuadrícula adaptable de tarjetas */
+.pareja-cuadricula {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: var(--espacio-m);
+  margin-top: var(--espacio-xs);
+  perspective: 1000px;
+}
+
+@media (max-width: 600px) {
+  .pareja-cuadricula {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: var(--espacio-s);
+  }
+}
+
+/* Tarjeta individual como botón accesible */
+.carta-pareja {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  aspect-ratio: 4 / 3;
+  min-height: 140px;
+  position: relative;
+  outline: none;
+  border-radius: var(--radio-m);
+  user-select: none;
+}
+
+.carta-pareja:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 3px;
+}
+
+.carta-pareja__interno {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border-radius: var(--radio-m);
+}
+
+.carta-pareja--volteada .carta-pareja__interno,
+.carta-pareja--emparejada .carta-pareja__interno {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carta-pareja__interno {
+    transition: none !important;
+  }
+}
+
+/* Caras de la tarjeta */
+.carta-pareja__cara {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radio-m);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espacio-s);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Dorso (boca abajo) */
+.carta-pareja__dorso {
+  background: linear-gradient(135deg, var(--color-primario), #1f3d57);
+  color: var(--color-texto-inverso);
+  border: 2px solid var(--color-primario-oscuro);
+  box-shadow: var(--sombra-1);
+  transition: transform var(--transicion-rapida), box-shadow var(--transicion-rapida);
+}
+
+.carta-pareja:hover:not(.carta-pareja--volteada):not(.carta-pareja--emparejada) .carta-pareja__dorso {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-2);
+  border-color: var(--color-acento);
+}
+
+.carta-pareja__dorso-icono {
+  font-size: var(--texto-2xl);
+  opacity: 0.85;
+}
+
+.carta-pareja__dorso-patron {
+  font-size: var(--texto-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-top: var(--espacio-xs);
+}
+
+/* Frente (boca arriba) */
+.carta-pareja__frente {
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  border: 2px solid var(--color-borde);
+  transform: rotateY(180deg);
+  box-shadow: var(--sombra-2);
+  overflow-y: auto;
+  justify-content: flex-start;
+  padding: var(--espacio-s);
+}
+
+.carta-pareja__tipo-etiqueta {
+  font-size: 0.6875rem;
+  font-weight: var(--peso-extranegrita);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: var(--radio-s);
+  margin-bottom: var(--espacio-xs);
+  flex-shrink: 0;
+}
+
+.carta-pareja__tipo-etiqueta--termino {
+  background-color: rgba(255, 105, 0, 0.12);
+  color: var(--color-acento);
+  border: 1px solid rgba(255, 105, 0, 0.3);
+}
+
+.carta-pareja__tipo-etiqueta--definicion {
+  background-color: rgba(20, 112, 168, 0.12);
+  color: var(--color-info);
+  border: 1px solid rgba(20, 112, 168, 0.3);
+}
+
+.carta-pareja__texto {
+  font-size: var(--texto-s);
+  font-weight: var(--peso-medio);
+  line-height: var(--interlineado-apretado);
+  margin: auto 0;
+  color: var(--color-primario);
+  word-break: break-word;
+}
+
+.carta-pareja--tipo-termino .carta-pareja__texto {
+  font-size: var(--texto-m);
+  font-weight: var(--peso-negrita);
+}
+
+/* Tarjeta emparejada con éxito */
+.carta-pareja--emparejada .carta-pareja__frente {
+  border-color: var(--color-exito);
+  background-color: rgba(29, 101, 64, 0.08);
+}
+
+.carta-pareja--emparejada .carta-pareja__tipo-etiqueta {
+  background-color: rgba(29, 101, 64, 0.15);
+  color: var(--color-exito);
+  border-color: var(--color-exito);
+}
+
+/* Zona de retroalimentación inmediata */
+.pareja-retroalimentacion {
+  margin-top: var(--espacio-m);
+}

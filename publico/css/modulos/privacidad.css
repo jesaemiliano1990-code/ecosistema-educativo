@@ -1,0 +1,84 @@
+/* publico/css/modulos/privacidad.css */
+/* Estilos para el aviso de privacidad y protección de datos */
+
+.privacidad-contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.privacidad-tarjeta {
+  background-color: var(--color-superficie);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-1);
+  padding: var(--espacio-xl);
+}
+
+.privacidad-header {
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: var(--espacio-l);
+  margin-bottom: var(--espacio-xl);
+}
+
+.privacidad-header h1 {
+  font-size: var(--texto-2xl);
+  color: var(--color-primario);
+  margin-bottom: var(--espacio-xs);
+}
+
+.privacidad-header p {
+  color: var(--color-texto-suave);
+  font-size: var(--texto-s);
+  margin: 0;
+}
+
+.privacidad-seccion {
+  margin-bottom: var(--espacio-xl);
+}
+
+.privacidad-seccion h2 {
+  font-size: var(--texto-l);
+  color: var(--color-primario-oscuro);
+  margin-bottom: var(--espacio-s);
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+}
+
+.privacidad-seccion p {
+  color: var(--color-texto);
+  line-height: var(--interlineado-relajado);
+  margin-bottom: var(--espacio-m);
+}
+
+.privacidad-lista {
+  margin: var(--espacio-s) 0 var(--espacio-m) var(--espacio-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}
+
+.privacidad-lista li {
+  line-height: var(--interlineado-base);
+  color: var(--color-texto);
+}
+
+.privacidad-contacto {
+  background-color: var(--color-fondo);
+  border-radius: var(--radio-m);
+  border-left: 4px solid var(--color-primario);
+  padding: var(--espacio-m);
+  margin-top: var(--espacio-l);
+}
+
+.privacidad-contacto p {
+  margin: 0;
+  font-size: var(--texto-s);
+}
+
+.privacidad-acciones {
+  margin-top: var(--espacio-xl);
+  display: flex;
+  gap: var(--espacio-m);
+  flex-wrap: wrap;
+}

@@ -1,0 +1,169 @@
+/* publico/css/modulos/verificar.css */
+/* Estilos para el validador público de certificados y diplomas */
+
+.verificar-vista {
+  max-width: 680px;
+  margin: var(--espacio-l) auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+}
+
+.verificar-encabezado {
+  text-align: center;
+}
+
+.verificar-encabezado__titulo {
+  font-size: var(--texto-2xl);
+  font-weight: var(--peso-extranegrita);
+  color: var(--color-primario);
+  margin-bottom: var(--espacio-xs);
+}
+
+.verificar-encabezado__subtitulo {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+  margin: 0;
+  line-height: var(--interlineado-base);
+}
+
+/* Formulario de búsqueda de código */
+.verificar-formulario {
+  background-color: var(--color-superficie);
+  padding: var(--espacio-l);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-1);
+}
+
+.verificar-input-grupo {
+  display: flex;
+  gap: var(--espacio-s);
+  margin-top: var(--espacio-s);
+}
+
+@media (max-width: 540px) {
+  .verificar-input-grupo {
+    flex-direction: column;
+  }
+}
+
+.verificar-input {
+  flex: 1;
+  font-family: monospace, monospace;
+  font-size: var(--texto-l);
+  font-weight: var(--peso-negrita);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: var(--espacio-s) var(--espacio-m);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-m);
+  color: var(--color-primario);
+  background-color: var(--color-fondo);
+  transition: border-color var(--transicion), box-shadow var(--transicion);
+}
+
+.verificar-input:focus {
+  border-color: var(--color-foco);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(20, 112, 168, 0.2);
+}
+
+/* Tarjetas de resultado */
+.verificar-resultado {
+  transition: all var(--transicion);
+}
+
+.resultado-tarjeta {
+  background-color: var(--color-superficie);
+  padding: var(--espacio-xl);
+  border-radius: var(--radio-l);
+  border: 2px solid var(--color-borde);
+  box-shadow: var(--sombra-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resultado-tarjeta--valido {
+  border-color: var(--color-exito);
+  background: linear-gradient(180deg, rgba(29, 101, 64, 0.04) 0%, var(--color-superficie) 100%);
+}
+
+.resultado-tarjeta--invalido {
+  border-color: var(--color-error);
+  background: linear-gradient(180deg, rgba(186, 26, 26, 0.04) 0%, var(--color-superficie) 100%);
+}
+
+.resultado-encabezado {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+}
+
+.resultado-icono {
+  font-size: var(--texto-2xl);
+  line-height: 1;
+}
+
+.resultado-estado-titulo {
+  font-size: var(--texto-l);
+  font-weight: var(--peso-negrita);
+  margin: 0;
+}
+
+.resultado-tarjeta--valido .resultado-estado-titulo {
+  color: var(--color-exito);
+}
+
+.resultado-tarjeta--invalido .resultado-estado-titulo {
+  color: var(--color-error);
+}
+
+/* Datos del certificado válido */
+.resultado-datos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-m);
+  background-color: var(--color-fondo);
+  padding: var(--espacio-m);
+  border-radius: var(--radio-m);
+  border: 1px solid var(--color-borde);
+}
+
+.dato-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dato-item__etiqueta {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-texto-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dato-item__valor {
+  font-size: var(--texto-m);
+  font-weight: var(--peso-negrita);
+  color: var(--color-primario);
+}
+
+.dato-item__valor--destacado {
+  font-size: var(--texto-xl);
+  color: var(--color-acento);
+}
+
+.dato-item__valor--codigo {
+  font-family: monospace, monospace;
+  font-size: var(--texto-l);
+  letter-spacing: 0.08em;
+}

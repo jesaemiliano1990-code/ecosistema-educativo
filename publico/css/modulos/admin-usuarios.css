@@ -1,0 +1,141 @@
+/* publico/css/modulos/admin-usuarios.css */
+/* Estilos para el panel de administración de usuarios */
+
+.admin-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+}
+
+.admin-header h1 {
+  font-size: var(--texto-2xl);
+  color: var(--color-primario);
+  margin-bottom: var(--espacio-xs);
+}
+
+.admin-header p {
+  color: var(--color-texto-suave);
+  font-size: var(--texto-s);
+  margin: 0;
+}
+
+/* Barra de Filtros y Búsqueda */
+.filtros-bar {
+  background-color: var(--color-superficie);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  padding: var(--espacio-m) var(--espacio-l);
+  box-shadow: var(--sombra-1);
+  display: flex;
+  gap: var(--espacio-m);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filtro-busqueda {
+  flex: 1;
+  min-width: 240px;
+}
+
+.filtro-rol {
+  width: 200px;
+}
+
+.filtros-bar .campo {
+  margin-bottom: 0;
+}
+
+.tabla-tarjeta {
+  background-color: var(--color-superficie);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-1);
+  overflow: hidden;
+}
+
+.tabla th {
+  white-space: nowrap;
+}
+
+.tabla td {
+  vertical-align: middle;
+}
+
+.usuario-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.usuario-nombre {
+  font-weight: var(--peso-negrita);
+  color: var(--color-texto);
+}
+
+.usuario-id {
+  font-size: var(--texto-xs);
+  color: var(--color-texto-suave);
+  font-family: monospace;
+}
+
+.select-rol-tabla {
+  padding: var(--espacio-xs) var(--espacio-s);
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-seminegrita);
+  border-radius: var(--radio-m);
+  border: 1px solid var(--color-borde);
+  background-color: var(--color-superficie);
+  min-height: 34px;
+  cursor: pointer;
+}
+
+.checkbox-activo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  cursor: pointer;
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-medio);
+}
+
+.checkbox-activo-label input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-primario);
+}
+
+/* Modal de clave temporal */
+.clave-temporal-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-m);
+  background-color: var(--color-fondo);
+  padding: var(--espacio-m);
+  border-radius: var(--radio-m);
+  border: 2px dashed var(--color-primario);
+  margin: var(--espacio-m) 0;
+}
+
+.clave-temporal-code {
+  font-family: monospace;
+  font-size: var(--texto-xl);
+  font-weight: var(--peso-negrita);
+  color: var(--color-primario);
+  letter-spacing: 0.1em;
+}
+
+.tabla-vacia {
+  text-align: center;
+  padding: var(--espacio-2xl);
+  color: var(--color-texto-suave);
+  font-size: var(--texto-m);
+}

@@ -1,0 +1,14 @@
+/* publico/css/modulos/prueba-datos.css */
+/* Estilos para el módulo de prueba de datos */
+
+.prueba-datos__seccion {
+  margin-top: var(--espacio-l);
+}
+
+.prueba-datos__formulario {
+  background-color: var(--color-superficie);
+}
+
+.prueba-datos__lista {
+  margin-top: var(--espacio-m);
+}

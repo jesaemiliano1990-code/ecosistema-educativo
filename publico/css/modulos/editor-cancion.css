@@ -1,0 +1,126 @@
+/* publico/css/modulos/editor-cancion.css */
+/* Estilos para el editor de canciones educativas */
+
+.editor-cancion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  padding: var(--espacio-m) 0 var(--espacio-2xl);
+}
+
+.editor-cancion__barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+  padding-bottom: var(--espacio-m);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.editor-cancion__volver {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  color: var(--color-primario);
+  text-decoration: none;
+  font-weight: var(--peso-medio);
+  font-size: var(--texto-s);
+}
+
+.editor-cancion__volver:hover {
+  text-decoration: underline;
+}
+
+.editor-cancion__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-xl);
+}
+
+@media (min-width: 900px) {
+  .editor-cancion__grid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+.editor-cancion__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+}
+
+.editor-cancion__audio-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+}
+
+.editor-cancion__audio-inputs {
+  display: flex;
+  gap: var(--espacio-s);
+  align-items: center;
+}
+
+.editor-cancion__audio-inputs input {
+  flex: 1;
+}
+
+.editor-cancion__preview-audio {
+  width: 100%;
+  border-radius: var(--radio-s);
+  background: var(--color-fondo);
+  padding: var(--espacio-xs);
+}
+
+.editor-cancion__guia-lrc {
+  background-color: var(--color-fondo);
+  border-left: 3px solid var(--color-acento);
+  border-radius: 0 var(--radio-s) var(--radio-s) 0;
+  padding: var(--espacio-s) var(--espacio-m);
+  font-size: var(--texto-xs);
+  color: var(--color-texto);
+  line-height: var(--interlineado-holgado);
+}
+
+.editor-cancion__guia-lrc code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: var(--radio-s);
+  font-family: monospace;
+}
+
+.editor-cancion__panel-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+}
+
+.editor-cancion__ayuda-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-s);
+}
+
+.editor-cancion__ayuda-card h3 {
+  font-size: var(--texto-m);
+  color: var(--color-primario);
+  margin: 0;
+}
+
+.editor-cancion__ayuda-card p {
+  font-size: var(--texto-s);
+  color: var(--color-texto-suave);
+  margin: 0;
+  line-height: var(--interlineado-normal);
+}
+
+.editor-cancion__ayuda-card ul {
+  padding-left: var(--espacio-m);
+  margin: 0;
+  font-size: var(--texto-xs);
+  color: var(--color-texto);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+}

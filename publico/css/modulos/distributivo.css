@@ -1,0 +1,201 @@
+/* publico/css/modulos/distributivo.css */
+/* Estilos para la administración de distributivo y grupos académicos */
+
+.admin-distributivo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-l);
+  padding: var(--espacio-l) 0 var(--espacio-2xl);
+}
+
+.distributivo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--espacio-m);
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: var(--espacio-m);
+}
+
+.distributivo-header h1 {
+  font-size: var(--texto-2xl);
+  color: var(--color-primario);
+  margin: 0 0 var(--espacio-xs);
+}
+
+.distributivo-header p {
+  color: var(--color-texto-suave);
+  margin: 0;
+  font-size: var(--texto-s);
+}
+
+.distributivo-header__acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+}
+
+.filtros-distributivo {
+  display: flex;
+  gap: var(--espacio-m);
+  flex-wrap: wrap;
+  background-color: var(--color-superficie);
+  padding: var(--espacio-m);
+  border-radius: var(--radio-l);
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-1);
+}
+
+.filtros-distributivo .campo {
+  flex: 1 1 200px;
+  margin-bottom: 0;
+}
+
+.tabla-tarjeta {
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-l);
+  box-shadow: var(--sombra-1);
+  overflow: hidden;
+}
+
+.tabla-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--espacio-xs);
+}
+
+/* Formulario del Modal de Distributivo */
+.modal-form-distributivo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-m);
+}
+
+.modal-fila {
+  display: flex;
+  gap: var(--espacio-m);
+}
+
+.modal-fila .campo {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.seccion-estudiantes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  margin-top: var(--espacio-xs);
+}
+
+.seccion-estudiantes__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espacio-s);
+  flex-wrap: wrap;
+}
+
+.seccion-estudiantes__header label {
+  font-size: var(--texto-s);
+  font-weight: var(--peso-seminegrita);
+  color: var(--color-texto);
+}
+
+.contador-estudiantes {
+  font-size: var(--texto-xs);
+  font-weight: var(--peso-negrita);
+  color: var(--color-info);
+  background-color: rgba(20, 112, 168, 0.1);
+  padding: var(--espacio-xs) var(--espacio-s);
+  border-radius: var(--radio-completo);
+}
+
+.buscador-estudiantes-wrap {
+  margin-bottom: var(--espacio-xs);
+}
+
+.lista-estudiantes {
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-m);
+  background-color: var(--color-fondo);
+  padding: var(--espacio-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-estudiante {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-s);
+  padding: var(--espacio-xs) var(--espacio-s);
+  background-color: var(--color-superficie);
+  border-radius: var(--radio-s);
+  cursor: pointer;
+  transition: background-color var(--transicion-rapida);
+  font-size: var(--texto-s);
+}
+
+.item-estudiante:hover {
+  background-color: #eaf1f5;
+}
+
+.item-estudiante input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-primario);
+  flex-shrink: 0;
+}
+
+.item-estudiante__info {
+  display: flex;
+  flex-direction: column;
+  line-height: var(--interlineado-apretado);
+  overflow: hidden;
+}
+
+.item-estudiante__info strong {
+  color: var(--color-texto);
+  font-size: var(--texto-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-estudiante__info small {
+  color: var(--color-texto-suave);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lista-estudiantes__vacia {
+  padding: var(--espacio-m);
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: var(--texto-xs);
+}
+
+@media (max-width: 640px) {
+  .distributivo-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .distributivo-header__acciones {
+    justify-content: flex-start;
+  }
+
+  .modal-fila {
+    flex-direction: column;
+    gap: var(--espacio-s);
+  }
+}
