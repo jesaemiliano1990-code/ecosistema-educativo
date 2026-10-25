@@ -1,25 +1,25 @@
 # docs/estado.md · Estado del proyecto (máximo 30 líneas)
-Sprint terminado: S12 · Fecha: 2026-10-25 · Velocidad real: __ puntos
+Sprint terminado: S13 · Fecha: 2026-10-25 · Velocidad real: __ puntos · Versión 1.0 (Hito 5)
 
 ## Funciona
-- S00-S11 · Base, usuarios, contenidos, juegos, gamificación, paneles, alertas, IA (Gemini), quiz, foros, agenda, mensajería, tutor socrático y avatar guía (etiqueta `sprint-11`).
-- P12.1 · Simulador por escenarios: `simulaciones.html` (lista por tema) y `simulador.html?id=` (escenas, consecuencias, informe y `registrarIntento`; `?vista=previa` no registra). Semilla con "Un día en el laboratorio de Mendel" (6 escenas, 2 finales). Primera simulación completada otorga "En la práctica".
-- P12.2 · `editor-simulacion.html`: datos generales, escenas con imagen y 2 a 4 opciones, validación al publicar (destinos, alcanzables, final, sin ciclos, consecuencias) con enlaces a la escena, mapa indentado y vista previa. El servidor repite las mismas reglas.
-- P12.3 · "Generar borrador con IA" (tarea `generar-escenario`, 5 a 10 escenas): carga el resultado como borrador sin guardar y lo valida.
-- P12.4 · Modo rol: editor de personaje, rúbrica (3 a 5 criterios) y turnos (4 a 12); chat con el personaje (`rol-simulacion`) y evaluación por criterios (`evaluar-rol`); el servidor ajusta los puntos a la rúbrica real.
-- Probado en copias aisladas y con Gemini real (borrador, personaje que no sale de su papel, evaluación).
+- S00-S12 · Base, usuarios, contenidos, juegos, gamificación, paneles, alertas, IA (Gemini), quiz, foros, agenda, mensajería, tutor, avatar y simulador (etiqueta `sprint-12`).
+- P13.1 · `docs/guiones-prueba.md`: 55 casos (estudiante, docente, admin, transversales y 10 de seguridad) y primera ejecución de los de prioridad Alta automatizables.
+- P13.2 · Auditoría (`docs/auditoria-p13-2.md`): corregidos DEF-01 (claves por defecto), DEF-02 (subidas sin sesión), DEF-03 (puntos de «tema revisado») y 16 hallazgos más (lectura por id, robo de recursos entre docentes, progreso ajeno, simulaciones inventadas, enlaces `javascript:`, cabeceras, accesibilidad del menú). 96 comprobaciones de regresión y 47 de correcciones en verde.
+- P13.3 · Despliegue (`docs/despliegue.md`, `ecosystem.config.cjs`, `scripts/respaldar.sh`): Ubuntu, Node LTS, PM2 (una sola instancia), Nginx, HTTPS, ufw y respaldo diario con cron.
+- P13.4 · Manuales de estudiante, docente y administrador (`docs/manual-*.md`).
 
 ## Decisiones y cambios respecto a docs/contratos.md
-- Puntos de cada opción: enteros de −10 a 10 (el servidor rechaza otros valores). Rúbrica: 1 a 20 puntos por criterio.
-- `rol-comun.js` (en `servidor/`) comparte la validación de los preparadores de rol.
-- `rol-simulacion` devuelve `{ texto }` (máx. 700 caracteres); `evaluar-rol` devuelve `{ criterios[{criterio, puntos, maximo, comentario}], puntaje, maximo, comentarioGeneral }`.
-- Las consultas de rol cuentan contra `limiteTutorDiario` (una práctica de 8 turnos gasta 9).
+- `GET /api/<col>/<id>` aplica el mismo filtro que la lista (gancho `puedeVer` o, si no existe, `filtrarLista`).
+- Las alertas las crea solo el servidor; las noticias solo las edita su autor o un admin; la colección `prueba` es solo de admin.
+- La foto de perfil solo admite una ruta de la plataforma o `https`.
+- En producción no se corre `npm run semilla` (crea usuarios demo): se copia solo `insignias.json` y se usa `npm run crear-admin`.
 
 ## Problemas conocidos
-- El puntaje de una simulación lo declara el navegador (igual que los otros juegos): un estudiante podría falsearlo.
-- La semilla de simulaciones no se ha corrido en el proyecto real (el tema demo `tem_000001` ya no es el de genética).
-- Encabezado en celular (375 px) amontonado; noticias sin regla de dueño; nivel 1 del tema demo con 9 preguntas y niveles 2 a 5 vacíos.
-- Sesión vencida en `localStorage` bloquea `ingreso.html` hasta borrarla; el sondeo de mensajes tiene hasta 4 s de retraso.
+- El puntaje de juegos y simulaciones lo declara el navegador (solo el quiz y la evaluación de rol los calcula el servidor); hay límites por hora y por día.
+- Sin `Content-Security-Policy` activa: la guía de despliegue la propone primero en modo «solo informar».
+- Despliegue y manuales no probados en un servidor real ni con una persona ajena al proyecto; los guiones de prioridad Media y Baja, la prueba en celular real y la de IA no disponible siguen pendientes.
+- Encabezado en celular (375 px) amontonado; nivel 1 del tema demo con 9 preguntas y niveles 2 a 5 vacíos; la semilla de simulaciones no se corrió en el proyecto real.
+- Falta el correo de contacto en `privacidad.html`; sesión vencida en `localStorage` bloquea `ingreso.html` hasta borrarla.
 
 ## Pendiente para el siguiente sprint
-- Sprint 13: pruebas, auditoría de seguridad y accesibilidad, despliegue y manuales (P13.1 a P13.4).
+- Aceptación con el Product Owner: ejecutar todos los guiones, desplegar en un servidor de prueba y validar los manuales con una persona nueva.
