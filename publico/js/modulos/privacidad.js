@@ -51,7 +51,7 @@ if (contenido) {
             Para el ejercicio de cualquiera de sus derechos o para formular consultas relativas a la protección de sus datos personales, puede comunicarse directamente con nuestro delegado de protección de datos:
           </p>
           <div class="privacidad-contacto">
-            <p><strong>Correo de contacto:</strong> <a href="mailto:privacidad@ecosistemaeducativo.edu.ec">privacidad@ecosistemaeducativo.edu.ec</a></p>
+            <p><strong>Correo de contacto:</strong> <a href="mailto:jesaemiliano19901@gmail.com">jesaemiliano19901@gmail.com</a></p>
           </div>
         </section>
 

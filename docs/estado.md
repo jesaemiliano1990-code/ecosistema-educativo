@@ -17,9 +17,9 @@ Sprint terminado: S13 · Fecha: 2026-10-25 · Velocidad real: __ puntos · Versi
 ## Problemas conocidos
 - El puntaje de juegos y simulaciones lo declara el navegador (solo el quiz y la evaluación de rol los calcula el servidor); hay límites por hora y por día.
 - Sin `Content-Security-Policy` activa: la guía de despliegue la propone primero en modo «solo informar».
-- Despliegue y manuales no probados en un servidor real ni con una persona ajena al proyecto; los guiones de prioridad Media y Baja, la prueba en celular real y la de IA no disponible siguen pendientes.
+- Despliegue y manuales no probados en un servidor real ni con una persona ajena al proyecto (la plataforma sí se recorrió completa en el navegador con las tres cuentas); los guiones de prioridad Media y Baja, la prueba en celular real y la de IA no disponible siguen pendientes.
 - Encabezado en celular (375 px) amontonado; nivel 1 del tema demo con 9 preguntas y niveles 2 a 5 vacíos; la semilla de simulaciones no se corrió en el proyecto real.
-- Falta el correo de contacto en `privacidad.html`; sesión vencida en `localStorage` bloquea `ingreso.html` hasta borrarla.
+- Sesión vencida en `localStorage` bloquea `ingreso.html` hasta borrarla.
 
 ## Pendiente para el siguiente sprint
 - Aceptación con el Product Owner: ejecutar todos los guiones, desplegar en un servidor de prueba y validar los manuales con una persona nueva.

@@ -316,7 +316,7 @@ Si algo falla, vuelve a la versión anterior con `git log --oneline`, `git check
 - [ ] Existe una copia de los respaldos **fuera del servidor** y la probaste restaurando en otra carpeta.
 - [ ] `sudo ufw status` muestra solo 22, 80 y 443; `http://TU_IP:3000` no responde desde fuera.
 - [ ] `curl -I https://ejemplo.edu.ec` muestra `X-Content-Type-Options` y `Strict-Transport-Security`.
-- [ ] Completaste el correo de contacto de la política de privacidad (`publico/paginas/privacidad.html`) y revisaste el texto con la institución.
+- [ ] Revisaste con la institución el texto de la política de privacidad (`publico/paginas/privacidad.html`) y el correo de contacto que muestra (hoy: jesaemiliano19901@gmail.com; cámbialo en `publico/js/modulos/privacidad.js` si la institución usa otro).
 - [ ] Guardaste el `.env` y las claves en un gestor de contraseñas; el acceso por SSH es solo con llave.
 
 ## 14. Problemas frecuentes
