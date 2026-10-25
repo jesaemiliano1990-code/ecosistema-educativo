@@ -12,6 +12,8 @@ const contenido = document.getElementById('contenido');
 const MIN_OPCIONES = 2;
 const MAX_OPCIONES = 4;
 const MAX_ESCENAS = 40;
+const MIN_CRITERIOS = 3;
+const MAX_CRITERIOS = 5;
 
 let id = util.parametro('id') || '';
 let temas = [];
@@ -42,6 +44,23 @@ function validar() {
 
   if (!sim.titulo.trim()) falla(null, 'El título es obligatorio.');
   if (!sim.temaId) falla(null, 'Elige el tema de la simulación.');
+  if (sim.modo === 'rol') {
+    const p = sim.personaje;
+    if (!p.nombre?.trim()) falla(null, 'Escribe el nombre del personaje.');
+    if (!p.descripcion?.trim()) falla(null, 'Escribe la descripción del personaje.');
+    if (!p.contexto?.trim()) falla(null, 'Escribe el contexto del caso.');
+    if (!p.objetivo?.trim()) falla(null, 'Escribe el objetivo del estudiante.');
+    if (sim.rubrica.length < MIN_CRITERIOS || sim.rubrica.length > MAX_CRITERIOS) falla(null, `La rúbrica necesita de ${MIN_CRITERIOS} a ${MAX_CRITERIOS} criterios.`);
+    sim.rubrica.forEach((r, i) => {
+      if (!r.criterio?.trim()) falla(null, `Criterio ${i + 1}: escribe el nombre.`);
+      if (!r.descripcion?.trim()) falla(null, `Criterio ${i + 1}: escribe la descripción.`);
+      const n = Number(r.puntos);
+      if (!Number.isInteger(n) || n < 1 || n > 20) falla(null, `Criterio ${i + 1}: los puntos van de 1 a 20.`);
+    });
+    const t = Number(sim.maxTurnos);
+    if (!Number.isInteger(t) || t < 4 || t > 12) falla(null, 'El máximo de turnos va de 4 a 12.');
+    return errores;
+  }
   if (sim.modo !== 'escenarios') return errores;
 
   const ids = new Set(sim.escenas.map((e) => e.id));
@@ -131,6 +150,99 @@ function pintarMapa() {
     ? `<ul class="sim-mapa__lista">${lineas.map((l) => `<li class="sim-mapa__item${l.aviso ? ' sim-mapa__item--aviso' : ''}" style="--nivel:${l.nivel}">${ui.escapar(l.texto)}</li>`).join('')}</ul>
        ${sueltas.length ? `<p class="sim-mapa__sueltas">Sin conexión con la escena inicial: ${ui.escapar(sueltas.join(', '))}</p>` : ''}`
     : '<p class="texto-suave">El mapa aparecerá cuando la escena inicial tenga opciones.</p>';
+}
+
+// ----------------------------------------------------
+// MODO ROL: personaje, rúbrica y turnos
+// ----------------------------------------------------
+
+const CAMPOS_PERSONAJE = [
+  ['nombre', 'Nombre del personaje', 'input', 100],
+  ['descripcion', 'Descripción del personaje', 'textarea', 600],
+  ['contexto', 'Contexto del caso (lo que el estudiante debe saber de la situación)', 'textarea', 1000],
+  ['objetivo', 'Objetivo del estudiante (el personaje no lo menciona)', 'textarea', 600]
+];
+
+function htmlCriterio(r, i) {
+  return `
+    <fieldset class="sim-opcion-editor">
+      <legend>Criterio ${i + 1}</legend>
+      <div class="sim-fila">
+        <div class="campo">
+          <label for="rub-${i}-criterio">Criterio</label>
+          <input type="text" id="rub-${i}-criterio" maxlength="100" value="${ui.escapar(r.criterio)}" data-rub="${i}" data-campo-rol="criterio">
+        </div>
+        <div class="campo">
+          <label for="rub-${i}-puntos">Puntos máximos (1 a 20)</label>
+          <input type="number" id="rub-${i}-puntos" min="1" max="20" step="1" value="${Number(r.puntos) || 1}" data-rub="${i}" data-campo-rol="puntos">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="rub-${i}-descripcion">Qué se espera (descripción)</label>
+        <textarea id="rub-${i}-descripcion" rows="2" maxlength="300" data-rub="${i}" data-campo-rol="descripcion">${ui.escapar(r.descripcion)}</textarea>
+      </div>
+      <button type="button" class="btn btn--texto btn--pequeno" data-accion-rol="quitar-criterio" data-rub="${i}">🗑️ Quitar criterio ${i + 1}</button>
+    </fieldset>`;
+}
+
+function pintarRubrica(enfocar = '') {
+  por('listaCriterios').innerHTML = sim.rubrica.map(htmlCriterio).join('');
+  por('btnAgregarCriterio').disabled = sim.rubrica.length >= MAX_CRITERIOS;
+  if (enfocar) por(enfocar)?.focus();
+}
+
+function htmlRol() {
+  const p = sim.personaje;
+  return `
+    <section class="tarjeta" aria-labelledby="tituloPersonaje">
+      <h2 id="tituloPersonaje" class="sim-editor__subtitulo">Personaje y caso</h2>
+      ${CAMPOS_PERSONAJE.map(([clave, etiquetaCampo, tipo, max]) => `
+        <div class="campo">
+          <label for="rol-${clave}">${etiquetaCampo}</label>
+          ${tipo === 'input'
+            ? `<input type="text" id="rol-${clave}" maxlength="${max}" value="${ui.escapar(p[clave] || '')}" data-campo-rol="${clave}">`
+            : `<textarea id="rol-${clave}" rows="3" maxlength="${max}" data-campo-rol="${clave}">${ui.escapar(p[clave] || '')}</textarea>`}
+        </div>`).join('')}
+      <div class="campo">
+        <label for="rol-maxTurnos">Máximo de turnos del estudiante (4 a 12)</label>
+        <input type="number" id="rol-maxTurnos" min="4" max="12" step="1" value="${Number(sim.maxTurnos) || 8}" data-campo-rol="maxTurnos">
+      </div>
+    </section>
+    <section class="tarjeta" aria-labelledby="tituloRubrica">
+      <div class="sim-editor__cabecera">
+        <h2 id="tituloRubrica" class="sim-editor__subtitulo">Rúbrica (${MIN_CRITERIOS} a ${MAX_CRITERIOS} criterios)</h2>
+        <button type="button" id="btnAgregarCriterio" class="btn btn--secundario btn--pequeno" data-accion-rol="agregar-criterio">➕ Agregar criterio</button>
+      </div>
+      <div id="listaCriterios" class="sim-opciones-editor"></div>
+    </section>`;
+}
+
+function alCambiarRol(evento) {
+  const el = evento.target;
+  const campo = el.dataset?.campoRol;
+  if (!campo) return;
+  sucio = true;
+  if (el.dataset.rub !== undefined) {
+    const r = sim.rubrica[Number(el.dataset.rub)];
+    if (r) r[campo] = campo === 'puntos' ? (el.value === '' ? 0 : Number(el.value)) : el.value;
+  } else if (campo === 'maxTurnos') {
+    sim.maxTurnos = el.value === '' ? 0 : Number(el.value);
+  } else {
+    sim.personaje[campo] = el.value;
+  }
+}
+
+function alHacerClicRol(evento) {
+  const boton = evento.target.closest('[data-accion-rol]');
+  if (!boton) return;
+  sucio = true;
+  if (boton.dataset.accionRol === 'agregar-criterio' && sim.rubrica.length < MAX_CRITERIOS) {
+    sim.rubrica.push({ criterio: '', descripcion: '', puntos: 5 });
+    pintarRubrica(`rub-${sim.rubrica.length - 1}-criterio`);
+  } else if (boton.dataset.accionRol === 'quitar-criterio') {
+    sim.rubrica.splice(Number(boton.dataset.rub), 1);
+    pintarRubrica('btnAgregarCriterio');
+  }
 }
 
 // ----------------------------------------------------
@@ -407,7 +519,11 @@ async function eliminar() {
 function alCambiarModo() {
   sim.modo = por('simModo').value;
   por('zonaEscenarios').hidden = sim.modo !== 'escenarios';
-  por('avisoRol').hidden = sim.modo !== 'rol';
+  por('zonaRol').hidden = sim.modo !== 'rol';
+  if (sim.modo === 'rol' && !sim.rubrica.length) {
+    sim.rubrica = Array.from({ length: MIN_CRITERIOS }, () => ({ criterio: '', descripcion: '', puntos: 5 }));
+    pintarRubrica();
+  }
 }
 
 function pintarPagina() {
@@ -451,9 +567,7 @@ function pintarPagina() {
         </div>
       </section>
 
-      <div id="avisoRol" class="tarjeta" role="note" ${sim.modo === 'rol' ? '' : 'hidden'}>
-        <p><strong>El editor de rol se agrega en P12.4.</strong> Por ahora puedes guardar los datos generales.</p>
-      </div>
+      <div id="zonaRol" class="sim-editor" ${sim.modo === 'rol' ? '' : 'hidden'}>${htmlRol()}</div>
 
       <div id="zonaEscenarios" ${sim.modo === 'escenarios' ? '' : 'hidden'}>
         <section aria-labelledby="tituloEscenas">
@@ -481,6 +595,9 @@ function pintarPagina() {
     </div>`;
 
   pintarEscenas();
+  pintarRubrica();
+  por('zonaRol').addEventListener('input', alCambiarRol);
+  por('zonaRol').addEventListener('click', alHacerClicRol);
   por('simModo').addEventListener('change', () => { sucio = true; alCambiarModo(); });
   contenido.querySelectorAll('#simTitulo, #simTema, #simEstado').forEach((c) => c.addEventListener('input', () => { sucio = true; }));
   por('listaEscenas').addEventListener('input', (e) => { if (e.target.type !== 'file' && e.target.type !== 'radio') alCambiar(e); });
@@ -503,9 +620,11 @@ try {
   temas = await api.listar('temas');
   if (id) {
     sim = await api.obtener('simulaciones', id);
+    sim.personaje = { nombre: '', descripcion: '', contexto: '', objetivo: '', ...(sim.personaje || {}) };
+    sim.rubrica = (sim.rubrica || []).map((r) => ({ criterio: '', descripcion: '', puntos: 5, ...r }));
     sim.escenas = (sim.escenas || []).map((e) => ({ ...e, imagen: e.imagen || '', opciones: (e.opciones || []).map((o) => ({ ...nuevaOpcion(), ...o })) }));
   } else {
-    sim = { temaId: util.parametro('temaId') || '', titulo: '', modo: 'escenarios', estado: 'borrador', escenaInicial: '', escenas: [], personaje: {}, rubrica: [], maxTurnos: 8 };
+    sim = { temaId: util.parametro('temaId') || '', titulo: '', modo: 'escenarios', estado: 'borrador', escenaInicial: '', escenas: [], personaje: { nombre: '', descripcion: '', contexto: '', objetivo: '' }, rubrica: [], maxTurnos: 8 };
   }
   pintarPagina();
   window.addEventListener('beforeunload', (e) => { if (sucio) { e.preventDefault(); e.returnValue = ''; } });

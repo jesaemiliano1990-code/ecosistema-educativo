@@ -15,6 +15,7 @@ const router = Router();
 
 const FORMATO_TEXTO = ['tutor', 'rol-simulacion'];
 const MAX_RESPUESTA_TUTOR = 700;
+const MAX_RESPUESTA_ROL = 700;
 const ZONA = 'America/Guayaquil'; // el "día" del tutor es el día de Ecuador
 
 // Recorta a un máximo de caracteres, preferiblemente en el final de una oración.
@@ -24,6 +25,27 @@ export function recortar(texto, max) {
   const corte = limpio.slice(0, max);
   const fin = Math.max(corte.lastIndexOf('. '), corte.lastIndexOf('? '), corte.lastIndexOf('! '), corte.lastIndexOf('.\n'));
   return fin > max * 0.6 ? corte.slice(0, fin + 1) : `${corte.slice(0, max - 1).trimEnd()}…`;
+}
+
+// La IA puede equivocarse con los puntos: se ajustan a la rúbrica real de la simulación.
+export function ajustarEvaluacion(evaluacion, rubrica) {
+  const norm = (t) => String(t ?? '').trim().toLowerCase();
+  const criterios = rubrica.map((r, i) => {
+    const dado = evaluacion.criterios.find((c) => norm(c?.criterio) === norm(r.criterio)) || evaluacion.criterios[i] || {};
+    const puntos = Math.round(Number(dado.puntos));
+    return {
+      criterio: r.criterio,
+      puntos: Number.isFinite(puntos) ? Math.max(0, Math.min(r.puntos, puntos)) : 0,
+      maximo: r.puntos,
+      comentario: typeof dado.comentario === 'string' ? dado.comentario.trim() : ''
+    };
+  });
+  return {
+    criterios,
+    puntaje: criterios.reduce((s, c) => s + c.puntos, 0),
+    maximo: criterios.reduce((s, c) => s + c.maximo, 0),
+    comentarioGeneral: evaluacion.comentarioGeneral
+  };
 }
 
 // Una fila por persona, tema y día, con el número de consultas; en serie para no perder cuentas.
@@ -75,6 +97,8 @@ router.post('/ia/:tarea', async (req, res, next) => {
       await registrarConsultaTutor(req.usuario.id, req.body.temaId).catch((e) => console.warn('Tutor: no se pudo registrar el uso:', e.message));
       return res.json({ respuesta: recortar(resultado, MAX_RESPUESTA_TUTOR) });
     }
+    if (tarea === 'rol-simulacion') return res.json({ texto: recortar(resultado, MAX_RESPUESTA_ROL) });
+    if (tarea === 'evaluar-rol') return res.json(ajustarEvaluacion(resultado, datos._rubrica));
     res.json(formato === 'texto' ? { texto: resultado } : resultado);
   } catch (error) {
     next(error);

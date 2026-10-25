@@ -7,6 +7,7 @@ import * as ui from '../nucleo/ui.js';
 import * as util from '../nucleo/util.js';
 import { registrarIntento } from '../nucleo/gamificacion.js';
 import { mostrarRetro } from '../nucleo/retroalimentacion.js';
+import { cambiarEstado, decir } from '../nucleo/avatar.js';
 
 await montarPlantilla({ titulo: 'Simulador', roles: ['sesion'] });
 
@@ -61,7 +62,7 @@ function cabecera() {
         <h1 class="sim-juego__titulo">${ui.escapar(simulacion.titulo)}</h1>
         ${esPrevia ? '<span class="insignia insignia--acento">Vista previa: no se registran puntos</span>' : ''}
       </div>
-      <div class="sim-juego__puntos" aria-live="polite">Puntos: <strong>${puntos}</strong></div>
+      ${simulacion.modo === 'rol' ? '' : `<div class="sim-juego__puntos" aria-live="polite">Puntos: <strong>${puntos}</strong></div>`}
     </div>`;
 }
 
@@ -164,6 +165,181 @@ async function mostrarInforme(final) {
   }
 }
 
+// ----------------------------------------------------
+// MODO ROL: chat con el personaje y evaluación con rúbrica
+// ----------------------------------------------------
+
+let mensajesRol = []; // [{ rol: 'estudiante' | 'personaje', texto }]
+let esperandoRol = false;
+let terminado = false;
+
+const turnosUsados = () => mensajesRol.filter((m) => m.rol === 'estudiante').length;
+
+function burbujaRol(m) {
+  const quien = m.rol === 'estudiante' ? 'Tú' : simulacion.personaje.nombre;
+  return `
+    <div class="sim-burbuja${m.rol === 'estudiante' ? ' sim-burbuja--estudiante' : ''}">
+      <span class="sim-burbuja__autor">${ui.escapar(quien)}</span>
+      ${util.formatoBasico(m.texto)}
+    </div>`;
+}
+
+function pintarChat() {
+  const max = simulacion.maxTurnos;
+  const usados = turnosUsados();
+  por('hiloRol').innerHTML = mensajesRol.map(burbujaRol).join('')
+    + (esperandoRol ? '<div class="sim-pensando" role="status">El personaje está respondiendo...</div>' : '');
+  por('hiloRol').scrollTop = por('hiloRol').scrollHeight;
+  por('turnosRol').textContent = `Turno ${Math.min(usados + (esperandoRol || terminado ? 0 : 1), max)} de ${max}`;
+  const bloqueado = esperandoRol || terminado;
+  por('textoRol').disabled = bloqueado;
+  por('btnEnviarRol').disabled = bloqueado;
+  por('btnTerminarRol').disabled = bloqueado || usados === 0;
+}
+
+function presentarCaso() {
+  const p = simulacion.personaje;
+  contenido.innerHTML = `
+    <div class="sim-juego">
+      ${cabecera()}
+      <section class="tarjeta sim-escena" aria-labelledby="tituloCaso">
+        <p class="sim-escena__paso">Juego de rol</p>
+        <h2 id="tituloCaso" class="sim-informe__titulo">Conversarás con ${ui.escapar(p.nombre)}</h2>
+        <p>${ui.escapar(p.descripcion)}</p>
+        <div class="sim-escena__texto"><strong>Situación:</strong> ${util.formatoBasico(p.contexto)}</div>
+        <div class="sim-escena__texto"><strong>Tu objetivo:</strong> ${util.formatoBasico(p.objetivo)}</div>
+        <p class="texto-suave">Tienes hasta ${simulacion.maxTurnos} turnos. Al terminar recibirás una evaluación por criterios.</p>
+        <details class="sim-rubrica">
+          <summary>Ver rúbrica de evaluación</summary>
+          <ul>${(simulacion.rubrica || []).map((r) => `<li><strong>${ui.escapar(r.criterio)}</strong> (${Number(r.puntos)} pts): ${ui.escapar(r.descripcion)}</li>`).join('')}</ul>
+        </details>
+        <div class="sim-escena__pie">
+          <button type="button" id="btnComenzarRol" class="btn btn--primario">Comenzar</button>
+          <a href="/paginas/simulaciones.html" class="btn btn--secundario">Volver a Simulaciones</a>
+        </div>
+      </section>
+    </div>`;
+  por('btnComenzarRol').addEventListener('click', comenzarRol);
+  por('btnComenzarRol').focus();
+}
+
+function comenzarRol() {
+  mensajesRol = [];
+  esperandoRol = false;
+  terminado = false;
+  inicio = Date.now();
+  contenido.innerHTML = `
+    <div class="sim-juego">
+      ${cabecera()}
+      <section class="tarjeta sim-chat" aria-label="Conversación con ${ui.escapar(simulacion.personaje.nombre)}">
+        <div class="sim-chat__barra">
+          <strong>${ui.escapar(simulacion.personaje.nombre)}</strong>
+          <span id="turnosRol" class="texto-suave"></span>
+        </div>
+        <div class="sim-chat__hilo" id="hiloRol" role="log" aria-live="polite" tabindex="0"></div>
+        <form id="formRol" class="sim-chat__form">
+          <label for="textoRol" class="sr-only">Escribe tu mensaje para el personaje</label>
+          <textarea id="textoRol" rows="2" maxlength="1000" placeholder="Escribe lo que le dirías al personaje…"></textarea>
+          <div class="sim-escena__pie">
+            <button type="submit" id="btnEnviarRol" class="btn btn--primario">Enviar</button>
+            <button type="button" id="btnTerminarRol" class="btn btn--secundario">Terminar y evaluar</button>
+          </div>
+        </form>
+      </section>
+    </div>`;
+  por('formRol').addEventListener('submit', (e) => { e.preventDefault(); enviarRol(por('textoRol').value); });
+  por('btnTerminarRol').addEventListener('click', evaluarRol);
+  por('textoRol').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); por('formRol').requestSubmit(); }
+  });
+  pintarChat();
+  por('textoRol').focus();
+}
+
+async function enviarRol(texto) {
+  const mensaje = texto.trim();
+  if (!mensaje || esperandoRol || terminado || turnosUsados() >= simulacion.maxTurnos) return;
+  mensajesRol.push({ rol: 'estudiante', texto: mensaje.slice(0, 1000) });
+  esperandoRol = true;
+  por('textoRol').value = '';
+  pintarChat();
+  cambiarEstado('pensando');
+  try {
+    const { texto: respuesta } = await api.ia('rol-simulacion', { simulacionId: simulacion.id, historial: mensajesRol });
+    mensajesRol.push({ rol: 'personaje', texto: respuesta });
+    decir(respuesta, { globo: false });
+  } catch (error) {
+    cambiarEstado('reposo');
+    mensajesRol.pop(); // la pregunta sin respuesta vuelve al campo para reintentar
+    por('textoRol').value = mensaje;
+    ui.aviso(error.message || 'El personaje no pudo responder. Intenta de nuevo.', 'error');
+  } finally {
+    esperandoRol = false;
+    pintarChat();
+  }
+  if (turnosUsados() >= simulacion.maxTurnos && mensajesRol.at(-1)?.rol === 'personaje') evaluarRol();
+}
+
+async function evaluarRol() {
+  if (esperandoRol || terminado || turnosUsados() === 0) return;
+  terminado = true;
+  esperandoRol = true;
+  pintarChat();
+  por('hiloRol').insertAdjacentHTML('beforeend', '<div class="sim-pensando" role="status">Evaluando tu desempeño...</div>');
+  cambiarEstado('pensando');
+  try {
+    const evaluacion = await api.ia('evaluar-rol', { simulacionId: simulacion.id, historial: mensajesRol });
+    mostrarEvaluacion(evaluacion);
+  } catch (error) {
+    cambiarEstado('reposo');
+    terminado = false;
+    esperandoRol = false;
+    pintarChat();
+    ui.aviso(error.message || 'No se pudo evaluar. Pulsa "Terminar y evaluar" para reintentar.', 'error');
+  }
+}
+
+async function mostrarEvaluacion(ev) {
+  cambiarEstado('reposo');
+  contenido.innerHTML = `
+    <div class="sim-juego">
+      ${cabecera()}
+      <section class="tarjeta sim-informe" aria-labelledby="tituloInforme">
+        <h2 id="tituloInforme" class="sim-informe__titulo">Informe de la práctica</h2>
+        <p class="sim-informe__puntaje">Puntaje: <strong>${ev.puntaje} / ${ev.maximo}</strong></p>
+        <ul class="sim-informe__lista sim-informe__lista--rol">
+          ${ev.criterios.map((c) => `
+            <li class="sim-informe__item ${c.puntos >= c.maximo / 2 ? 'sim-informe__item--bien' : 'sim-informe__item--mal'}">
+              <strong>${ui.escapar(c.criterio)}</strong>
+              ${c.comentario ? `<span>${ui.escapar(c.comentario)}</span>` : ''}
+              <span class="sim-informe__pts">${c.puntos} / ${c.maximo} pts</span>
+            </li>`).join('')}
+        </ul>
+        <div class="sim-escena__texto"><strong>Comentario general:</strong> ${util.formatoBasico(ev.comentarioGeneral)}</div>
+        <div class="sim-escena__pie">
+          <button type="button" id="btnRepetirRol" class="btn btn--secundario">🔄 Repetir</button>
+          <a href="/paginas/simulaciones.html" class="btn btn--primario">Volver a Simulaciones</a>
+        </div>
+      </section>
+    </div>`;
+  por('btnRepetirRol').addEventListener('click', presentarCaso);
+
+  if (esPrevia) return;
+  try {
+    await registrarIntento({
+      actividad: 'simulacion',
+      temaId: simulacion.temaId,
+      puntaje: ev.puntaje,
+      maximo: Math.max(1, ev.maximo),
+      errores: ev.criterios.filter((c) => c.puntos < c.maximo).length,
+      duracionSeg: Math.round((Date.now() - inicio) / 1000),
+      detalle: { simulacionId: simulacion.id, modo: 'rol' }
+    });
+  } catch (error) {
+    ui.aviso(error.message || 'No se pudo registrar tu intento.', 'error');
+  }
+}
+
 function empezar() {
   puntos = 0;
   recorrido = [];
@@ -177,7 +353,12 @@ try {
   } else {
     simulacion = await api.obtener('simulaciones', idSimulacion);
     if (simulacion.modo === 'rol') {
-      pintarMensaje('🎭', 'Próximamente', 'El modo de juego de rol estará disponible pronto.');
+      const p = simulacion.personaje || {};
+      if (!p.nombre || !p.contexto || !simulacion.rubrica?.length) {
+        pintarMensaje('🛠️', 'Simulación incompleta', 'Esta simulación de rol aún no está lista. Avisa a tu docente.');
+      } else {
+        presentarCaso();
+      }
     } else {
       escenas = new Map((simulacion.escenas || []).map((e) => [e.id, e]));
       if (!escenas.has(simulacion.escenaInicial)) {

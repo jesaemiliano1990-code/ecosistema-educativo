@@ -10,7 +10,7 @@ const MODOS = ['escenarios', 'rol'];
 const ESTADOS = ['borrador', 'publicado'];
 const MAX_ESCENAS = 40;
 const MAX_OPCIONES = 6;
-const MAX_CRITERIOS = 10;
+const MAX_CRITERIOS = 5;
 
 const fallo = (mensaje, estado = 400) => Object.assign(new Error(mensaje), { estado });
 const texto = (valor, max) => (typeof valor === 'string' ? valor.trim().slice(0, max) : '');
@@ -119,6 +119,15 @@ function validarEscenarios(escenas, escenaInicial) {
   if (huerfana) throw fallo(`La escena "${huerfana.id}" no se puede alcanzar desde la escena inicial`);
 }
 
+function validarRol(p, rubrica, maxTurnos) {
+  for (const [campo, nombre] of [['nombre', 'el nombre del personaje'], ['descripcion', 'la descripción del personaje'], ['contexto', 'el contexto'], ['objetivo', 'el objetivo del estudiante']]) {
+    if (!texto(p[campo], 1000)) throw fallo(`Para publicar, escribe ${nombre}`);
+  }
+  if (rubrica.length < 3 || rubrica.length > MAX_CRITERIOS) throw fallo('La rúbrica necesita de 3 a 5 criterios');
+  if (rubrica.some((r) => !r.descripcion)) throw fallo('Cada criterio de la rúbrica necesita una descripción');
+  if (!Number.isInteger(Number(maxTurnos)) || maxTurnos < 4 || maxTurnos > 12) throw fallo('El máximo de turnos va de 4 a 12');
+}
+
 export async function antesDeGuardar(datos, usuario, anterior) {
   const unida = { ...(anterior || {}), ...datos };
   const temaId = unida.temaId;
@@ -138,11 +147,15 @@ export async function antesDeGuardar(datos, usuario, anterior) {
   if (modo === 'escenarios' && estado === 'publicado') validarEscenarios(escenas, escenaInicial);
 
   const p = unida.personaje && typeof unida.personaje === 'object' ? unida.personaje : {};
-  const rubrica = (Array.isArray(unida.rubrica) ? unida.rubrica : []).slice(0, MAX_CRITERIOS).map((r) => ({
+  const crudos = Array.isArray(unida.rubrica) ? unida.rubrica : [];
+  if (crudos.length > MAX_CRITERIOS) throw fallo(`La rúbrica admite hasta ${MAX_CRITERIOS} criterios`);
+  const rubrica = crudos.map((r) => ({
     criterio: texto(r?.criterio, 100),
     descripcion: texto(r?.descripcion, 300),
-    puntos: entero(r?.puntos, 1, 100, 1)
+    puntos: entero(r?.puntos, 1, 20, 1)
   })).filter((r) => r.criterio);
+
+  if (modo === 'rol' && estado === 'publicado') validarRol(p, rubrica, unida.maxTurnos);
 
   // Lista blanca: ningún otro campo del cliente llega al archivo.
   return {
@@ -159,7 +172,7 @@ export async function antesDeGuardar(datos, usuario, anterior) {
       objetivo: texto(p.objetivo, 600)
     },
     rubrica,
-    maxTurnos: entero(unida.maxTurnos, 2, 20, 8)
+    maxTurnos: entero(unida.maxTurnos, 4, 12, 8)
   };
 }
 
