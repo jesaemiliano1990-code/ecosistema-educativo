@@ -302,6 +302,58 @@ router.get('/resumen/estudiante/:id', async (req, res, next) => {
 });
 
 // --------------------------------------------------------------------------
+// GET /resumen/tutor/:grupoId (docente del grupo o admin): uso del tutor sin textos de conversaciones
+// --------------------------------------------------------------------------
+router.get('/resumen/tutor/:grupoId', async (req, res, next) => {
+  try {
+    if (!req.usuario) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+    const grupo = (await almacen.leer('distributivo')).find(g => g && g.id === req.params.grupoId);
+    if (!grupo) {
+      return res.status(404).json({ error: 'Grupo no encontrado' });
+    }
+    if (req.usuario.rol !== 'admin' && !(req.usuario.rol === 'docente' && grupo.docenteId === req.usuario.id)) {
+      return res.status(403).json({ error: 'Acceso no autorizado' });
+    }
+
+    const [usuarios, unidades, temas, consultas] = await Promise.all([
+      almacen.leer('usuarios'),
+      almacen.leer('unidades'),
+      almacen.leer('temas'),
+      almacen.leer('consultas-tutor')
+    ]);
+    const estudiantes = new Set(Array.isArray(grupo.estudiantes) ? grupo.estudiantes : []);
+    const unidadesGrupo = new Set(unidades.filter(u => u && u.asignaturaId === grupo.asignaturaId).map(u => u.id));
+    const temasGrupo = new Map(temas.filter(t => t && unidadesGrupo.has(t.unidadId)).map(t => [t.id, t]));
+
+    // Solo consultas de estos estudiantes sobre temas de la asignatura del grupo.
+    const delGrupo = consultas.filter(c => c && estudiantes.has(c.usuarioId) && temasGrupo.has(c.temaId));
+    const sumar = (clave) => {
+      const total = new Map();
+      for (const c of delGrupo) total.set(c[clave], (total.get(c[clave]) || 0) + (Number(c.mensajes) || 0));
+      return total;
+    };
+    const porTemaTotal = sumar('temaId');
+    const porEstudianteTotal = sumar('usuarioId');
+
+    const porTema = [...porTemaTotal]
+      .map(([temaId, total]) => ({ temaId, titulo: temasGrupo.get(temaId).titulo, consultas: total }))
+      .sort((a, b) => b.consultas - a.consultas);
+    const porEstudiante = [...estudiantes]
+      .map((id) => {
+        const u = usuarios.find(x => x.id === id);
+        return { id, nombre: `${u?.nombre || ''} ${u?.apellido || ''}`.trim() || 'Estudiante', consultas: porEstudianteTotal.get(id) || 0 };
+      })
+      .sort((a, b) => b.consultas - a.consultas || a.nombre.localeCompare(b.nombre, 'es'));
+
+    res.json({ porTema, porEstudiante });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// --------------------------------------------------------------------------
 // 2. GET /resumen/grupo/:grupoId (docente del grupo o admin)
 // --------------------------------------------------------------------------
 router.get('/resumen/grupo/:grupoId', async (req, res, next) => {
@@ -311,6 +363,15 @@ router.get('/resumen/grupo/:grupoId', async (req, res, next) => {
     }
 
     const { grupoId } = req.params;
+
+    // Primero se comprueba quién consulta: solo el docente del grupo o el admin disparan la evaluación.
+    const grupoSolicitado = (await almacen.leer('distributivo')).find(g => g && g.id === grupoId);
+    if (!grupoSolicitado) {
+      return res.status(404).json({ error: 'Grupo no encontrado' });
+    }
+    if (req.usuario.rol !== 'admin' && !(req.usuario.rol === 'docente' && grupoSolicitado.docenteId === req.usuario.id)) {
+      return res.status(403).json({ error: 'Acceso no autorizado' });
+    }
 
     // Evaluar inactividad antes de calcular el resumen del grupo
     try {

@@ -67,6 +67,10 @@
     "leer": ["propio"],
     "escribir": ["servidor"]
   },
+  "consultas-tutor": {
+    "leer": ["servidor"],
+    "escribir": ["servidor"]
+  },
   "conversaciones": {
     "leer": ["servidor"],
     "escribir": ["servidor"]

@@ -75,7 +75,8 @@ Gamif.    POST /api/intentos · GET /api/logros/:usuarioId ("yo" permitido)
 Certif.   GET /api/certificados/estado · POST /api/certificados
           GET /api/certificados/verificar/:codigo (sin sesión)
 Resumen   GET /api/resumen/estudiante/:id ("yo") · GET /api/resumen/grupo/:grupoId
-          GET /api/resumen/tutor/:grupoId
+          GET /api/resumen/tutor/:grupoId → { porTema: [{ temaId, titulo, consultas }],
+          porEstudiante: [{ id, nombre, consultas }] } (docente del grupo o admin; sin textos)
 Notif.    GET /api/notificaciones → { notificaciones (mis 30 más recientes), noLeidas (total) }
           POST /api/notificaciones { usuarioId, mensaje, enlace } (docente → sus estudiantes; admin →
           cualquiera; tipo "mensaje-docente"; enlace = ruta interna "/…")
@@ -84,7 +85,10 @@ Notif.    GET /api/notificaciones → { notificaciones (mis 30 más recientes), 
 Alertas   GET /api/alertas?grupoId= → { alertas, mensajesApoyo }
 IA        POST /api/ia/:tarea   tareas: generar-glosario, generar-preguntas, generar-escenario,
           tutor, rol-simulacion, evaluar-rol · GET /api/ia/prueba (admin) → { respuesta }
-          Respuesta: JSON de la tarea; tutor y rol-simulacion devuelven { texto }.
+          Respuesta: JSON de la tarea; tutor devuelve { respuesta } (máx. 700 caracteres) y
+          rol-simulacion devuelve { texto }. tutor recibe { temaId, historial: [{ rol: "estudiante" |
+          "tutor", texto }] } (últimos 10, hasta 1.000 caracteres cada uno; el último es del estudiante)
+          y cada consulta exitosa suma 1 en consultas-tutor.
 Quiz      GET /api/quiz/estado?temaId= · POST /api/quiz/iniciar · POST /api/quiz/responder
           POST /api/quiz/finalizar   (solo estudiantes; iniciar devuelve además { respondidas: [ids] }
           y retoma el quiz abierto hace menos de 2 h; finalizar devuelve además puntosTotales; POST /api/intentos rechaza actividad "quiz" con 403)
@@ -153,7 +157,8 @@ agenda            titulo, tipo(tarea|reunion|fecha-limite|recordatorio), inicio,
 conversaciones    participantes[], ultimo{texto, fecha, autorId}, leidoHasta{usuarioId: fecha}
 mensajes/<convId> autorId, texto, oculto
 bloqueos          usuarioId, bloqueadoId
-consultas-tutor   usuarioId, temaId, dia, mensajes
+consultas-tutor   usuarioId, temaId, dia (AAAA-MM-DD, hora de Ecuador), mensajes (consultas del día;
+                  nunca guarda textos)
 simulaciones      temaId, titulo, modo(escenarios|rol), estado, escenaInicial,
                   escenas[{id, texto, imagen,
                            opciones[{texto, destino, puntos, consecuencia}]}],

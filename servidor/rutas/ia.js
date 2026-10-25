@@ -9,10 +9,35 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { ejecutarTarea, probarConexion } from '../ia.js';
 import { exigirRol } from '../auth.js';
+import * as almacen from '../almacen.js';
 
 const router = Router();
 
 const FORMATO_TEXTO = ['tutor', 'rol-simulacion'];
+const MAX_RESPUESTA_TUTOR = 700;
+const ZONA = 'America/Guayaquil'; // el "día" del tutor es el día de Ecuador
+
+// Recorta a un máximo de caracteres, preferiblemente en el final de una oración.
+export function recortar(texto, max) {
+  const limpio = String(texto).trim();
+  if (limpio.length <= max) return limpio;
+  const corte = limpio.slice(0, max);
+  const fin = Math.max(corte.lastIndexOf('. '), corte.lastIndexOf('? '), corte.lastIndexOf('! '), corte.lastIndexOf('.\n'));
+  return fin > max * 0.6 ? corte.slice(0, fin + 1) : `${corte.slice(0, max - 1).trimEnd()}…`;
+}
+
+// Una fila por persona, tema y día, con el número de consultas; en serie para no perder cuentas.
+let colaConsultas = Promise.resolve();
+function registrarConsultaTutor(usuarioId, temaId) {
+  const tarea = colaConsultas.then(async () => {
+    const dia = new Intl.DateTimeFormat('en-CA', { timeZone: ZONA }).format(new Date()); // AAAA-MM-DD
+    const existente = (await almacen.buscar('consultas-tutor', { usuarioId, temaId, dia }))[0];
+    if (existente) await almacen.actualizar('consultas-tutor', existente.id, { mensajes: (existente.mensajes || 0) + 1 });
+    else await almacen.agregar('consultas-tutor', { usuarioId, temaId, dia, mensajes: 1 });
+  });
+  colaConsultas = tarea.catch(() => {});
+  return tarea;
+}
 
 // GET /ia/prueba (admin) → confirma que la conexión con la IA funciona
 router.get('/ia/prueba', exigirRol('admin'), async (req, res, next) => {
@@ -44,6 +69,12 @@ router.post('/ia/:tarea', async (req, res, next) => {
     const datos = await preparador(req.body || {}, req.usuario);
     const formato = FORMATO_TEXTO.includes(tarea) ? 'texto' : 'json';
     const resultado = await ejecutarTarea(tarea, datos, req.usuario, { formato });
+
+    if (tarea === 'tutor') {
+      // Solo se cuenta la consulta (sin textos) cuando el tutor sí respondió.
+      await registrarConsultaTutor(req.usuario.id, req.body.temaId).catch((e) => console.warn('Tutor: no se pudo registrar el uso:', e.message));
+      return res.json({ respuesta: recortar(resultado, MAX_RESPUESTA_TUTOR) });
+    }
     res.json(formato === 'texto' ? { texto: resultado } : resultado);
   } catch (error) {
     next(error);
