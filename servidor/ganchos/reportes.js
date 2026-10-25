@@ -13,6 +13,38 @@ const COLECCIONES = {
   'foros-respuestas': puedeVerRespuesta
 };
 
+// Reporte de un mensaje privado: solo quien participa en la conversación, y solo mensajes de la otra persona.
+async function reporteDeMensaje(datos, usuario) {
+  const motivo = textoValido(datos.motivo, 'el motivo', 3, 500);
+  const [convId, mensajeId] = String(datos.referenciaId || '').split('/');
+  if (!/^con_\d{6}$/.test(convId || '') || !/^men_\d{6}$/.test(mensajeId || '')) throw fallo('Indica qué mensaje reportas', 400);
+
+  const conv = (await almacen.leer('conversaciones')).find((c) => c.id === convId);
+  const mensaje = conv && conv.participantes.includes(usuario.id)
+    ? (await almacen.leer(`mensajes/${convId}`)).find((m) => m.id === mensajeId && !m.oculto)
+    : null;
+  if (!mensaje) throw fallo('Mensaje no encontrado', 404);
+  if (mensaje.autorId === usuario.id) throw fallo('No puedes reportar tus propios mensajes', 400);
+
+  const referenciaId = `${convId}/${mensajeId}`;
+  const yaReportado = (await almacen.leer('reportes')).some(
+    (r) => r.reportadoPor === usuario.id && r.tipo === 'mensaje' && r.referenciaId === referenciaId && r.estado === 'pendiente'
+  );
+  if (yaReportado) throw fallo('Ya reportaste este mensaje; el administrador lo revisará', 409);
+
+  return {
+    tipo: 'mensaje',
+    coleccion: 'mensajes',
+    referenciaId,
+    autorMensajeId: mensaje.autorId,
+    motivo,
+    reportadoPor: usuario.id,
+    reportadoPorNombre: nombreDe(usuario),
+    estado: 'pendiente',
+    resolucion: null
+  };
+}
+
 export async function filtrarLista(lista, usuario) {
   if (!Array.isArray(lista) || !usuario || usuario.rol !== 'admin') return [];
   return lista;
@@ -27,7 +59,8 @@ export async function antesDeGuardar(datos, usuario, anterior) {
 
   // ---- Crear un reporte
   if (!anterior) {
-    if (datos.tipo !== undefined && datos.tipo !== 'foro') throw fallo('Por ahora solo se reportan publicaciones del foro', 400);
+    if (datos.tipo === 'mensaje') return reporteDeMensaje(datos, usuario);
+    if (datos.tipo !== undefined && datos.tipo !== 'foro') throw fallo('Tipo de reporte no válido', 400);
     const puedeVer = COLECCIONES[datos.coleccion];
     if (!puedeVer || typeof datos.referenciaId !== 'string') throw fallo('Indica qué publicación reportas', 400);
 
@@ -60,7 +93,7 @@ export async function antesDeGuardar(datos, usuario, anterior) {
     cambios.estado = datos.estado;
   }
   if (datos.resolucion !== undefined) {
-    if (!['ocultado', 'descartado', null].includes(datos.resolucion)) throw fallo('Resolución no válida', 400);
+    if (!['ocultado', 'descartado', 'usuario-desactivado', null].includes(datos.resolucion)) throw fallo('Resolución no válida', 400);
     cambios.resolucion = datos.resolucion;
   }
   if (cambios.estado === 'resuelto') {

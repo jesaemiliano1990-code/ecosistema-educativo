@@ -96,6 +96,12 @@ Mensajes  GET /api/mensajes/contactos · GET|POST /api/mensajes/conversaciones
           POST /api/mensajes/difusion · POST /api/mensajes/bloquear
           DELETE /api/mensajes/bloquear/:usuarioId
           GET /api/mensajes/reporte/:reporteId (admin) · POST /api/mensajes/ocultar (admin)
+          Respuestas: contactos → [{ id, nombre, apellido, rol }]; conversaciones → [{ id, otro,
+          ultimo, noLeidos, bloqueadoPorMi, sinEnvio }] (más reciente primero); no-leidos → { total };
+          GET /mensajes/:convId → { conversacion, mensajes[{ id, autorId, texto, fecha }], hayMas }
+          (hasta 50; desde= y antes= son ids de mensaje, p. ej. "men_000012"); difusion → { enviados,
+          omitidos, total }. Máx. 30 mensajes por minuto y persona (429). Se puede escribir si no hay
+          bloqueo, la otra persona está activa y alguna de las dos la tiene como contacto.
 
 ## §D. Colecciones (datos/<col>.json) · todas con id y fecha (ISO)
 usuarios          nombre, apellido, correo, claveHash, rol, activo, foto,
@@ -134,8 +140,10 @@ foros-hilos       asignaturaId, temaId, titulo, texto, autorId, fijado, cerrado,
 foros-respuestas  hiloId, texto, autorId, destacada, oculta, autorNombre, autorRol
 reportes          tipo(foro|mensaje), referenciaId, motivo, reportadoPor,
                   estado(pendiente|resuelto), coleccion(foros-hilos|foros-respuestas; los ids
-                  de ambas empiezan con "for_"), reportadoPorNombre, resolucion(ocultado|descartado|
-                  contenido-eliminado), resueltoPor, fechaResolucion
+                  de ambas empiezan con "for_"; "mensajes" si tipo=mensaje, con referenciaId
+                  "<convId>/<mensajeId>" y autorMensajeId), reportadoPorNombre,
+                  resolucion(ocultado|descartado|usuario-desactivado|contenido-eliminado),
+                  resueltoPor, fechaResolucion
 agenda            titulo, tipo(tarea|reunion|fecha-limite|recordatorio), inicio, fin,
                   todoElDia, propietarioId, grupoId, actividad, temaId,
                   recordatorios[minutos], avisados{usuarioId: [minutos]},

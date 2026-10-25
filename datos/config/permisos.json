@@ -67,6 +67,18 @@
     "leer": ["propio"],
     "escribir": ["servidor"]
   },
+  "conversaciones": {
+    "leer": ["servidor"],
+    "escribir": ["servidor"]
+  },
+  "bloqueos": {
+    "leer": ["servidor"],
+    "escribir": ["servidor"]
+  },
+  "mensajes": {
+    "leer": ["servidor"],
+    "escribir": ["servidor"]
+  },
   "agenda": {
     "leer": ["sesion"],
     "escribir": ["sesion"]
