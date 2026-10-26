@@ -36,12 +36,17 @@
   align-items: center;
   gap: var(--espacio-m);
   flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .selector-grupo-wrapper {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--espacio-s);
+  max-width: 100%;
+  min-width: 0;
 }
 
 .selector-grupo-wrapper label {
@@ -58,6 +63,8 @@
   font-size: var(--texto-s);
   color: var(--color-texto);
   min-width: 240px;
+  max-width: 100%; /* un nombre de grupo largo no debe ensanchar la página en celular */
+  flex: 1 1 240px;
 }
 
 /* Gráfico de barras por tema */

@@ -62,8 +62,10 @@
 
 .sopa-marcador__dificultad {
   display: flex;
+  flex-wrap: wrap; /* en celular los botones pasan a otra línea en vez de salirse de la pantalla */
   align-items: center;
   gap: var(--espacio-s);
+  max-width: 100%;
 }
 
 .sopa-marcador__dificultad label {
