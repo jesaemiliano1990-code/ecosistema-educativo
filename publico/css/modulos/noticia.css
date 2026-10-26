@@ -87,18 +87,20 @@
 /* Imagen principal */
 .detalle-noticia__img-wrap {
   width: 100%;
-  max-height: 440px;
+  background-color: var(--color-fondo);
   overflow: hidden;
   border-radius: var(--radio-m);
   border: 1px solid var(--color-borde);
 }
 
+/* La imagen se ve completa (sin recortes) y se ajusta al ancho disponible */
 .detalle-noticia__img {
   width: 100%;
-  height: 100%;
+  height: auto;
   max-height: 440px;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  margin: 0 auto;
 }
 
 /* Resumen destacado */

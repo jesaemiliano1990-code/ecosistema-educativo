@@ -410,12 +410,12 @@
 .tarjeta-inicio-noticia__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* imagen completa dentro del recuadro, sin recortes */
   transition: transform var(--transicion);
 }
 
 .tarjeta-inicio-noticia:hover .tarjeta-inicio-noticia__img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
 .tarjeta-inicio-noticia__cuerpo {

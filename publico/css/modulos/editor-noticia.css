@@ -90,7 +90,7 @@
 .editor-noticia__preview-img-box img {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Checkbox destacado */
@@ -137,7 +137,7 @@
 .tarjeta-preview-noticia__img {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain;
   background-color: var(--color-fondo);
 }
 
