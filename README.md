@@ -34,3 +34,6 @@ El servidor quedará disponible en `http://localhost:3000`.
 
 ## Despliegue en producción
 Guía completa para Ubuntu (Node.js, PM2, Nginx, HTTPS, cortafuegos y respaldo diario): [docs/despliegue.md](docs/despliegue.md).
+
+## Publicar en Render
+Guía paso a paso (plan gratis para demostraciones y plan de pago con disco para uso real): [docs/render.md](docs/render.md).

@@ -1,0 +1,18 @@
+[
+  {
+    "asignaturaId": "asi_000001",
+    "titulo": "Unidad I: Evaluación Hemodinámica del Ventrículo Izquierdo, Llenado Diastólico y VTI del TSVI",
+    "orden": 1,
+    "visible": true,
+    "id": "uni_000001",
+    "fecha": "2026-10-25T23:57:10.030Z"
+  },
+  {
+    "asignaturaId": "asi_000001",
+    "titulo": "Unidad II: Ecocardiografía y Ultrasonido en el Manejo del Choque, Monitoreo Invasivo y Predictores Dinámicos",
+    "orden": 2,
+    "visible": true,
+    "id": "uni_000002",
+    "fecha": "2026-10-25T23:57:10.041Z"
+  }
+]

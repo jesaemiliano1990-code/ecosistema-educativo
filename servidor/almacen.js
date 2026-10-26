@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const RUTA_DATOS = path.resolve('datos');
+// DATOS_DIR permite guardar los datos en otra carpeta (p. ej., el disco permanente de un hosting)
+const RUTA_DATOS = path.resolve(process.env.DATOS_DIR || 'datos');
 
 // Lee un archivo de texto sin la marca BOM que algunos editores de Windows añaden al guardar JSON.
 async function leerTexto(ruta) {

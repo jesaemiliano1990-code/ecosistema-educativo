@@ -6,12 +6,16 @@
   "scripts": {
     "start": "node servidor/server.js",
     "semilla": "node servidor/semilla.js",
-    "crear-admin": "node servidor/crear-admin.js"
+    "crear-admin": "node servidor/crear-admin.js",
+    "produccion": "node scripts/preparar-datos.js && node servidor/server.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.3.1",
     "express": "^4.21.2",
     "multer": "^1.4.5-lts.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

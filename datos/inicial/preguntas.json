@@ -1,0 +1,632 @@
+[
+  {
+    "temaId": "tem_000001",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿Cuál es el valor cutoff de MAPSE por debajo del cual se indica una disfunción sistólica severa del VI (FEVI ≤ 30%) en un paciente crítico?",
+    "retroalimentacion": "Respuesta correcta: < 6 mm.",
+    "opciones": [
+      "< 12 mm",
+      "< 6 mm",
+      "< 20 mm",
+      "< 15 mm"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000001",
+    "fecha": "2026-10-25T23:57:10.102Z"
+  },
+  {
+    "temaId": "tem_000001",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué en la sepsis temprana un paciente puede presentar una FEVI calculada del 60% y simultáneamente un GLS deprimido de -11%?",
+    "retroalimentacion": "Respuesta correcta: Porque la vasoplejía reduce la postcarga permitiendo que el vaciamiento por contracción circunferencial mantenga la FEVI, enmascarando el daño longitudinal subendocárdico.",
+    "opciones": [
+      "Porque el ecógrafo tiene una falla de calibración en el software",
+      "Porque el paciente presenta hipertrofia simétrica no patológica",
+      "Porque la vasoplejía reduce la postcarga permitiendo que el vaciamiento por contracción circunferencial mantenga la FEVI, enmascarando el daño longitudinal subendocárdico",
+      "Porque la FEVI mide únicamente el lado derecho del corazón"
+    ],
+    "correcta": 2,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000002",
+    "fecha": "2026-10-25T23:57:10.106Z"
+  },
+  {
+    "temaId": "tem_000001",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "En un trazado de Simpson Biplano en A4C y A2C, se obtiene un VTDVI = 120 mL y un VTSVI = 60 mL. ¿Cuál es la FEVI y cómo se clasifica la función contráctil?",
+    "retroalimentacion": "Respuesta correcta: FEVI = 50% (Disfunción sistólica leve-moderada). Cálculo: (120 - 60)/120 × 100 = 50%; Disfunción sistólica leve-moderada.",
+    "opciones": [
+      "FEVI = 40% (Disfunción moderada-severa)",
+      "FEVI = 25% (Disfunción severa)",
+      "FEVI = 75% (Hiperdinámico)",
+      "FEVI = 50% (Disfunción sistólica leve-moderada)"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000003",
+    "fecha": "2026-10-25T23:57:10.111Z"
+  },
+  {
+    "temaId": "tem_000001",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Se comparan dos pacientes en choque: el Paciente A presenta MAPSE = 12 mm y GLS = -19%; el Paciente B presenta MAPSE = 5 mm y GLS = -8%. ¿Cómo analiza el soporte hemodinámico?",
+    "retroalimentacion": "Respuesta correcta: El Paciente A conserva la función contráctil longitudinal, mientras que el Paciente B padece depresión miocárdica severa y se beneficiará de inotrópicos (dobutamina).",
+    "opciones": [
+      "El Paciente A requiere inotrópicos a dosis alta y el Paciente B requiere volumen masivo",
+      "El Paciente A conserva la función contráctil longitudinal, mientras que el Paciente B padece depresión miocárdica severa y se beneficiará de inotrópicos (dobutamina)",
+      "Ambos presentan función sistólica totalmente normal",
+      "Ninguno requiere evaluación hemodinámica"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000004",
+    "fecha": "2026-10-25T23:57:10.116Z"
+  },
+  {
+    "temaId": "tem_000001",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un estudiante sugiere confiar exclusivamente en la \"estimación visual\" (eyeballing) de la FEVI sin medir MAPSE ni GLS para tomar la decisión de iniciar inotrópicos en un paciente obeso en choque séptico. ¿Cómo evalúa esta conducta?",
+    "retroalimentacion": "Respuesta correcta: Subóptima e insegura; la estimación visual en ventanas subóptimas o bajo vasoplejía suele sobreestimar la función real, siendo indispensable cuantificar MAPSE, VTI o GLS.",
+    "opciones": [
+      "Correcta solo si el paciente tiene fiebre",
+      "Subóptima e insegura; la estimación visual en ventanas subóptimas o bajo vasoplejía suele sobreestimar la función real, siendo indispensable cuantificar MAPSE, VTI o GLS",
+      "Correcta si se realiza en posición decúbito prono",
+      "Totalmente correcta; el eyeballing es el único método validado en la UCI"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000005",
+    "fecha": "2026-10-25T23:57:10.121Z"
+  },
+  {
+    "temaId": "tem_000002",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿Cuál es el punto de corte del cociente E/e' promedio por encima del cual se confirma la presencia de presiones de llenado del VI elevadas (LAP > 15 mmHg)?",
+    "retroalimentacion": "Respuesta correcta: E/e' > 14.",
+    "opciones": [
+      "E/e' > 25",
+      "E/e' > 5",
+      "E/e' = 1",
+      "E/e' > 14"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000006",
+    "fecha": "2026-10-25T23:57:10.195Z"
+  },
+  {
+    "temaId": "tem_000002",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué en un paciente con fibrilación auricular no es posible calcular la relación E/A transmitral tradicional?",
+    "retroalimentacion": "Respuesta correcta: Porque la contracción auricular coordinada está abolida, desapareciendo la onda A del trazado transmitral.",
+    "opciones": [
+      "Porque la contracción auricular coordinada está abolida, desapareciendo la onda A del trazado transmitral",
+      "Porque la válvula mitral se paraliza",
+      "Porque la onda E se vuelve gigante",
+      "Porque el ecógrafo apaga el modo Doppler en arritmias"
+    ],
+    "correcta": 0,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000007",
+    "fecha": "2026-10-25T23:57:10.200Z"
+  },
+  {
+    "temaId": "tem_000002",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "Paciente hipertenso de 70 años con disnea. El Doppler transmitral muestra E = 90 cm/s, A = 75 cm/s (E/A = 1.2). El TDI muestra e' septal = 4.5 cm/s y e' lateral = 6 cm/s (E/e' promedio = 17.1). ¿Cómo se clasifica el patrón de llenado?",
+    "retroalimentacion": "Respuesta correcta: Disfunción Diastólica Grado II (Pseudonormal) con elevación de presiones de llenado.",
+    "opciones": [
+      "Disfunción Diastólica Grado II (Pseudonormal) con elevación de presiones de llenado",
+      "Disfunción Diastólica Grado I (Relajación alterada pura sin presión alta)",
+      "Llenado diastólico completamente normal",
+      "Taponamiento cardíaco fulminante"
+    ],
+    "correcta": 0,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000008",
+    "fecha": "2026-10-25T23:57:10.204Z"
+  },
+  {
+    "temaId": "tem_000002",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Un paciente con shock séptico y soporte ventilatorio presenta hipotensión. Se mide E/e' = 18, LAVI = 42 mL/m² y el POCUS pulmonar revela Perfil B difuso. ¿Cómo orienta la estrategia de fluidos?",
+    "retroalimentacion": "Respuesta correcta: Suspender la administración de líquidos; el paciente presenta congestión venocapilar severa por altas presiones de llenado e intolerancia hídrica.",
+    "opciones": [
+      "Inducir paro con anestésicos",
+      "Iniciar infusión masiva de 3 L de ringer lactato",
+      "Suspender la administración de líquidos; el paciente presenta congestión venocapilar severa por altas presiones de llenado e intolerancia hídrica",
+      "Realizar pericardiocentesis evacuadora inmediata"
+    ],
+    "correcta": 2,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000009",
+    "fecha": "2026-10-25T23:57:10.207Z"
+  },
+  {
+    "temaId": "tem_000002",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un residente afirma que \"si la velocidad de la onda E transmitral es baja, se descarta categóricamente el edema agudo de pulmón cardiogénico\". ¿Cómo evalúa esta afirmación?",
+    "retroalimentacion": "Respuesta correcta: Falsa; en la disfunción diastólica leve (Grado I) la onda E es baja, pero ante sobrecarga de volumen aguda la presión auricular sube drásticamente pseudonormalizando o positivando la onda E.",
+    "opciones": [
+      "Absolutamente cierta; la onda E baja es imposible en edema de pulmón",
+      "Cierta en presencia de prótesis aórticas",
+      "Cierta solo si el paciente no recibe diuréticos",
+      "Falsa; en la disfunción diastólica leve (Grado I) la onda E es baja, pero ante sobrecarga de volumen aguda la presión auricular sube drásticamente pseudonormalizando o positivando la onda E"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000010",
+    "fecha": "2026-10-25T23:57:10.211Z"
+  },
+  {
+    "temaId": "tem_000003",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿Cuál es el rango normal de la Integral de Velocidad-Tiempo del tracto de salida del VI (VTI TSVI) en un adulto sano?",
+    "retroalimentacion": "Respuesta correcta: 17 - 24 cm.",
+    "opciones": [
+      "35 - 50 cm",
+      "1 - 4 cm",
+      "5 - 10 cm",
+      "17 - 24 cm"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000011",
+    "fecha": "2026-10-25T23:57:10.276Z"
+  },
+  {
+    "temaId": "tem_000003",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué cuando se evalúan cambios hemodinámicos agudos frente a una prueba de volumen o inotrópico se prefiere monitorear la variación porcentual del VTI TSVI en lugar del Gasto Cardíaco absoluto?",
+    "retroalimentacion": "Respuesta correcta: Porque el área del TSVI (CSA) es una constante anatómica fija en el adulto; la variación del VTI refleja de forma directamente proporcional el cambio en el volumen sistólico sin introducir errores de medición del diámetro.",
+    "opciones": [
+      "Porque el área del TSVI (CSA) es una constante anatómica fija en el adulto; la variación del VTI refleja de forma directamente proporcional el cambio en el volumen sistólico sin introducir errores de medición del diámetro",
+      "Porque el ecógrafo borra el área del TSVI",
+      "Porque el VTI no requiere Doppler",
+      "Porque el VTI solo cambia en presencia de arritmias"
+    ],
+    "correcta": 0,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000012",
+    "fecha": "2026-10-25T23:57:10.280Z"
+  },
+  {
+    "temaId": "tem_000003",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "En un paciente en choque se mide dTSVI = 2.2 cm (CSA = 3.8 cm²), VTI TSVI = 10 cm y FC = 100 lpm. ¿Cuál es el Volumen Sistólico y el Gasto Cardíaco?",
+    "retroalimentacion": "Respuesta correcta: VS = 38 mL, GC = 3.8 L/min. Cálculo: VS = 3.8 × 10 = 38 mL; GC = 38 × 100 / 1000 = 3.8 L/min.",
+    "opciones": [
+      "VS = 38 mL, GC = 3.8 L/min",
+      "VS = 10 mL, GC = 1.0 L/min",
+      "VS = 80 mL, GC = 8.0 L/min",
+      "VS = 50 mL, GC = 5.0 L/min"
+    ],
+    "correcta": 0,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000013",
+    "fecha": "2026-10-25T23:57:10.285Z"
+  },
+  {
+    "temaId": "tem_000003",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Un reanimador mide un VTI TSVI = 8 cm en un paciente con infarto agudo de miocardio e hipotensión. Tras iniciar nitroglicerina/vasodilatador para optimizar postcarga, el VTI asciende a 15 cm (+87.5%). ¿Cómo analiza la respuesta hemodinámica?",
+    "retroalimentacion": "Respuesta correcta: La reducción de la postcarga permitió un incremento sustancial del volumen sistólico (casi duplicando la distancia de eyección por latido).",
+    "opciones": [
+      "El tratamiento empeoró severamente la función miocárdica",
+      "Se produjo un neumotórax por la infusión",
+      "El paciente ha entrado en choque anafiláctico",
+      "La reducción de la postcarga permitió un incremento sustancial del volumen sistólico (casi duplicando la distancia de eyección por latido)"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000014",
+    "fecha": "2026-10-25T23:57:10.288Z"
+  },
+  {
+    "temaId": "tem_000003",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un estudiante coloca el volumen de muestra del Doppler Pulsado por encima de las valvas aórticas dentro de la raíz aórtica para medir el VTI TSVI, registrando una señal turbulenta de 35 cm. ¿Cómo evalúa la validez de este cálculo?",
+    "retroalimentacion": "Respuesta correcta: Inválido y erróneo; al colocar la muestra por encima de la válvula se registra flujo acelerado turbulento transfijado por el orificio valvular, sobreestimando masivamente el volumen sistólico real.",
+    "opciones": [
+      "Válido si la frecuencia es menor a 2 MHz",
+      "Válido; la raíz aórtica entrega la misma velocidad",
+      "Inválido y erróneo; al colocar la muestra por encima de la válvula se registra flujo acelerado turbulento transfijado por el orificio valvular, sobreestimando masivamente el volumen sistólico real",
+      "Válido solo si el paciente tiene estenosis"
+    ],
+    "correcta": 2,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000015",
+    "fecha": "2026-10-25T23:57:10.292Z"
+  },
+  {
+    "temaId": "tem_000004",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿Cuál de los siguientes patrones POCUS es característico del Choque Hipovolémico no compensado?",
+    "retroalimentacion": "Respuesta correcta: VI hiperdinámico con colapso cavitario sistólico y VCI < 1.2 cm con colapso inspiratorio completo.",
+    "opciones": [
+      "Relación VD/VI mayor a 1.5 con D-shape",
+      "VI dilatado hipocinético con VCI de 2.5 cm",
+      "Presencia de líneas B difusas bilaterales con VCI pletórica",
+      "VI hiperdinámico con colapso cavitario sistólico y VCI < 1.2 cm con colapso inspiratorio completo"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000016",
+    "fecha": "2026-10-25T23:57:10.376Z"
+  },
+  {
+    "temaId": "tem_000004",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué en la fase hiperdinámica del Choque Séptico la Fracción de Eyección (FEVI) puede mantenerse falsamente elevada a pesar de haber depresión miocárdica subclínica?",
+    "retroalimentacion": "Respuesta correcta: Porque la vasodilatación arterial profunda (vasoplejía) reduce drásticamente la postcarga, facilitando el vaciamiento del VI.",
+    "opciones": [
+      "Porque desaparecen las arterias coronarias",
+      "Porque las toxinas bacterianas mejoran la fuerza muscular",
+      "Porque el volumen diastólico final se duplica",
+      "Porque la vasodilatación arterial profunda (vasoplejía) reduce drásticamente la postcarga, facilitando el vaciamiento del VI"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000017",
+    "fecha": "2026-10-25T23:57:10.380Z"
+  },
+  {
+    "temaId": "tem_000004",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "Un paciente con choque refractario presenta VCI = 2.4 cm sin colapso, VD/VI = 1.2 con aquinesia de la pared libre del VD y sliding pulmonar conservado. ¿Cuál es el diagnóstico fenotípico?",
+    "retroalimentacion": "Respuesta correcta: Choque Obstructivo por Tromboembolismo Pulmonar (TEP) Masivo.",
+    "opciones": [
+      "Edema agudo de pulmón cardiogénico",
+      "Choque Hipovolémico por sangrado oculto",
+      "Choque Anafiláctico puro",
+      "Choque Obstructivo por Tromboembolismo Pulmonar (TEP) Masivo"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000018",
+    "fecha": "2026-10-25T23:57:10.386Z"
+  },
+  {
+    "temaId": "tem_000004",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Paciente con sepsis de origen abdominal a quien se infunden 3 L de cristaloides. Al reevaluar, presenta PAM 54 mmHg, la VCI se dilata a 2.3 cm sin colapso, el VTI TSVI cae de 16 cm a 11 cm y aparecen líneas B en ambas bases pulmonares. ¿Cómo analiza la evolución?",
+    "retroalimentacion": "Respuesta correcta: El paciente ha desarrollado cardiomiopatía séptica con intolerancia a fluidos y sobrecarga venosa; se debe detener el volumen e iniciar inotrópicos (dobutamina).",
+    "opciones": [
+      "El choque séptico se ha curado",
+      "El paciente requiere 3 L adicionales de cristaloides",
+      "Se produjo una ruptura espontánea del bazo",
+      "El paciente ha desarrollado cardiomiopatía séptica con intolerancia a fluidos y sobrecarga venosa; se debe detener el volumen e iniciar inotrópicos (dobutamina)"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000019",
+    "fecha": "2026-10-25T23:57:10.391Z"
+  },
+  {
+    "temaId": "tem_000004",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un residente afirma que \"todo paciente hipotenso con gasto cardíaco elevado por Doppler presenta un choque séptico y jamás requerirá evaluación del lado derecho del corazón\". ¿Cómo evalúa este criterio?",
+    "retroalimentacion": "Respuesta correcta: Incompleto e erróneo; se deben descartar otras causas de alta eyección con baja postcarga (anafilaxia, insuficiencia hepática) y vigilar la aparición de falla secundaria del VD.",
+    "opciones": [
+      "Correcto solo si el paciente no tiene fiebre",
+      "Incompleto e erróneo; se deben descartar otras causas de alta eyección con baja postcarga (anafilaxia, insuficiencia hepática) y vigilar la aparición de falla secundaria del VD",
+      "Impecable, el gasto alto es exclusivo de la sepsis",
+      "Correcto si la creatinina es normal"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000020",
+    "fecha": "2026-10-25T23:57:10.398Z"
+  },
+  {
+    "temaId": "tem_000005",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿Cuál es el porcentaje mínimo de incremento en el VTI del TSVI durante la prueba de Elevación Pasiva de Piernas (PLR) que confirma respuesta a la precarga?",
+    "retroalimentacion": "Respuesta correcta: ≥ 10-12%.",
+    "opciones": [
+      "≥ 50%",
+      "≥ 10-12%",
+      "≥ 2%",
+      "0%"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000021",
+    "fecha": "2026-10-25T23:57:10.534Z"
+  },
+  {
+    "temaId": "tem_000005",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué la variación respiratoria del VTI del TSVI (Δ VTI) invalida su diagnóstico en un paciente con esfuerzo respiratorio espontáneo bajo ventilación no invasiva?",
+    "retroalimentacion": "Respuesta correcta: Porque las variaciones en el volumen corriente y en la presión intratorácica generadas por el paciente son irregulares e impredecibles.",
+    "opciones": [
+      "Porque la sangre cambia de color",
+      "Porque la sonda de ultrasonido se descalibra",
+      "Porque el miocardio deja de responder a la ley de Frank-Starling",
+      "Porque las variaciones en el volumen corriente y en la presión intratorácica generadas por el paciente son irregulares e impredecibles"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000022",
+    "fecha": "2026-10-25T23:57:10.541Z"
+  },
+  {
+    "temaId": "tem_000005",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "Paciente intubado en modo VC pasivo sin arritmias con Vt = 9 mL/kg. El VTI TSVI máximo en inspiración es de 18 cm y el mínimo en espiración es de 12 cm. ¿Cuál es el Δ VTI TSVI y cuál es la indicación de fluidos?",
+    "retroalimentacion": "Respuesta correcta: Δ VTI = 40% (paciente con alta respuesta a precarga, indicado administrar cristaloides). Cálculo: (18-12)/15 × 100 = 40%.",
+    "opciones": [
+      "Δ VTI = 0%; realizar toracocentesis",
+      "Δ VTI = 40% (paciente con alta respuesta a precarga, indicado administrar cristaloides)",
+      "Δ VTI = 5%; iniciar vasopresores a dosis alta",
+      "Δ VTI = 10%; no administrar fluidos"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000023",
+    "fecha": "2026-10-25T23:57:10.548Z"
+  },
+  {
+    "temaId": "tem_000005",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Un paciente con choque séptico e insuficiencia respiratoria se ventila con un Volumen Corriente de 6 mL/kg (estrategia de protección pulmonar). El Δ VTI TSVI mide 8% (por debajo del punto de corte). ¿Qué maniobra debe realizar para confirmar o descartar la respuesta a precarga sin riesgo?",
+    "retroalimentacion": "Respuesta correcta: Realizar un Test de Oclusión Espiratoria (EETO) o una prueba de Elevación Pasiva de Piernas (PLR) midiendo el VTI.",
+    "opciones": [
+      "Infundir 2 L de solución salina hipertónica inmediatamente",
+      "Realizar un Test de Oclusión Espiratoria (EETO) o una prueba de Elevación Pasiva de Piernas (PLR) midiendo el VTI",
+      "Aumentar la noradrenalina al doble",
+      "Apagar el ventilador"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000024",
+    "fecha": "2026-10-25T23:57:10.559Z"
+  },
+  {
+    "temaId": "tem_000005",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un médico administra bolos repetidos de 500 mL de cristaloides a un paciente oligúrico cuyo incremento del VTI TSVI tras la prueba de PLR fue de solo el 2%, argumentando que \"la Presión Venosa Central sigue en 5 mmHg\". ¿Cómo juzga esta actuación?",
+    "retroalimentacion": "Respuesta correcta: Inadecuada e incorrecta; la PVC es un parámetro estático inservible; el PLR negativo confirma que el corazón opera en la zona plana de Starling y los líquidos causarán edema.",
+    "opciones": [
+      "Correcta si el paciente no tiene fiebre",
+      "Inadecuada e incorrecta; la PVC es un parámetro estático inservible; el PLR negativo confirma que el corazón opera en la zona plana de Starling y los líquidos causarán edema",
+      "Correcta solo si la frecuencia cardíaca es > 100 lpm",
+      "Correcta, la PVC baja siempre exige dar más volumen"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000025",
+    "fecha": "2026-10-25T23:57:10.567Z"
+  },
+  {
+    "temaId": "tem_000006",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿A qué distancia del origen de la arteria subclavia izquierda debe ubicarse la punta del Balón de Contrapulsación Intraaórtico (BCIA) en la aorta descendente?",
+    "retroalimentacion": "Respuesta correcta: 1-2 cm distal al origen de la subclavia izquierda.",
+    "opciones": [
+      "10 cm proximal dentro del ventrículo",
+      "1-2 cm distal al origen de la subclavia izquierda",
+      "Dentro de la arteria carótida derecha",
+      "A nivel de las arterias renales"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000026",
+    "fecha": "2026-10-25T23:57:10.714Z"
+  },
+  {
+    "temaId": "tem_000006",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué la incapacidad del ventrículo izquierdo para abrir la válvula aórtica durante el soporte con ECMO Veno-Arterial (VA-ECMO) genera un riesgo elevado de trombosis intraventricular?",
+    "retroalimentacion": "Respuesta correcta: Porque la sangre atrapada dentro de la cavidad del VI sufre estasis marcada (demostrada por contraste denso/humo), favoreciendo la cascada de coagulación.",
+    "opciones": [
+      "Porque la sangre atrapada dentro de la cavidad del VI sufre estasis marcada (demostrada por contraste denso/humo), favoreciendo la cascada de coagulación",
+      "Porque la válvula mitral se cierra para siempre",
+      "Porque la sangre de ECMO está fría",
+      "Porque el circuito de ECMO destruye la heparina"
+    ],
+    "correcta": 0,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000027",
+    "fecha": "2026-10-25T23:57:10.724Z"
+  },
+  {
+    "temaId": "tem_000006",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "Paciente en VA-ECMO con flujo de 4.0 L/min que presenta empeoramiento de las líneas B pulmonares. La ecografía en PLAX muestra el VI marcadamente dilatado sin separación de las valvas aórticas en sístole. ¿Qué medida terapéutica de descompresión está indicada?",
+    "retroalimentacion": "Respuesta correcta: Realizar descompresión (venting) del VI mediante colocación de dispositivo Impella, septostomía o cánula de descarga.",
+    "opciones": [
+      "Inundar al paciente con 3 L de solución salina",
+      "Aumentar el flujo de ECMO a 6.0 L/min",
+      "Realizar descompresión (venting) del VI mediante colocación de dispositivo Impella, septostomía o cánula de descarga",
+      "Suspender la anticoagulación"
+    ],
+    "correcta": 2,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000028",
+    "fecha": "2026-10-25T23:57:10.733Z"
+  },
+  {
+    "temaId": "tem_000006",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Se realiza una prueba de destete (weaning) de VA-ECMO reduciendo el flujo a 1.5 L/min. La ecocardiografía muestra FEVI = 28%, VTI TSVI = 12 cm y s' lateral = 7 cm/s. ¿Cómo analiza la posibilidad de explante?",
+    "retroalimentacion": "Respuesta correcta: El paciente cumple con los criterios ecocardiográficos de éxito para proceder al retiro o explante del soporte mecánico.",
+    "opciones": [
+      "Se debe transplantar el corazón en 1 hora",
+      "Error de software del ecógrafo",
+      "El paciente cumple con los criterios ecocardiográficos de éxito para proceder al retiro o explante del soporte mecánico",
+      "El paciente falló la prueba y debe aumentar el soporte"
+    ],
+    "correcta": 2,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000029",
+    "fecha": "2026-10-25T23:57:10.743Z"
+  },
+  {
+    "temaId": "tem_000006",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un residente intenta verificar la posición de un catéter de Swan-Ganz mediante radiografía de tórax únicamente, ignorando el uso de POCUS a pie de cama. ¿Cómo evalúa este procedimiento?",
+    "retroalimentacion": "Respuesta correcta: Subóptimo; el POCUS en tiempo real permite verificar el paso intracavitario del catéter, evitar el enrollamiento en el VD y confirmar la posición sin demoras por rayos X.",
+    "opciones": [
+      "Correcto solo si el paciente no tiene tos",
+      "Subóptimo; el POCUS en tiempo real permite verificar el paso intracavitario del catéter, evitar el enrollamiento en el VD y confirmar la posición sin demoras por rayos X",
+      "Correcto si se realiza en la noche",
+      "Excelente, la radiografía es la única herramienta válida"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000030",
+    "fecha": "2026-10-25T23:57:10.754Z"
+  },
+  {
+    "temaId": "tem_000007",
+    "nivel": 1,
+    "tipo": "opcion",
+    "enunciado": "¿Cuál es la vista ecocardiográfica recomendada por las guías internacionales para medir el diámetro del tracto de salida del VI (dTSVI)?",
+    "retroalimentacion": "Respuesta correcta: Paraesternal Eje Largo (PLAX) optimizada.",
+    "opciones": [
+      "Apical de 5 cámaras (A5C)",
+      "Paraesternal Eje Largo (PLAX) optimizada",
+      "Paraesternal eje corto a nivel aórtico",
+      "Subcostal de 4 cámaras"
+    ],
+    "correcta": 1,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000031",
+    "fecha": "2026-10-25T23:57:10.893Z"
+  },
+  {
+    "temaId": "tem_000007",
+    "nivel": 2,
+    "tipo": "opcion",
+    "enunciado": "¿Por qué un error de medición de solo 2 mm en el diámetro del TSVI genera un error masivo de más del 20% en el cálculo final del Gasto Cardíaco?",
+    "retroalimentacion": "Respuesta correcta: Porque el diámetro se divide para dos y se eleva al cuadrado al calcular el área del círculo (CSA = 0.785 × d²).",
+    "opciones": [
+      "Porque el ecógrafo se apaga al cometer errores",
+      "Porque disminuye la frecuencia cardíaca del paciente",
+      "Porque se pierde la señal de la Vena Cava",
+      "Porque el diámetro se divide para dos y se eleva al cuadrado al calcular el área del círculo (CSA = 0.785 × d²)"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000032",
+    "fecha": "2026-10-25T23:57:10.898Z"
+  },
+  {
+    "temaId": "tem_000007",
+    "nivel": 3,
+    "tipo": "opcion",
+    "enunciado": "En un paciente crítico se mide dTSVI = 2.0 cm (CSA = 3.14 cm²), VTI TSVI = 15 cm y FC = 100 lpm. ¿Cuál es el Gasto Cardíaco (GC)?",
+    "retroalimentacion": "Respuesta correcta: 4.71 L/min. Cálculo: VS = 3.14 × 15 = 47.1 mL; GC = 47.1 × 100 / 1000 = 4.71 L/min.",
+    "opciones": [
+      "1.5 L/min",
+      "2.1 L/min",
+      "4.71 L/min",
+      "10.2 L/min"
+    ],
+    "correcta": 2,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000033",
+    "fecha": "2026-10-25T23:57:10.903Z"
+  },
+  {
+    "temaId": "tem_000007",
+    "nivel": 4,
+    "tipo": "opcion",
+    "enunciado": "Se compara el gasto cardíaco reportado por un monitor FloTrac (GC = 7.5 L/min) frente al Doppler ecocardiográfico (GC = 3.8 L/min) en un paciente con choque séptico y noradrenalina a dosis alta. ¿Cómo analiza la discrepancia?",
+    "retroalimentacion": "Respuesta correcta: El monitor FloTrac sobreestima el gasto debido a la vasoplejía profunda y alteración de la elastancia arterial, siendo el Doppler más confiable.",
+    "opciones": [
+      "El monitor FloTrac sobreestima el gasto debido a la vasoplejía profunda y alteración de la elastancia arterial, siendo el Doppler más confiable",
+      "Ambos monitores fallan por el oxígeno",
+      "El paciente está sano",
+      "El Doppler ecocardiográfico está descalibrado"
+    ],
+    "correcta": 0,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000034",
+    "fecha": "2026-10-25T23:57:10.907Z"
+  },
+  {
+    "temaId": "tem_000007",
+    "nivel": 5,
+    "tipo": "opcion",
+    "enunciado": "Un estudiante propone omitir la medición del diámetro del TSVI y utilizar un valor asumido fijo de 2.0 cm para todos los pacientes al calcular el gasto cardíaco por Doppler. ¿Cómo evalúa esta propuesta?",
+    "retroalimentacion": "Respuesta correcta: Aceptable solo para medir cambios porcentuales dinámicos en un mismo paciente (Δ VTI), pero inaceptable para calcular el valor absoluto del gasto cardíaco.",
+    "opciones": [
+      "Inadecuada porque el TSVI siempre mide 5.0 cm",
+      "Excelente, ahorra tiempo en la UCI",
+      "Totalmente correcta para cualquier estudio",
+      "Aceptable solo para medir cambios porcentuales dinámicos en un mismo paciente (Δ VTI), pero inaceptable para calcular el valor absoluto del gasto cardíaco"
+    ],
+    "correcta": 3,
+    "origen": "docente",
+    "estado": "aprobado",
+    "id": "pre_000035",
+    "fecha": "2026-10-25T23:57:10.911Z"
+  }
+]

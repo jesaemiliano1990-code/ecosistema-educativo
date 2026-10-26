@@ -1,0 +1,618 @@
+[
+  {
+    "temaId": "tem_000001",
+    "titulo": "Evaluación Sistólica Integrada en Sepsis Abdominal",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Evaluación Sistólica Integrada en Sepsis Abdominal.\n\nPaciente de 62 años post-quirúrgico de peritonitis en choque (PAM 52 mmHg, noradrenalina a 0.4 mcg/kg/min).\n\n**Decisión 1.** En la ventana apical de 4 cámaras, la FEVI visual parece conservada (> 50%).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Concluir que el corazón está sano y no evaluar la función contráctil objetiva.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Medir MAPSE en Modo M sobre el anillo lateral y ejecutar Speckle Tracking para obtener el GLS."
+          },
+          {
+            "texto": "Medir MAPSE en Modo M sobre el anillo lateral y ejecutar Speckle Tracking para obtener el GLS.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** El trazado de M-mode revela MAPSE = 5.5 mm y el software de deformación entrega un GLS = -9.5%, confirmando falla miocárdica subendocárdica severa.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Confirmar depresión miocárdica e indicar la adición de un inotrópico (dobutamina) al esquema.",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Diagnosticar miocardiopatía séptica severa desacoplada de la FEVI aparente.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar depresión miocárdica e indicar la adición de un inotrópico (dobutamina) al esquema."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** A los 45 minutos de la infusión de dobutamina, el MAPSE asciende a 9.5 mm, el VTI TSVI se incrementa un 22% y la PAM se estabiliza en 68 mmHg.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Titular el inotrópico según los objetivos del VTI y la perfusión tisular.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Suspender los vasopresores e inotrópicos abruptamente.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Titular el inotrópico según los objetivos del VTI y la perfusión tisular."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000001",
+    "fecha": "2026-10-25T23:57:10.129Z"
+  },
+  {
+    "temaId": "tem_000002",
+    "titulo": "Manejo de la Congestión e Intolerancia Hídrica por Disfunción Diastólica",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Manejo de la Congestión e Intolerancia Hídrica por Disfunción Diastólica.\n\nPaciente de 72 años con antecedentes de cardiopatía hipertensiva ingresado en la UCI por insuficiencia respiratoria y shock.\n\n**Decisión 1.** Se apoya la sonda en A4C y se interroga la válvula mitral con PW Doppler, observando E = 110 cm/s y A = 45 cm/s (E/A = 2.44, DT = 130 ms).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Diagnosticar patrón de relajación alterada sin riesgo de congestión.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Identificar un patrón de llenado restrictivo (Grado III) altamente sugerente de elevación severa de la LAP."
+          },
+          {
+            "texto": "Identificar un patrón de llenado restrictivo (Grado III) altamente sugerente de elevación severa de la LAP.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** Se realiza Doppler Tisular anular hallando e' septal = 4 cm/s (E/e' = 27.5) y POCUS pulmonar hallando líneas B en mar de tempestad bilateral.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Confirmar edema pulmonar cardiogénico por presiones de llenado críticas e iniciar vasodilatadores y diuréticos de asa.",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Diagnosticar shock hipovolémico e iniciar expansión hídrica.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar edema pulmonar cardiogénico por presiones de llenado críticas e iniciar vasodilatadores y diuréticos de asa."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** Tras el tratamiento descongestivo, la onda E se reduce a 65 cm/s, la relación E/e' cae a 12 y la relación PaO 2/FiO 2 se incrementa notablemente con resolución del choque.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Mantener la estrategia de balance hídrico neutro/negativo monitorizado por ECO-Doppler.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Retomar las cargas de volumen masivas de prevención.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Mantener la estrategia de balance hídrico neutro/negativo monitorizado por ECO-Doppler."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000002",
+    "fecha": "2026-10-25T23:57:10.217Z"
+  },
+  {
+    "temaId": "tem_000003",
+    "titulo": "Cuantificación y Optimización del Gasto Cardíaco en Shock",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Cuantificación y Optimización del Gasto Cardíaco en Shock.\n\nPaciente traumatizado en la UCI bajo ventilación mecánica que presenta hipotensión persistente (PAM 50 mmHg).\n\n**Decisión 1.** Se mide el diámetro del TSVI en la vista PLAX magnificada en sístole temprana (dTSVI = 2.0 cm; CSA = 3.14 cm²).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Cambiar la medición a la vista subcostal de 4 cámaras.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Guardar el CSA = 3.14 cm² e ir a la vista A5C para interrogar el flujo con PW Doppler."
+          },
+          {
+            "texto": "Guardar el CSA = 3.14 cm² e ir a la vista A5C para interrogar el flujo con PW Doppler.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** En la vista A5C se coloca la muestra 0.5 cm debajo de la válvula aórtica, registrando un espectro modal limpio con VTI = 11 cm y FC = 110 lpm (VS = 34.5 mL, GC = 3.8 L/min).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Diagnosticar estado hiperdinámico con gasto elevado.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar estado de bajo volumen sistólico e inestabilidad hemodinámica."
+          },
+          {
+            "texto": "Confirmar estado de bajo volumen sistólico e inestabilidad hemodinámica.",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** Se realiza una prueba de Elevación Pasiva de Piernas (PLR); el VTI TSVI asciende de 11 cm a 14.5 cm (+31.8%). Se administra un bolo hídrico medido alcanzando VTI = 18 cm (VS = 56.5 mL, GC = 5.6 L/min) y PAM de 72 mmHg.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Confirmar la restauración del volumen sistólico y optimización no invasiva del gasto cardíaco.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Administrar 3 L de solución salina adicionales a ciegas.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar la restauración del volumen sistólico y optimización no invasiva del gasto cardíaco."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000003",
+    "fecha": "2026-10-25T23:57:10.300Z"
+  },
+  {
+    "temaId": "tem_000004",
+    "titulo": "Diferenciación Hemodinámica del Choque Indiferenciado",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Diferenciación Hemodinámica del Choque Indiferenciado.\n\nPaciente de 58 años en choque profundo (PA 65/35 mmHg) en la sala de reanimación sin antecedentes conocidos.\n\n**Decisión 1.** Se apoya la sonda sectorial en ventana apical de 4 cámaras. Se observa un VI pequeño con hipercontractilidad y \"músculos papilares beso\" en sístole.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Orientar a estado de hipovolemia severa o vasodilatación profunda.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Diagnosticar falla cardiogénica severa del VI.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Orientar a estado de hipovolemia severa o vasodilatación profunda."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** Se evalúa la VCI en subcostal (diámetro 0.7 cm colapsable) y se realiza eFAST abdominal, hallando líquido anecoico en el espacio esplenorrenal.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Iniciar infusión continua de noradrenalina a dosis alta sin volumen.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar Choque Hipovolémico Hemorrágico por hemoperitoneo e iniciar transfusión masiva y volumen."
+          },
+          {
+            "texto": "Confirmar Choque Hipovolémico Hemorrágico por hemoperitoneo e iniciar transfusión masiva y volumen.",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** Tras administrar hemoderivados, el VTI TSVI sube de 9 cm a 18 cm, la VCI alcanza 1.6 cm y la PAM se estabiliza en 72 mmHg.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Confirmar la restauración de la precarga y transferir inmediatamente a quirófano.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Indicar laparotomía de control de daños y suspender la reanimación con cristaloides puros.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar la restauración de la precarga y transferir inmediatamente a quirófano."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000004",
+    "fecha": "2026-10-25T23:57:10.408Z"
+  },
+  {
+    "temaId": "tem_000005",
+    "titulo": "Evaluación Dinámica de la Respuesta a precarga",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Evaluación Dinámica de la Respuesta a precarga.\n\nPaciente post-quirúrgico de cirugía mayor abdominal en choque (PAM 55 mmHg) en la UCI, intubado con Vt = 6 mL/kg.\n\n**Decisión 1.** Se mide el VTI TSVI basal, obteniendo 13 cm. La variación respiratoria del VTI es de solo el 7%.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Reconocer que el bajo Vt (6 mL/kg) genera un falso negativo e indicar una prueba dinámica independiente del Vt.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Declarar que el paciente definitivamente NO responderá a fluidos y suspender la evaluación.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Reconocer que el bajo Vt (6 mL/kg) genera un falso negativo e indicar una prueba dinámica independiente del Vt."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** Se posiciona al paciente para la prueba de Elevación Pasiva de Piernas (PLR) a 45° manteniendo la sonda en A5C. A los 60 segundos, el VTI TSVI sube de 13 cm a 16.5 cm (+26.9%).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Clasificar el test como negativo por falta de cambio en la PVC.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Diagnosticar respuesta a precarga confirmada (> 10%)."
+          },
+          {
+            "texto": "Diagnosticar respuesta a precarga confirmada (> 10%).",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** Se retoma la posición supina (el VTI regresa a 13 cm) y se administra un bolo medido de 500 mL de cristaloides en 15 minutos, logrando un ascenso mantenido del VTI a 16.2 cm y normalización de la PAM a 70 mmHg.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Repetir la infusión de 2 L adicionales a ciegas.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Detener la expansión hídrica y reevaluar la hemodinámica."
+          },
+          {
+            "texto": "Detener la expansión hídrica y reevaluar la hemodinámica.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000005",
+    "fecha": "2026-10-25T23:57:10.580Z"
+  },
+  {
+    "temaId": "tem_000006",
+    "titulo": "Monitoreo Ecocardiográfico del Soporte Mecánico",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Monitoreo Ecocardiográfico del Soporte Mecánico.\n\nPaciente en choque cardiogénico masivo post-infarto bajo soporte con ECMO Veno-Arterial (VA-ECMO) en la UCI.\n\n**Decisión 1.** Durante la ronda matutina, el ultrasonido pulmonar muestra transición de Perfil A a Perfil B difuso bilateral.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Diagnosticar neumonía asociada al ventilador e iniciar antibióticos sin revisar el corazón.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Evaluar inmediatamente la función e inclinación del VI y la apertura aórtica por ecocardiografía."
+          },
+          {
+            "texto": "Evaluar inmediatamente la función e inclinación del VI y la apertura aórtica por ecocardiografía.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** La vista PLAX muestra el VI marcadamente dilatado (LVIDd = 68 mm), las valvas aórticas inmóviles cerradas y la cavidad del VI llena de contraste espontáneo denso (\"humo\").",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Diagnosticar distensión severa del VI e indigestión de eyección por alta postcarga de ECMO.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar distensión crítica del VI con riesgo de trombosis e indicar maniobra de descompresión (venting)."
+          },
+          {
+            "texto": "Confirmar distensión crítica del VI con riesgo de trombosis e indicar maniobra de descompresión (venting).",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** Se coloca una cánula de descarga del VI (venting). A los 30 minutos, el LVIDd cae a 52 mm, el \"humo\" desaparece y las líneas B pulmonares comienzan a aclararse.",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Mantener la descompresión y el soporte extracorpóreo con vigilancia ecocardiográfica seriada.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          },
+          {
+            "texto": "Explantar el ECMO inmediatamente.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Mantener la descompresión y el soporte extracorpóreo con vigilancia ecocardiográfica seriada."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000006",
+    "fecha": "2026-10-25T23:57:10.768Z"
+  },
+  {
+    "temaId": "tem_000007",
+    "titulo": "Cuantificación No Invasiva del Gasto Cardíaco",
+    "modo": "escenarios",
+    "estado": "publicado",
+    "escenaInicial": "e1",
+    "escenas": [
+      {
+        "id": "e1",
+        "texto": "**Caso:** Cuantificación No Invasiva del Gasto Cardíaco.\n\nPaciente post-quirúrgico hipotenso en la UCI donde se busca calcular el impacto hemodinámico de las intervenciones.\n\n**Decisión 1.** En la vista PLAX, se congela la imagen en sístole temprana y se mide el diámetro del TSVI a nivel de la inserción de las valvas (dTSVI = 2.2 cm; CSA = 3.8 cm²).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Repetir la medición en A5C.",
+            "destino": "e2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Aceptar el área de 3.8 cm² y pasar a medir el VTI en A5C."
+          },
+          {
+            "texto": "Aceptar el área de 3.8 cm² y pasar a medir el VTI en A5C.",
+            "destino": "e2",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e2",
+        "texto": "**Decisión 2.** En la vista A5C, se coloca el Doppler Pulsado en el TSVI y se traza el espectro modal limpio, obteniendo VTI = 11 cm con FC = 90 lpm (VS = 41.8 mL; GC = 3.76 L/min, bajo gasto).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Diagnosticar gasto cardíaco elevado por sepsis.",
+            "destino": "e3",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar estado de bajo gasto cardíaco e indicar prueba de respuesta a precarga."
+          },
+          {
+            "texto": "Confirmar estado de bajo gasto cardíaco e indicar prueba de respuesta a precarga.",
+            "destino": "e3",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "e3",
+        "texto": "**Decisión 3.** Tras una prueba de PLR positiva, se administra un bolo de 500 mL de cristaloides. El VTI asciende a 16 cm (VS = 60.8 mL; GC = 5.47 L/min).",
+        "imagen": "",
+        "opciones": [
+          {
+            "texto": "Iniciar inotrópicos a dosis máxima.",
+            "destino": "f2",
+            "puntos": 0,
+            "consecuencia": "Esta conducta no es la más adecuada en este punto del caso. La decisión recomendada era: Confirmar el éxito de la reanimación con optimización del gasto cardíaco no invasivo."
+          },
+          {
+            "texto": "Confirmar el éxito de la reanimación con optimización del gasto cardíaco no invasivo.",
+            "destino": "f1",
+            "puntos": 10,
+            "consecuencia": "Decisión acertada: es la conducta recomendada en este punto del caso."
+          }
+        ]
+      },
+      {
+        "id": "f1",
+        "texto": "**Final: manejo óptimo.** Resolviste el caso con la conducta recomendada en la última decisión. Revisa el informe para ver qué elegiste en cada paso.",
+        "imagen": "",
+        "opciones": []
+      },
+      {
+        "id": "f2",
+        "texto": "**Final: manejo subóptimo.** La última decisión no fue la recomendada. Revisa el informe, repasa el tema y vuelve a intentarlo.",
+        "imagen": "",
+        "opciones": []
+      }
+    ],
+    "personaje": {
+      "nombre": "",
+      "descripcion": "",
+      "contexto": "",
+      "objetivo": ""
+    },
+    "rubrica": [],
+    "maxTurnos": 8,
+    "id": "sim_000007",
+    "fecha": "2026-10-25T23:57:10.920Z"
+  }
+]

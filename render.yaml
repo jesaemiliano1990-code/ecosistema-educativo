@@ -1,0 +1,30 @@
+# Despliegue en Render (https://render.com): "New + > Blueprint" y elige este repositorio.
+# Plan gratuito: sirve para probar o hacer demostraciones; los datos se borran cuando el servicio se
+# duerme, se reinicia o se actualiza. Para conservar los datos, consulta docs/render.md (plan de pago con disco).
+services:
+  - type: web
+    name: ecosistema-educativo
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm run produccion
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: ADMIN_CORREO
+        sync: false
+      - key: ADMIN_CLAVE
+        sync: false
+      - key: IA_PROVEEDOR
+        value: gemini
+      - key: IA_MODELO
+        value: gemini-3.5-flash-lite
+      - key: IA_CLAVE
+        sync: false
+    # Con un plan de pago y disco permanente, quita "plan: free", elige un plan de pago y agrega:
+    #   disk:
+    #     name: datos
+    #     mountPath: /var/data
+    #     sizeGB: 1
+    # y la variable DATOS_DIR con el valor /var/data

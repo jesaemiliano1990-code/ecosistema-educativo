@@ -1,0 +1,261 @@
+[
+  {
+    "unidadId": "uni_000001",
+    "titulo": "Evaluación de la Función Sistólica del VI",
+    "orden": 1,
+    "estado": "publicado",
+    "objetivos": [
+      "Cuantificar la Fracción de Eyección del Ventrículo Izquierdo (FEVI) mediante el método de discos de Simpson Biplano en ventanas apicales de 4 y 2 cámaras.",
+      "Evaluar el desplazamiento sistólico del plano del anillo mitral (MAPSE) mediante Modo M como marcador rápido de contracción longitudinal.",
+      "Interpretar el Strain Longitudinal Global (GLS) derivado de Speckle Tracking Echocardiography (STE) para la detección precoz de disfunción miocárdica subclínica."
+    ],
+    "resumen": "**Contenidos del tema:** FEVI por Simpson Biplano, MAPSE y Strain Longitudinal Global - GLS.\n\nLa evaluación cuantitativa de la función sistólica del VI es pilar fundamental en el monitoreo crítico:\n\n**Fracción de Eyección por Simpson Biplano**: Constituye el método volumétrico recomendado por las guías ASE/EACVI. Se traza el endocardio en diástole final y sístole final en las vistas apicales de 4 y 2 cámaras, dividiendo la cavidad en 20 discos paralelos de igual grosor:\n\nFEVI (%) = (VTDVI - VTSVI)/VTDVI × 100\n\nUn valor de FEVI ≥ 55% se considera normal, mientras que un valor < 30% refleja disfunción sistólica severa.\n\n**Desplazamiento Sistólico del Anillo Mitral (MAPSE)**: Mide la excursión apical del anillo mitral durante la sístole en Modo M. Refleja el acortamiento de las fibras subendocárdicas longitudinales. Un MAPSE > 10 mm indica función contráctil conservada, mientras que un MAPSE < 8 mm correlaciona con FEVI < 50%, y un valor < 6 mm identifica disfunción severa (FEVI ≤ 30%).\n\n**Strain Longitudinal Global (GLS)**: Técnica basada en Speckle Tracking (STE) independiente del ángulo de insonación que mide la deformación porcentual miocárdica desde la base al cérvix/ápex durante la sístole. Al acortarse el VI en sístole, los valores de GLS son negativos. El valor normal de GLS se ubica alrededor de -20%. En sepsis o cardiomiopatía incipiente, el GLS se altera (ej. -12%) aun con FEVI preservada debido a la compensación circunferencial.\n\n**Recurso visual sugerido:** Trazo de discos de Simpson Biplano en A4C/A2C y curva de deformación por Speckle Tracking (GLS).",
+    "ejemplos": [
+      "Detección de Cardiomiopatía Séptica Subclínica: Paciente séptico con FEVI = 58% (normal por baja postcarga), pero con GLS = -11% y MAPSE = 7 mm, confirmando compromiso de la fibra longitudinal.",
+      "Medición Rápida de MAPSE en Reanimación: M-mode guiado sobre el anillo lateral mitral que muestra una excursión de 14 mm, permitiendo descartar falla primaria de bomba en menos de 30 segundos."
+    ],
+    "erroresFrecuentes": [
+      "Foreshortening (acortamiento) de la cavidad apical en Simpson Biplano, subestimando los volúmenes reales del VI.",
+      "Asumir que una FEVI elevada en choque vasoplejante descarta miocardiopatía, pasando por alto la caída severa del GLS."
+    ],
+    "preguntasGuia": [
+      "¿Por qué el Strain Longitudinal Global (GLS) es más sensible que la FEVI para detectar disfunción miocárdica incipiente?",
+      "¿Cuál es el valor límite de MAPSE que define una falla sistólica severa del VI en el paciente crítico?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "Simpson",
+      "MAPSE",
+      "Strain",
+      "GLS",
+      "Sístole",
+      "Endocardio"
+    ],
+    "dificultad": "media",
+    "fuentes": "",
+    "id": "tem_000001",
+    "fecha": "2026-10-25T23:57:10.044Z"
+  },
+  {
+    "unidadId": "uni_000001",
+    "titulo": "Evaluación de la Función Diastólica del VI y Presiones de Llenado",
+    "orden": 2,
+    "estado": "publicado",
+    "objetivos": [
+      "Registrar los patrones de flujo transmitral por Doppler Pulsado (Ondas E y A, relación E/A, tiempo de desaceleración - DT).",
+      "Cuantificar la velocidad de relajación miocárdica temprana (e') y el índice E/e' mediante Doppler Tisular Pulsado (TDI).",
+      "Diagnosticar la elevación de las presiones de llenado del VI (LAP > 15 mmHg) y clasificar los grados de disfunción diastólica aplicando las guías ASE/EACVI 2016."
+    ],
+    "resumen": "**Contenidos del tema:** Ondas E, A, e', E/e', LAVI y Criterios ASE/EACVI.\n\nLa disfunción diastólica se caracteriza por la alteración de la relajación miocárdica y/o el aumento de la rigidez ventricular, elevando las presiones de la Aurícula Izquierda (LAP) y capilar pulmonar:\n\n**Doppler Transmitral (PW)**: Colocando el volumen de muestra entre las puntas de las valvas mitrales en A4C:\n\nOnda E: Llenado pasivo temprano driven por la relajación y gradiente LA-VI.\n\nOnda A: Llenado activo tardío por contracción auricular.\n\nRelación E/A: Normal 0.8 - 2.0. Patrón de relajación alterada (E/A < 0.8, E < 50 cm/s); Patrón restrictivo (E/A ≥ 2.0, DT < 160 ms) con LAP severamente elevada.\n\n**Doppler Tisular del Anillo Mitral (TDI)**: Mide la velocidad de elongación ventricular en el anillo septal y lateral (e'). e' es relativamente independiente de la precarga. e' septal < 7 cm/s o e' lateral < 10 cm/s confirmación de relajación alterada.\n\n**Estimación de Presión de Aurícula Izquierda (LAP)**: La relación E/e' promedio combina el flujo y la relajación:\n\nRelación E/e' > 14 ⇒ LAP > 15 mmHg (Congestión venocapilar pulmonar).\n\n**Volumen de Aurícula Izquierda (LAVI)**: Refleja la cronicidad de la elevación de presiones. LAVI > 34 mL/m² es patológico.\n\n**Criterios ASE/EACVI 2016 para FEVI Preservada**: Disfunción diastólica presente si > 50% de los siguientes son positivos: 1) e' septal < 7 o lateral < 10 cm/s; 2) E/e' promedio > 14; 3) LAVI > 34 mL/m²; 4) Velocidad de Regurgitación Tricúspide (TRV) > 2.8 m/s.\n\n**Recurso visual sugerido:** Evolución de patrones transmitrales (Relajación alterada → Pseudonormal → Restrictivo) y espectro TDI anular.",
+    "ejemplos": [
+      "Identificación de Patrón Pseudonormal (Grado II): Paciente con dispnea que muestra E/A = 1.2 (aparentemente normal), pero e' septal = 4 cm/s y E/e' = 17, confirmando patrón pseudonormal con LAP muy elevada.",
+      "Monitoreo de Descongestión por E/e': Paciente en edema agudo de pulmón con E/e' = 19; tras diuréticos y vasodilatadores, el ratio E/e' cae a 11, correlacionando con el aclaramiento de las líneas B pulmonares."
+    ],
+    "erroresFrecuentes": [
+      "Clasificar a un paciente como \"diástole normal\" usando solo la relación E/A = 1.1 sin verificar e' ni E/e', omitiendo la disfunción pseudonormal.",
+      "Emplear la relación E/e' en presencia de calcificación anular mitral severa, prótesis mitrales o enfermedad del anillo, distorsionando el resultado de e'."
+    ],
+    "preguntasGuia": [
+      "¿Por qué la velocidad de la onda e' por Doppler Tisular es un indicador más estable de la relajación miocárdica que la onda E transmitral?",
+      "¿Cuáles son los cuatro criterios diagnósticos de la guía ASE/EACVI 2016 para establecer la presencia de disfunción diastólica?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "Diástole",
+      "Transmitral",
+      "Doppler-Tisular",
+      "Relación-E/e'",
+      "LAVI",
+      "Congestión"
+    ],
+    "dificultad": "alta",
+    "fuentes": "",
+    "id": "tem_000002",
+    "fecha": "2026-10-25T23:57:10.136Z"
+  },
+  {
+    "unidadId": "uni_000001",
+    "titulo": "Integral de Velocidad-Tiempo del TSVI",
+    "orden": 3,
+    "estado": "publicado",
+    "objetivos": [
+      "Medir con precisión el diámetro del Tracto de Salida del Ventrículo Izquierdo (dTSVI) en la vista PLAX de borde interno a borde interno.",
+      "Obtener y trazar el espectro Doppler Pulsado modal del VTI TSVI en la vista apical de 5 o 3 cámaras.",
+      "Calcular el Volumen Sistólico (VS), la Fracción o Índice Sistólico (SVI) y el Gasto Cardíaco (GC) aplicando la fórmula hidráulica estandarizada."
+    ],
+    "resumen": "**Contenidos del tema:** VTI TSVI), Cálculo de Volumen Sistólico (VS) y Gasto Cardíaco (GC.\n\nEl cálculo cuantitativo no invasivo del flujo sistólico mediante Doppler es la herramienta hemodinámica por excelencia en la UCI:\n\n**Medición del Diámetro del TSVI (dTSVI)**: En la vista Paraesternal Eje Largo (PLAX) optimizada con zoom durante la sístole temprana (paralelo a la línea anular aórtica a 0.5 - 1.0 cm de las valvas). Se mide de borde interno a borde interno (inner-edge to inner-edge).\n\n**Superficie de Sección Transversal (CSA TSVI)**: Asumiendo geometría circular:\n\nCSA TSVI (cm²) = pi × (dTSVI/2)² = 0.785 × (dTSVI)²\n\n**Trazado del VTI TSVI**: En la vista apical de 5 cámaras (A5C) o 3 cámaras (A3C), ubicando el volumen de muestra de Doppler Pulsado 0.5 - 1.0 cm por debajo de la válvula aórtica. El espectro debe mostrar un perfil laminar limpio con clic de cierre aórtico. El trazado del borde modal (modal velocity) otorga la distancia de eyección en centímetros (VTI TSVI). El valor normal oscila entre 17 y 24 cm. Un VTI < 15 cm indica bajo volumen sistólico, y un VTI < 10 cm refleja falla de bomba severa o hipovolemia crítica.\n\n**Ecuaciones de Flujo**:\n\nVolumen Sistólico (VS) = CSA TSVI (cm²) × VTI TSVI (cm) mL 15, 45, 47, 48\n\nGasto Cardíaco (GC) = (VS (mL) × Frecuencia Cardíaca (FC))/1000 L/min\n\nÍndice Cardíaco (CI) = GC/(Superficie Corporal (BSA)) L/min/m² 17, 49, 51\n\n**Recurso visual sugerido:** Medición del diámetro TSVI en PLAX y trazado modal del espectro VTI por Doppler Pulsado en A5C.",
+    "ejemplos": [
+      "Cálculo Hemodinámico Completo: Paciente con dTSVI = 2.0 cm (CSA = 3.14 cm²), VTI TSVI = 20 cm y FC = 75 lpm. VS = 3.14 × 20 = 62.8 mL; GC = 62.8 × 75 / 1000 = 4.71 L/min.",
+      "Monitoreo de Respuesta Inotrópica: Paciente en shock cardiogénico normotenso con VTI = 7 cm (VS = 22 mL). Tras iniciar nitroprusiato/dobutamina, el VTI sube a 14 cm, duplicando efectivamente el gasto cardíaco y la perfusión."
+    ],
+    "erroresFrecuentes": [
+      "Medir el diámetro del TSVI demasiado profundo dentro del ventrículo donde la cavidad se ensancha, sobreestimando falsamente el área.",
+      "Trazar el VTI incluyendo la envolvente externa borrosa (outer edge) en lugar del centro modal denso de la señal Doppler."
+    ],
+    "preguntasGuia": [
+      "¿Por qué la variación porcentual del VTI TSVI es un marcador dinámico más confiable que el valor absoluto del Gasto Cardíaco cuando se evalúan cambios agudos?",
+      "¿De qué manera la alineación angular paralela del haz Doppler en A5C condiciona el cálculo del VTI?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "VTI-TSVI",
+      "Diámetro",
+      "Área-CSA",
+      "Volumen-Sistólico",
+      "Gasto-Cardíaco",
+      "Modal"
+    ],
+    "dificultad": "alta",
+    "fuentes": "",
+    "id": "tem_000003",
+    "fecha": "2026-10-25T23:57:10.221Z"
+  },
+  {
+    "unidadId": "uni_000002",
+    "titulo": "Fenotipos y Patrones Ecográficos del Choque",
+    "orden": 1,
+    "estado": "publicado",
+    "objetivos": [
+      "Categorizar el choque no diferenciado en sus cuatro fenotipos clásicos (Hipovolémico, Cardiogénico, Distributivo y Obstructivo) mediante la integración de POCUS cardíaco, pulmonar y vascular.",
+      "Identificar patrones hemodinámicos mixtos o complejos (ej. choque séptico con depresión miocárdica o choque séptico-hipovolémico) a pie de cama.",
+      "Guiar la reanimación hemodinámica inicial mediante objetivos fisiológicos cuantificables por ecografía."
+    ],
+    "resumen": "**Contenidos del tema:** Hipovolémico, Cardiogénico, Distributivo y Obstructivo.\n\nEl choque circulatorio se caracteriza por la incapacidad del sistema cardiovascular para mantener una adecuada perfusión tisular. La ecografía permite caracterizar el perfil fisiopatológico subyacente en minutos:\n\n**Choque Hipovolémico**: Ventrículo izquierdo (VI) hiperdinámico con colapso cavitario en sístole (\"músculos papilares beso\" / kissing papillary muscles), volúmenes VTDVI y VTSVI muy reducedis, Vena Cava Inferior (VCI) colapsada (< 1.2 cm) con variabilidad respiratoria > 50%, ultrasonido pulmonar libre de líneas B (Perfil A) y gasto cardíaco bajo (VTI TSVI < 15 cm) que responde a fluidos.\n\n**Choque Cardiogénico**: VI marcadamente hipocinético y dilatado (FEVI reducida o MAPSE < 8 mm), VTI TSVI persistentemente bajo (< 12 cm), presiones de llenado del lado izquierdo elevadas (E/e' > 14), VCI pletórica e incompresible (> 2.1 cm) y patrón pulmonar de edema intersticio-alveolar bilateral (Perfil B).\n\n**Choque Distributivo (Séptico / Anafiláctico)**: Fase Temprana Vasoplejante: VI hiperdinámico con volumen sistólico preservado o elevado (VTI TSVI > 20 cm) debido a la caída drástica de la postcarga vascular (SVR colapsada, VAC < 1), VCI colapsable y parénquima pulmonar seco (salvo consolidación focal neumónica). Fase Tardía / Cardiomiopatía Séptica: Depresión contráctil del VI con dilatación cavitaria aguda.\n\n**Choque Obstructivo**: Alteración primaria del llenado o de la eyección por causa extracardíaca:\n\nTaponamiento Cardíaco: Derrame pericárdico a tensión con colapso diastólico de cavidades derechas y VCI pletórica.\n\nTromboembolismo Pulmonar (TEP) Masivo: Ventrículo derecho (VD) severamente dilatado (VD/VI > 1.0), D-shape septal, signo de McConnell y VTI TSVI colapsado.\n\nNeumotórax a Tensión: Ausencia de sliding pleural con punto pulmonar y colapso de la cava.\n\n**Recurso visual sugerido:** Video: Patrones POCUS comparativos en los 4 fenotipos de choque circulatorio. Tabla de decisión: Matriz integradora de hallazgos en Bomba, Tanque y Tuberías.",
+    "ejemplos": [
+      "Identificación de Choque Mixto Séptico-Cardiogénico: Paciente en choque séptico que tras recibir 2 L de cristaloides mantiene PAM = 52 mmHg; el ecocardiograma revela FEVI = 30%, VTI TSVI = 10 cm y E/e' = 17, justificando el inicio inmediato de dobutamina.",
+      "Diferenciación de Choque Hemorrágico vs. TEP: Paciente traumatizado hipotenso con VCI = 2.4 cm e incompresible; la presencia de un VD gigante con D-shape descarta hipovolemia pura y orienta a TEP masivo o contusión miocárdica derecha."
+    ],
+    "erroresFrecuentes": [
+      "Asumir que una VCI dilatada descarta choque séptico, ignorando la posibilidad de cardiomiopatía séptica o sobrecarga hídrica previa.",
+      "Tratar un choque distributivo vasoplejante solo con fluidos masivos al observar hiperdinamia inicial, desencadenando edema de asa e hipertensión venosa."
+    ],
+    "preguntasGuia": [
+      "¿Cuáles son las diferencias clave en la VCI y en el perfil pulmonar entre el choque cardiogénico y el choque hipovolémico?",
+      "¿De qué manera la caída brusca de la postcarga en el choque séptico altera la interpretación de la Fracción de Eyección (FEVI)?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "Choque",
+      "Hipovolémico",
+      "Cardiogénico",
+      "Distributivo",
+      "Obstructivo",
+      "Fenotipo"
+    ],
+    "dificultad": "alta",
+    "fuentes": "",
+    "id": "tem_000004",
+    "fecha": "2026-10-25T23:57:10.305Z"
+  },
+  {
+    "unidadId": "uni_000002",
+    "titulo": "Predictores Dinámicos de Respuesta a Fluidos",
+    "orden": 2,
+    "estado": "publicado",
+    "objetivos": [
+      "Diferenciar la precisión fisiológica de los parámetros estáticos frente a los predictores dinámicos de respuesta a fluidos basados en la interacción corazón-pulmón.",
+      "Calcular y aplicar la variación respiratoria del VTI del TSVI (Δ VTI TSVI), la distensibilidad de la VCI (Δ VCC) y la prueba de Elevación Pasiva de Piernas (PLR).",
+      "Reconocer las limitaciones técnicas y las condiciones de invalidez de los índices dinámicos (arritmias, respiración espontánea, volumen corriente < 8 mL/kg, PEEP alta)."
+    ],
+    "resumen": "**Contenidos del tema:** Variación del VTI TSVI, ΔPP, ΔVCC, Test de Oclusión Espiratoria y PLR.\n\nSolo el 50% de los pacientes críticos hipotensos responden a la administración de volúmenes con un incremento significativo del volumen sistólico (≥ 10-15%). La evaluación de la **respuesta a precarga** mediante parámetros dinámicos evita la sobrecarga hídrica perjudicial:\n\n**Variación Respiratoria del VTI del TSVI (Δ VTI TSVI)**: En pacientes bajo ventilación mecánica pasiva (sin esfuerzo espontáneo, sinusales, Vt ≥ 8 mL/kg):\n\nΔ VTI TSVI (%) = (VTI máx - VTI mín)/((VTI máx + VTI mín) / 2) × 100\n\nUn valor > 12-15% predice una respuesta positiva a la expansión de volumen.\n\n**Prueba de Elevación Pasiva de Piernas (PLR - Passive Leg Raising)**: Constituye un \"autobolo\" fisiológico reversible de ~ 300 mL de sangre venosa movilizada desde los miembros inferiores y la circulación esplácnica hacia el corazón. Un incremento del VTI TSVI ≥ 10-12% a los 60–90 segundos de la maniobra confirma que el paciente responderá a fluidos, siendo válido en arritmias, respiración espontánea y bajo volumen corriente.\n\n**Test de Oclusión al Final de la Espiración (EETO - End-Expiratory Occlusion Test)**: Interrupción de la ventilación al final de la espiración durante 15 segundos en el ventilador; al eliminar el impedimento cíclico al retorno venoso, un aumento del VTI TSVI ≥ 5% (o ≥ 13% sumando oclusión inspiratoria EIO) identifica respuesta a precarga.\n\n**Variación del Diámetro de la VCI (Δ VCC)**: Distensibilidad en ventilación mecánica (Δ VCC = (Dmáx - Dmín) / Dmín × 100 > 18%).\n\n**Recurso visual sugerido:** Video: Ejecución de la prueba de PLR con medición continua del VTI del TSVI por Doppler. Algoritmo de selección de pruebas dinámicas según el patrón ventilatorio.",
+    "ejemplos": [
+      "Evaluación de PLR en Fibrilación Auricular: Paciente en choque con FA donde el Δ VTI cíclico no es válido por la irregularidad del ritmo 37, 52; la maniobra de PLR eleva el VTI promedio de 12 cm a 14.5 cm (+20.8%), indicando respuesta a fluidos.",
+      "Identificación de Falsa Respuesta por Bajo Volumen Corriente: Paciente intubado con Vt = 6 mL/kg que muestra Δ VTI TSVI = 7% (falso negativo por bajo cambio de presión intratorácica) 67, 68; al aplicar EETO, el VTI sube un 8%, confirmando reserva de precarga."
+    ],
+    "erroresFrecuentes": [
+      "Utilizar el Δ VTI TSVI o la distensibilidad de la VCI en pacientes con esfuerzo respiratorio activo o arritmias ventriculares, generando falsos positivos.",
+      "Evaluar la prueba de PLR midiendo únicamente la presión arterial sistémica en lugar de medir el gasto cardíaco directo (VTI TSVI) por ultrasonido."
+    ],
+    "preguntasGuia": [
+      "¿Por qué la maniobra de Elevación Pasiva de Piernas (PLR) es considerada la prueba reina para evaluar respuesta a precarga en respiración espontánea?",
+      "¿Cuáles son las tres condiciones obligatorias que deben cumplirse para validar el uso del Δ VTI TSVI respiratorio?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "Respuesta",
+      "Precarga",
+      "PLR",
+      "VTI",
+      "Distensibilidad",
+      "EETO"
+    ],
+    "dificultad": "alta",
+    "fuentes": "",
+    "id": "tem_000005",
+    "fecha": "2026-10-25T23:57:10.415Z"
+  },
+  {
+    "unidadId": "uni_000002",
+    "titulo": "Ecocardiografía en Asistencia Circulatoria y Dispositivos",
+    "orden": 3,
+    "estado": "publicado",
+    "objetivos": [
+      "Guiar la colocación, verificación anatómica y detección de complicaciones de dispositivos de asistencia circulatoria mecánica (ECMO, Balón de Contrapulsación y Catéter de Arteria Pulmonar) mediante ultrasonido.",
+      "Diagnosticar la distensión ventricular izquierda y el fallo de apertura aórtica en pacientes bajo soporte con ECMO Veno-Arterial (VA-ECMO).",
+      "Protocolizar la desconexión ecoguiada (weaning) de los dispositivos de asistencia circulatoria a pie de cama."
+    ],
+    "resumen": "**Contenidos del tema:** ECMO, Balón de Contrapulsación, Catéter de Arteria Pulmonar.\n\nLa integración de la ecocardiografía es indispensable para la seguridad en el manejo de dispositivos invasivos de soporte cardiovascular:\n\n**Balón de Contrapulsación Intraaórtico (BCIA / IABP)**:\n\nVerificación de Posición: La punta radiopaca/ecogénica debe ubicarse en la aorta torácica descendente 1-2 cm distal al origen de la arteria subclavia izquierda (evaluado en vista supraesternal o paraesternal eje largo profundo).\n\nEvaluación de Función: Vigilancia del aumento en el VTI TSVI y de la perfusión coronaria en diástole.\n\n**Membrana de Oxigenación Extracorpórea (ECMO)**:\n\nECMO Veno-Venoso (VV-ECMO): Comprobación de que la cánula de drenaje en VCI y la de retorno en la Aurícula Derecha (AD) estén orientadas hacia la válvula tricúspide sin recirculación.\n\nECMO Veno-Arterial (VA-ECMO): Asistencia circulatoria en choque cardiogénico severo. La complicación crítica es la **distensión del VI** producida por la alta postcarga del flujo retrogrado aórtico cuando el VI no logra vencer la presión e inyectar (falta de apertura de la válvula aórtica), generando estasis hídrica, trombosis intraluminal y edema pulmonar masivo. La ecografía evalúa la apertura aórtica latido a latido e indica la necesidad de descompresión (venting del VI mediante septostomía, Impella o cánula de descarga).\n\nDestete (Weaning) de VA-ECMO: Se evalúa a bajo flujo de soporte; criterios de éxito: FEVI > 20-25%, VTI TSVI > 10 cm y TDI s' lateral > 6 cm/s.\n\n**Catéter de Arteria Pulmonar (CAP / Swan-Ganz)**: Guiado ecocardiográfico en tiempo real de la trayectoria del catéter a través de AD, VD y arteria pulmonar principal, evitando el enrollamiento intracavitario.\n\n**Recurso visual sugerido:** Video: Evaluación ecocardiográfica de cánulas de ECMO y signos de distensión del VI. Ubicación anatómica correcta del BCIA y catéter de Swan-Ganz en ultrasonido.",
+    "ejemplos": [
+      "Diagnóstico de Estasis e Incompetencia Aórtica en VA-ECMO: Paciente en VA-ECMO con flujo de 4.5 L/min que presenta ausencia de apertura de la válvula aórtica en M-mode, contraste espontáneo denso (\"humo\") dentro del VI y líneas B pulmonares en aumento, indicando descompresión urgente del VI.",
+      "Verificación de Cánula de VV-ECMO en AD: Visualización en ventana subcostal biplano de la punta de la cánula de retorno a 1.5 cm de la válvula tricúspide, optimizando la oxigenación sistémica."
+    ],
+    "erroresFrecuentes": [
+      "Pasar por alto la falta de apertura de la válvula aórtica en un paciente en VA-ECMO, conduciendo a la formación de trombos gigantes dentro del VI.",
+      "Ubicar la punta del balón de contrapulsación demasiado proximal, ocluyendo la arteria subclavia izquierda o el tronco braquiocefálico."
+    ],
+    "preguntasGuia": [
+      "¿Qué mecanismo hemodinámico provoca la distensión progresiva del VI en un paciente bajo soporte con ECMO Veno-Arterial?",
+      "¿Cuáles son los tres parámetros ecocardiográficos mínimos requeridos para autorizar la desconexión (weaning) de un VA-ECMO?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "ECMO",
+      "Contrapulsación",
+      "BCIA",
+      "Distensión",
+      "Swan-Ganz",
+      "Weaning"
+    ],
+    "dificultad": "alta",
+    "fuentes": "",
+    "id": "tem_000006",
+    "fecha": "2026-10-25T23:57:10.590Z"
+  },
+  {
+    "unidadId": "uni_000002",
+    "titulo": "Monitoreo del Gasto Cardíaco No Invasivo por Doppler vs. Tecnologías de Análisis de Onda de Presión",
+    "orden": 4,
+    "estado": "publicado",
+    "objetivos": [
+      "Calcular el Volumen Sistólico (VS) y el Gasto Cardíaco (GC) utilizando la integral de velocidad-tiempo del tracto de salida del VI (VTI TSVI) y el área de la superficie transversal (CSA TSVI).",
+      "Comparar la precisión, concordancia y límites técnicos del Gasto Cardíaco medido por Doppler espectral frente a monitores de análisis de contorno de onda de pulso (PiCCO, FloTrac, VolumeView) y bioreactancia.",
+      "Reconocer los errores sistemáticos en la medición del diámetro del TSVI y su impacto elevado al elevarse al cuadrado en la fórmula hemodinámica."
+    ],
+    "resumen": "El cálculo del Gasto Cardíaco (GC) a pie de cama mediante ecocardiografía representa el estándar de oro no invasivo de la hemodinámica crítica:\n\n**Fórmula Hidráulica del Gasto Cardíaco**:\n\nÁrea de la Superficie Transversal del TSVI (CSA TSVI): Medido en el plano PLAX en diástole tardía/sístole temprana a nivel de la inserción de las valvas aórticas de borde interno a borde interno (inner-edge):\n\nCSA TSVI (cm²) = pi × (dTSVI/2)² = 0.785 × (dTSVI)² 46, 48\n\nIntegral de Velocidad-Tiempo (VTI TSVI): Medido en la vista A5C o A3C colocando el volumen de muestra de Doppler Pulsado (PW) 0.5-1.0 cm por debajo de la válvula aórtica:\n\nVolumen Sistólico (VS) = CSA TSVI × VTI TSVI 15, 45, 47, 48\n\nGasto Cardíaco (GC) = (VS × Frecuencia Cardíaca (FC))/1000 15, 48, 49\n\n**Sensibilidad a Errores de Medición**: Debido a que el diámetro dTSVI se eleva al cuadrado en la fórmula del área, un error de solo 2 mm en su medición genera un error sistemático de hasta el 20-25% en el cálculo final del VS.\n\n**Comparación con Tecnologías de Contorno de Onda de Pulso**: Dispositivos como PiCCO, FloTrac o VolumeView ofrecen monitoreo continuo latido a latido, pero pierden calibración y precisión en estados de vasoplejía severa (sepsis), cambios bruscos de vascularización o infusión de noradrenalina, mientras que el Doppler mide el flujo directo de eyección.\n\n**Recurso visual sugerido:** Video: Técnica estandarizada de medición del diámetro del TSVI y trazado espectral del VTI. Tabla comparativa: Doppler espectral vs. PiCCO, FloTrac y Bioreactancia en la UCI.",
+    "ejemplos": [
+      "Cálculo Completo de Gasto Cardíaco: Paciente con dTSVI = 2.0 cm (CSA = 0.785 × 4 = 3.14 cm²), VTI TSVI = 20 cm y FC = 80 lpm. VS = 3.14 × 20 = 62.8 mL; GC = 62.8 × 80 / 1000 = 5.02 L/min (Gasto normal).",
+      "Detección de Bajo Gasto en Sepsis: Paciente con dTSVI = 2.0 cm (CSA = 3.14 cm²), pero con VTI TSVI = 10 cm y FC = 110 lpm. VS = 31.4 mL; GC = 3.45 L/min (Bajo gasto cardíaco real a pesar de la taquicardia)."
+    ],
+    "erroresFrecuentes": [
+      "Medir el diámetro del TSVI en la vista A5C en lugar de PLAX, sufriendo pérdida de resolución lateral.",
+      "Colocar el volumen de muestra del Doppler pulsado demasiado profundo dentro del ventrículo o por encima de las valvas aórticas, alterando el perfil del VTI."
+    ],
+    "preguntasGuia": [
+      "¿Por qué un pequeño error milimétrico al medir el diámetro del TSVI afecta exponencialmente el cálculo del Gasto Cardíaco?",
+      "¿En qué condiciones clínicas los monitores invasivos de contorno de onda de pulso pierden precisión en comparación con el Doppler ecocardiográfico?"
+    ],
+    "recursos": [],
+    "palabrasClave": [
+      "Gasto",
+      "Volumen",
+      "VTI",
+      "TSVI",
+      "Doppler",
+      "Contorno"
+    ],
+    "dificultad": "alta",
+    "fuentes": "",
+    "id": "tem_000007",
+    "fecha": "2026-10-25T23:57:10.777Z"
+  }
+]

@@ -12,7 +12,7 @@ import { cargarUsuario } from './auth.js';
 dotenv.config();
 
 const app = express();
-const PUERTO = process.env.PUERTO || 3000;
+const PUERTO = process.env.PUERTO || process.env.PORT || 3000; // PORT lo define Render y otros hostings
 
 app.disable('x-powered-by');
 
