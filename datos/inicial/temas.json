@@ -257,5 +257,89 @@
     "fuentes": "",
     "id": "tem_000007",
     "fecha": "2026-10-25T23:57:10.777Z"
+  },
+  {
+    "unidadId": "uni_000003",
+    "titulo": "Evaluación cardiovascular focalizada",
+    "orden": 1,
+    "estado": "publicado",
+    "objetivos": [
+      "Reconocer las ventanas paraesternal, apical y subcostal y ubicar las estructuras cardiovasculares básicas en imágenes de referencia.",
+      "Explicar la adquisición del VTI del TSVI y reconocer errores técnicos que afectan su interpretación seriada."
+    ],
+    "resumen": "**Propósito de la unidad:** apoyar la identificación de ventanas, la interpretación del flujo y la justificación de decisiones con reevaluación en el paciente adulto con choque séptico. Destinatarios: residentes de Medicina Crítica y Cuidados Intensivos (posgrado).\n\n**Subtema 1.1 · Ventanas básicas y reconocimiento de estructuras. Video «Dominando POCUS» (unos 5:13 min).**\n\n**Contenidos:** ventanas ecográficas, orientación y reconocimiento de ventrículos, pericardio y tracto de salida del ventrículo izquierdo. **Momento de la secuencia:** activación inicial; reconocer la anatomía antes de medir.\n\n**Consigna:** observe el video. En tres imágenes de referencia suministradas por el docente, identifique la ventana y señale VI, VD y una estructura adicional. Explique una dificultad de adquisición y cómo intentaría corregirla.\n\n**Tiempo y modalidad:** 15 minutos, individual, con retroalimentación grupal. **Evaluación sugerida:** hoja de identificación de estructuras y explicación oral breve; lista de cotejo de ventana, orientación y estructuras. **Accesibilidad:** subtítulos y lenguaje claro, con los términos del tema.\n\n**Subtema 1.2 · Valoración del flujo mediante VTI del TSVI. Infografía «Guía de VTI del TSVI».**\n\n**Contenidos:** localización del TSVI, uso del Doppler pulsado, alineación y trazado del VTI. Su uso para estimar el volumen sistólico y el gasto cardiaco requiere mediciones adicionales y contexto clínico. **Momento de la secuencia:** práctica; consultar la adquisición e interpretar trazados.\n\n**Consigna:** revise la infografía y dos trazados preparados por el docente. Seleccione el registro técnicamente más adecuado y justifique su decisión. Identifique dos fuentes de error y explique qué revisaría antes de comparar mediciones seriadas.\n\n**Tiempo y modalidad:** 25 minutos, en parejas con revisión docente. **Evaluación sugerida:** lista de comprobación de adquisición y comparación razonada de trazados; lista de cotejo de alineación, muestra y trazado. **Accesibilidad:** versión ampliable y texto equivalente, contraste suficiente, tipografía legible y etiquetas que no dependan únicamente del color.\n\n**Autoría:** Dr. Jammil Emiliano Sarmiento Alvarez (investigación, diseño didáctico y curación), con producción asistida con IA. Fichas de curación elaboradas en octubre de 2026.\n\n**Licencia y atribución (propuesta del informe):** CC BY-SA 4.0 para los componentes propios. Leyenda: «Sarmiento Alvarez, bajo CC BY-SA 4.0. https://creativecommons.org/licenses/by-sa/4.0/deed.es. Excepto materiales de terceros identificados.» Las imágenes y los audios se generaron con IA a partir de la investigación del autor; los materiales de terceros conservan sus licencias. Antes de liberar los recursos debe comprobarse la compatibilidad de derechos.\n\n**Bibliografía seleccionada de la colección** (biblioteca de 24 referencias; el listado completo con DOI está en el informe de la Tarea 2): Khalid et al., 2023 (REA y calidad de recursos en educación médica); Robinson et al., 2020 (ventanas y conjunto mínimo de adquisición); Grotberg et al., 2024 (adquisición en pacientes difíciles de explorar); Cheong, 2025 (medición del VTI en cuidados críticos); Villavicencio et al., 2023 (estimación de gasto cardiaco con Doppler); Talan et al., 2022 (medición ecográfica del gasto cardiaco); Keller et al., 2023 (valoración cardiovascular en cuidados críticos); Pérez et al., 2024 (integración ecográfica en choque); Piccione et al., 2025 (evaluación hemodinámica no invasiva en UCI); Mukherjee et al., 2025 (corazón derecho como contexto de integración); Nagueh et al., 2025 (función diastólica como contenido complementario); Duff et al., 2024 (métodos de debriefing en simulación).",
+    "ejemplos": [],
+    "erroresFrecuentes": [],
+    "preguntasGuia": [],
+    "recursos": [
+      {
+        "tipo": "enlace",
+        "titulo": "Colección completa: página índice de la Tarea 2",
+        "url": "https://portada-e-indice-7wpcedh.gamma.site/"
+      },
+      {
+        "tipo": "enlace",
+        "titulo": "Presentación de socialización de la colección (Canva)",
+        "url": "https://canva.link/xnttta9fweic7ii"
+      },
+      {
+        "tipo": "video",
+        "titulo": "Video «Dominando POCUS»: ventanas básicas y reconocimiento de estructuras (1.1)",
+        "url": "https://notebooklm.link.google/G8KHuISuT5uW"
+      },
+      {
+        "tipo": "enlace",
+        "titulo": "Infografía «Guía de VTI del TSVI» (1.2)",
+        "url": "https://notebooklm.link.google/bj14KtxvLLuq"
+      }
+    ],
+    "palabrasClave": [
+      "POCUS",
+      "Ventanas ecográficas",
+      "VTI del TSVI",
+      "Doppler pulsado",
+      "Choque séptico"
+    ],
+    "dificultad": "alta",
+    "fuentes": "Sarmiento Alvarez, J. E. Colección abierta de recursos educativos digitales (Tarea 2, Competencias digitales y estrategias tecnológicas, UNEMI), octubre de 2026. Producción asistida con IA (NotebookLM).",
+    "id": "tem_000008",
+    "fecha": "2026-10-28T03:10:19.851Z"
+  },
+  {
+    "unidadId": "uni_000003",
+    "titulo": "Integración y reevaluación hemodinámica",
+    "orden": 2,
+    "estado": "publicado",
+    "objetivos": [
+      "Relacionar los hallazgos ecográficos con signos de perfusión y formular una hipótesis hemodinámica razonada en un escenario de choque séptico.",
+      "Justificar decisiones en un caso simulado de choque séptico y modificarlas a partir de nuevos datos de perfusión y ecografía."
+    ],
+    "resumen": "**Subtema 2.1 · Integración de hallazgos ecográficos y signos de perfusión. Podcast «Manejo del shock séptico con POCUS» (unos 2:00 min).**\n\n**Contenidos:** integración de flujo, valoración cardiovascular focalizada y variables clínicas de perfusión. **Momento de la secuencia:** construcción; integrar datos antes del caso.\n\n**Consigna:** escuche el audio y registre dos relaciones entre un hallazgo ecográfico y un signo de perfusión. Con una viñeta aportada por el docente, proponga una hipótesis, identifique un dato faltante y explique qué hallazgo motivaría reevaluarla.\n\n**Tiempo y modalidad:** 25 minutos, escucha individual y síntesis grupal. **Evaluación sugerida:** matriz breve de hallazgo, interpretación, dato faltante y criterio de reevaluación; valorar la integración de datos y el reconocimiento de la incertidumbre. **Accesibilidad:** transcripción con identificación de voces, resumen escrito y marcas temporales; el audio no debe ser la única vía para completar la actividad.\n\n**Subtema 2.2 · Caso simulado con decisiones, reevaluación y debriefing. Lección interactiva «Choque séptico: interpretar, decidir y reevaluar» (por etapas, 15 a 20 min).**\n\n**Contenidos:** caso por etapas, decisiones justificadas, retroalimentación, reevaluación y debriefing. **Momento de la secuencia:** cierre; decidir, reevaluar y realizar el debriefing.\n\n**Consigna:** resuelva cada etapa antes de consultar la retroalimentación. Registre el dato que sustenta su decisión y el criterio de reevaluación. Compare su respuesta con los datos de la etapa siguiente y explique si mantiene o modifica su conducta.\n\n**Tiempo y modalidad:** 25 minutos en equipos y 15 minutos de debriefing grupal. **Evaluación sugerida:** registro de decisiones iniciales y revisadas con argumentos clínicos; valorar la justificación y la modificación de decisiones, y preguntar qué dato cambió su razonamiento. **Accesibilidad:** ofrecer una versión textual secuencial del caso y sus preguntas, y comprobar la navegación por teclado, el contraste y la lectura de las alternativas.\n\n**Autoría:** Dr. Jammil Emiliano Sarmiento Alvarez (investigación, diseño didáctico y curación), con producción asistida con IA. Fichas de curación elaboradas en octubre de 2026.\n\n**Licencia y atribución (propuesta del informe):** CC BY-SA 4.0 para los componentes propios. Leyenda: «Sarmiento Alvarez, bajo CC BY-SA 4.0. https://creativecommons.org/licenses/by-sa/4.0/deed.es. Excepto materiales de terceros identificados.» Las imágenes y los audios se generaron con IA a partir de la investigación del autor; los materiales de terceros conservan sus licencias. Antes de liberar los recursos debe comprobarse la compatibilidad de derechos.\n\n**Bibliografía seleccionada de la colección** (biblioteca de 24 referencias; el listado completo con DOI está en el informe de la Tarea 2): Khalid et al., 2023 (REA y calidad de recursos en educación médica); Robinson et al., 2020 (ventanas y conjunto mínimo de adquisición); Grotberg et al., 2024 (adquisición en pacientes difíciles de explorar); Cheong, 2025 (medición del VTI en cuidados críticos); Villavicencio et al., 2023 (estimación de gasto cardiaco con Doppler); Talan et al., 2022 (medición ecográfica del gasto cardiaco); Keller et al., 2023 (valoración cardiovascular en cuidados críticos); Pérez et al., 2024 (integración ecográfica en choque); Piccione et al., 2025 (evaluación hemodinámica no invasiva en UCI); Mukherjee et al., 2025 (corazón derecho como contexto de integración); Nagueh et al., 2025 (función diastólica como contenido complementario); Duff et al., 2024 (métodos de debriefing en simulación).",
+    "ejemplos": [],
+    "erroresFrecuentes": [],
+    "preguntasGuia": [],
+    "recursos": [
+      {
+        "tipo": "enlace",
+        "titulo": "Podcast «Manejo del shock séptico con POCUS» (2.1)",
+        "url": "https://notebooklm.link.google/6f5qaISJrYsM"
+      },
+      {
+        "tipo": "enlace",
+        "titulo": "Lección interactiva «Choque séptico: interpretar, decidir y reevaluar» (2.2)",
+        "url": "https://choque-septico-simulacion-puce.jesaemiliano1990.chatgpt.site/"
+      }
+    ],
+    "palabrasClave": [
+      "Integración hemodinámica",
+      "Signos de perfusión",
+      "Reevaluación",
+      "Debriefing",
+      "Choque séptico"
+    ],
+    "dificultad": "alta",
+    "fuentes": "Sarmiento Alvarez, J. E. Colección abierta de recursos educativos digitales (Tarea 2, Competencias digitales y estrategias tecnológicas, UNEMI), octubre de 2026. Producción asistida con IA (NotebookLM, Gamma y ChatGPT).",
+    "id": "tem_000009",
+    "fecha": "2026-10-28T03:10:19.856Z"
   }
 ]

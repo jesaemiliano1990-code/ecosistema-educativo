@@ -1,6 +1,6 @@
 {
   "nombrePlataforma": "Ecosistema Educativo",
-  "maxSubidaMB": 10,
+  "maxSubidaMB": 15,
   "limiteIADiario": 30,
   "limiteTutorDiario": 40,
   "chatEntreEstudiantes": true,

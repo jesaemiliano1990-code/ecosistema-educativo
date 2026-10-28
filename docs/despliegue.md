@@ -150,7 +150,7 @@ sudo nano /etc/nginx/sites-available/ecosistema
 ```
 
 Pega esta configuración (cambia `ejemplo.edu.ec`). El tamaño máximo de subida es `maxSubidaMB` de `datos/config/ajustes.json`
-(10 MB por defecto) más un margen; si lo cambias allí, cámbialo también en `client_max_body_size`.
+(15 MB por defecto) más un margen; si lo cambias allí, cámbialo también en `client_max_body_size`.
 
 ```nginx
 server {
@@ -158,8 +158,8 @@ server {
     listen [::]:80;
     server_name ejemplo.edu.ec www.ejemplo.edu.ec;
 
-    # Subidas: maxSubidaMB (10) + margen
-    client_max_body_size 12m;
+    # Subidas: maxSubidaMB (15) + margen
+    client_max_body_size 17m;
 
     gzip on;
     gzip_types text/css application/javascript application/json image/svg+xml;

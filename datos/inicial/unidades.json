@@ -14,5 +14,13 @@
     "visible": true,
     "id": "uni_000002",
     "fecha": "2026-10-25T23:57:10.041Z"
+  },
+  {
+    "asignaturaId": "asi_000001",
+    "titulo": "Unidad III: Colección abierta de recursos educativos digitales sobre evaluación hemodinámica con ecografía focalizada en el choque séptico",
+    "orden": 3,
+    "visible": true,
+    "id": "uni_000003",
+    "fecha": "2026-10-28T03:10:19.731Z"
   }
 ]
